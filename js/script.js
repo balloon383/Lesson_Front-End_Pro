@@ -3,7 +3,7 @@ console.log(randomValue)
 const arr = []
 let arrayLength = +prompt('enter array length');
 
-while (arrayLength > 2 && arrayLength < 10) {
+while (arrayLength < 2) {
     arrayLength = +prompt('array length must be longer than 2')
 }
 while (arrayLength > 10) {
