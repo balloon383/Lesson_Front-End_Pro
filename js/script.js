@@ -90,42 +90,54 @@ let text = prompt(`enter some text`);
 let firstSymbol = prompt(`enter first symbol that you want to delete`)
 let secondSymbol = prompt(`enter second symbol that you want to delete`)
 let newText
-
-deleteSymbol(text, firstSymbol, secondSymbol)
-function deleteSymbol(str, symbolOne, symbolTwo) {
-    str = str.toLowerCase()
-    symbolOne = symbolOne.toLowerCase()
-    symbolTwo = symbolTwo.toLowerCase()
-    console.log(symbolOne, symbolTwo)
+function toUpper(f) {
+    debugger
+    let upperText =  f.toUpperCase();
+    return upperText
+}
+deleteSymbol(text, firstSymbol, secondSymbol, toUpper)
+function deleteSymbol(str, symbolOne, symbolTwo, func) {
+    str = str.toLowerCase();
+    symbolOne = symbolOne.toLowerCase();
+    symbolTwo = symbolTwo.toLowerCase();
+    console.log(symbolOne, symbolTwo);
     const regexSymbolOne = new RegExp(`[${symbolOne}]`, `g`);
     const regexSymbolTwo = new RegExp(`[${symbolTwo}]`, `g`);
     newText = str.replace(regexSymbolOne, "");
     newText = newText.replace(regexSymbolTwo, "");
-    console.log(newText)
-    askFun()
-}
-function askFun() {
-    let answer = confirm(`Want to add something to your text?`)
-    if (answer == true) {
-        let whereToAdd = confirm(`want to add text from the start?`)
-        if (whereToAdd == true) {
-            addFromStart()
-        } else {
-            addFromEnd()
+    console.log(newText);
+    
+    askFun();
+
+    function askFun() {
+        let answer = confirm(`Want to add something to your text?`)
+        if (answer == true) {
+            let whereToAdd = confirm(`want to add text from the start?`)
+            if (whereToAdd == true) {
+                addFromStart()
+            } else {
+                addFromEnd()
+            }
+        } else {    
+            alert(`nothing will be added`)
         }
-    } else {    
-        alert(`nothing will be added`)
+    } 
+    
+    function addFromStart() {
+        console.log(newText, `start`)
+        let addText = prompt(`enter what you want to add from the start`)
+        newText = `${addText} ${newText}`
+        console.log(newText)
     }
+
+    function addFromEnd() {
+        console.log(newText, `end`)
+        let addText = prompt(`enter what you want to add from the end`);
+        newText = `${newText} ${addText}`
+        console.log(newText)
+    }
+    newText = toUpper(newText)
+    return newText
 }
-function addFromStart() {
-    console.log(newText, `start`)
-    let addText = prompt(`enter what you want to add from the start`)
-    newText = `${addText} ${newText}`
-    console.log(newText)
-}
-function addFromEnd() {
-    console.log(newText, `end`)
-    let addText = prompt(`enter what you want to add from the end`);
-    newText = `${newText} ${addText}`
-    console.log(newText)
-}
+
+console.log(newText)
