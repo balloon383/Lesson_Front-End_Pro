@@ -50,10 +50,10 @@ function doMath(x, y, znak) {
 }
 /* alert(result) */
 // 3. Написати функцію заповнення даними користувача двомірного масиву. Довжину основного масиву і внутрішніх масивів задає користувач. Значення всіх елементів всіх масивіНаписати функцію заповнення даними користувача двомірного масиву. Довжину основного масиву і внутрішніх масивів задає користувач. Значення всіх елементів всіх масивів задає користувач.
-let mainArr = []
-let mainArrLength = +prompt("enter main array length");
-let innerArrLength = +prompt("enter inner arrays length");
-validation()
+// let mainArr = []
+// let mainArrLength = +prompt("enter main array length");
+// let innerArrLength = +prompt("enter inner arrays length");
+// validation()
 function validation() {
     while (mainArrLength <= 0) {
         //mainArrLength = prompt('enter valid mainArrLength')
@@ -81,8 +81,51 @@ function addInfo() {
         }
     }
 }
-console.log(mainArr)
+// console.log(mainArr)
 
 // 4. Створити функцію, яка прибирає з рядка всі символи, які ми передали після другого аргумента. 'func("hello world", 'l', 'd')' поверне нам "heo wor". Вихідний рядок та символи для видалення задає користувач.
 // Також забезпечити логіку, при котрій після першого елементу ми можемо передати будь яким аргументом функцію, яка щось достать до нашого рядка, ГОЛОВНЕ щоб функція виконувалася після того як ми проведемо попередні маніпуляції (тобто видалимо символи).
 // Можливо додавати будь яку логіку в цю кастомну функцію.
+let text = prompt(`enter some text`);
+let firstSymbol = prompt(`enter first symbol that you want to delete`)
+let secondSymbol = prompt(`enter second symbol that you want to delete`)
+let newText
+
+deleteSymbol(text, firstSymbol, secondSymbol)
+function deleteSymbol(str, symbolOne, symbolTwo) {
+    str = str.toLowerCase()
+    symbolOne = symbolOne.toLowerCase()
+    symbolTwo = symbolTwo.toLowerCase()
+    console.log(symbolOne, symbolTwo)
+    const regexSymbolOne = new RegExp(`[${symbolOne}]`, `g`);
+    const regexSymbolTwo = new RegExp(`[${symbolTwo}]`, `g`);
+    newText = str.replace(regexSymbolOne, "");
+    newText = newText.replace(regexSymbolTwo, "");
+    console.log(newText)
+    askFun()
+}
+function askFun() {
+    let answer = confirm(`Want to add something to your text?`)
+    if (answer == true) {
+        let whereToAdd = confirm(`want to add text from the start?`)
+        if (whereToAdd == true) {
+            addFromStart()
+        } else {
+            addFromEnd()
+        }
+    } else {    
+        alert(`nothing will be added`)
+    }
+}
+function addFromStart() {
+    console.log(newText, `start`)
+    let addText = prompt(`enter what you want to add from the start`)
+    newText = `${addText} ${newText}`
+    console.log(newText)
+}
+function addFromEnd() {
+    console.log(newText, `end`)
+    let addText = prompt(`enter what you want to add from the end`);
+    newText = `${newText} ${addText}`
+    console.log(newText)
+}
