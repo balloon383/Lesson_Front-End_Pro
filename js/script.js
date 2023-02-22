@@ -1,4 +1,5 @@
 // 1. Дано масив з елементами різних типів. Створити функцію яка вираховує середнє арифметичне лише числових елементів даного масиву.
+console.log(`1. ---------------------------------------`);
 const someArr = ['asd', 5, ['sda'], 6, 4, 'qrtr', 22, 1, undefined,]
 let arrNumbers
 let arrNumbersArith
@@ -20,10 +21,11 @@ function numsArith() {
 findNum(someArr, numsArith);
 
 // 2. Написати функцію doMath(x, znak, y), яка отримує 3 аргументи: числа x і y, рядок znak. У змінній znak може бути: +, -, *, /, %, ^ (ступінь ).Вивести результат математичної дії, вказаної в змінній znak.Обидва числа і знак виходять від користувача.
-/* let x = +prompt('Write X')
+console.log(`2. ---------------------------------------`);
+let x = +prompt('Write X')
 let znak = prompt('Write Znak')
 let y = +prompt('Write Y')
-doMath(x, y, znak) */
+doMath(x, y, znak) 
 function doMath(x, y, znak) {
     if (typeof x !== 'number') {
         result = 'Write a NUMBER, X';
@@ -48,20 +50,21 @@ function doMath(x, y, znak) {
     }
     return result
 }
-/* alert(result) */
+alert(result) 
 // 3. Написати функцію заповнення даними користувача двомірного масиву. Довжину основного масиву і внутрішніх масивів задає користувач. Значення всіх елементів всіх масивіНаписати функцію заповнення даними користувача двомірного масиву. Довжину основного масиву і внутрішніх масивів задає користувач. Значення всіх елементів всіх масивів задає користувач.
-// let mainArr = []
-// let mainArrLength = +prompt("enter main array length");
-// let innerArrLength = +prompt("enter inner arrays length");
-// validation()
+console.log(`3. ---------------------------------------`);
+let mainArr = []
+let mainArrLength = +prompt("enter main array length");
+let innerArrLength = +prompt("enter inner arrays length");
+validation()
 function validation() {
     while (mainArrLength <= 0) {
-        //mainArrLength = prompt('enter valid mainArrLength')
+        mainArrLength = prompt('enter valid mainArrLength')
         console.log(typeof mainArrLength)
         return
     }
     while (innerArrLength <= 0) {
-        //innerArrLength = prompt('enter valid mainArrLength')
+        innerArrLength = prompt('enter valid mainArrLength')
         console.log(typeof innerArrLength)
         return
     }
@@ -81,11 +84,12 @@ function addInfo() {
         }
     }
 }
-// console.log(mainArr)
+console.log(mainArr)
 
 // 4. Створити функцію, яка прибирає з рядка всі символи, які ми передали після другого аргумента. 'func("hello world", 'l', 'd')' поверне нам "heo wor". Вихідний рядок та символи для видалення задає користувач.
 // Також забезпечити логіку, при котрій після першого елементу ми можемо передати будь яким аргументом функцію, яка щось достать до нашого рядка, ГОЛОВНЕ щоб функція виконувалася після того як ми проведемо попередні маніпуляції (тобто видалимо символи).
 // Можливо додавати будь яку логіку в цю кастомну функцію.
+console.log(`4. ---------------------------------------`)
 let text = prompt(`enter some text`);
 let firstSymbol = prompt(`enter first symbol that you want to delete`)
 let secondSymbol = prompt(`enter second symbol that you want to delete`)
@@ -105,8 +109,7 @@ function deleteSymbol(str, symbolOne, symbolTwo, func) {
     const regexSymbolTwo = new RegExp(`[${symbolTwo}]`, `g`);
     newText = str.replace(regexSymbolOne, "");
     newText = newText.replace(regexSymbolTwo, "");
-    console.log(newText);
-    
+
     askFun();
 
     function askFun() {
@@ -134,7 +137,6 @@ function deleteSymbol(str, symbolOne, symbolTwo, func) {
         console.log(newText, `end`)
         let addText = prompt(`enter what you want to add from the end`);
         newText = `${newText} ${addText}`
-        console.log(newText)
     }
     newText = toUpper(newText)
     return newText
