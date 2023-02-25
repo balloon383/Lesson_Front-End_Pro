@@ -10,36 +10,21 @@ const obj = {
     p: 13,
   },
 };
-/* let newObj = {}
+let newObj = {}
 convert(obj)
 function convert(obj) {
-  let key
-  let value
+  let key;
+  let value;
   for (key of Object.keys(obj)) {
     for (value of Object.values(obj)) {
-      if (typeof value == `object`) {
+      if (Object.values(obj[key]).length >= 1) {
         newObj = { ...newObj, ...value };
-      } else if (typeof value !== `object`) {
-        newObj[key] = value
+      } else if (Object.values(obj[key]).length == 0) {
+        newObj[key] = obj[key]
       }
-    }
+      console.log(newObj)
+    } 
   }
-  console.log(newObj);
-}
- */
-
-convert(obj);
-function convert(obj) {
-  for (let value of Object.values(obj)) {
-  if (typeof value == `object`) {
-    newObj = { ...newObj, ...value };
-  } else {
-    for (let key of Object.keys(obj)) {
-    }
-    newObj.y = value
-  }
-} 
-  console.log(newObj);
 }
 
 
