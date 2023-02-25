@@ -22,9 +22,9 @@ function convert(obj) {
       } else if (Object.values(obj[key]).length == 0) {
         newObj[key] = obj[key]
       }
-      console.log(newObj)
     } 
   }
 }
+console.log(newObj);
 
 
