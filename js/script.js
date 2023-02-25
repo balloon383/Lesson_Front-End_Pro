@@ -1,6 +1,30 @@
-const yourName = prompt("what is your name?")
-const yourSecondName = prompt("what is your second name?")
-const yourYearOfBirth = +prompt('What is your year of birth?');
-const yourAge = 2023 - yourYearOfBirth;
+const obj = {
+  x: 10,
+  y: 20,
+  inner: {
+    x: 20,
+    z: 30,
+  },
+  foo2: {
+    k: 23,
+    p: 13,
+  },
+};
+let newObj = {}
+convert(obj)
+function convert(obj) {
+  let key;
+  let value;
+  for (key of Object.keys(obj)) {
+    for (value of Object.values(obj)) {
+      if (Object.values(obj[key]).length >= 1) {
+        newObj = { ...newObj, ...value };
+      } else if (Object.values(obj[key]).length == 0) {
+        newObj[key] = obj[key]
+      }
+    } 
+  }
+}
+console.log(newObj);
 
-console.log(`User bio: ${yourName} ${yourSecondName}, ${yourAge} years old`)
+
