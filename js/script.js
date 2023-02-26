@@ -67,7 +67,7 @@ const createObject = function (name, pos, salary) {
   newWorker.workerPosition = pos;
   newWorker.workerSalary = salary;
   newWorker.greeting = function () {
-    document.write(`hello my name is ${name}, I am ${pos} in ${this.сompanyName}`);
+    document.write(`Hello my name is ${name}, I am ${pos} in ${this.сompanyName}`);
   }
   newWorker.greeting(yourName, yourPosition, yourSalary);
 }
