@@ -27,6 +27,7 @@ const ITCompany = {
 };
 let yourName = prompt(`What is your name`)
 let yourPosition = prompt(`What is your position`)
+yourPosition = yourPosition.toLowerCase()
 let yourSalary = prompt(`What is your salary`)
 let newWorker
 let isValide
@@ -36,11 +37,15 @@ validation(yourPosition, yourSalary)
 
 function validation(position, salary) {
   for (let value of Object.values(ITCompany.vacancies)) {
-  let posIsValide
-  let salaryIsValide
-  if (position == Object.keys(value)) {
-    posIsValide = true;
-  }
+    let posIsValide
+    let salaryIsValide
+    let posBox = Object.keys(value);
+    let lowerCasePos = posBox.map((el) => {
+      return el.toLowerCase()
+    })
+    if (position == lowerCasePos) {
+      posIsValide = true;
+    }
   for (let key of Object.values(value)) {
     for (let salaryValue of Object.values(key)) {
       if (salary == salaryValue) {
@@ -50,9 +55,7 @@ function validation(position, salary) {
   }
   if (posIsValide && salaryIsValide) {
     isValide = true
-  } else {
-    console.log(`not ok`)
-  }
+  } 
   }
   return isValide
 }
@@ -64,11 +67,13 @@ const createObject = function (name, pos, salary) {
   newWorker.workerPosition = pos;
   newWorker.workerSalary = salary;
   newWorker.greeting = function () {
-    console.log(`hello my name is ${name}, I am ${pos} developer in ${this.сompanyName}`);
+    document.write(`hello my name is ${name}, I am ${pos} in ${this.сompanyName}`);
   }
   newWorker.greeting(yourName, yourPosition, yourSalary);
 }
 
 if (isValide) {
   createObject(yourName, yourPosition, yourSalary);
+} else {
+  document.write(`${yourName}, you has significant skills at ${yourPosition} but we hired another developer, let's keep contact !`)
 }
