@@ -25,21 +25,50 @@ const ITCompany = {
     },
   ],
 };
-//let yourName = prompt(`What is your name`)
+let yourName = prompt(`What is your name`)
 let yourPosition = prompt(`What is your position`)
-//let yourSalary = prompt(`What is your salary`)
+let yourSalary = prompt(`What is your salary`)
+let newWorker
+let isValide
 
-const createObject = function (name = `default`, pos = `default`, salary = `default`) {
-  let newWorker = Object.create(ITCompany)
-  for (let i = 0; i < newWorker.vacancies.length; i++){
-    debugger
-    console.log(newWorker.vacancies[i])
-    if (pos == Object.keys.newWorker[i]) {
-      console.log(newWorker.vacancies[i]);
+validation(yourPosition, yourSalary) 
+
+
+function validation(position, salary) {
+  for (let value of Object.values(ITCompany.vacancies)) {
+  let posIsValide
+  let salaryIsValide
+  if (position == Object.keys(value)) {
+    posIsValide = true;
+  }
+  for (let key of Object.values(value)) {
+    for (let salaryValue of Object.values(key)) {
+      if (salary == salaryValue) {
+        salaryIsValide = true;
+      }
     }
   }
+  if (posIsValide && salaryIsValide) {
+    isValide = true
+  } else {
+    console.log(`not ok`)
+  }
+  }
+  return isValide
 }
-createObject(`def`, yourPosition, `def`)
 
 
-/* document.write(`hello my name is ${workerName} I am ${workerPosition} dev in ${companyName}` */
+const createObject = function (name, pos, salary) {
+  newWorker = Object.create(ITCompany)
+  newWorker.workerName = name;
+  newWorker.workerPosition = pos;
+  newWorker.workerSalary = salary;
+  newWorker.greeting = function () {
+    console.log(`hello my name is ${name}, I am ${pos} developer in ${this.сompanyName}`);
+  }
+  newWorker.greeting(yourName, yourPosition, yourSalary);
+}
+
+if (isValide) {
+  createObject(yourName, yourPosition, yourSalary);
+}
