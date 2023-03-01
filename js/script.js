@@ -1,30 +1,18 @@
-const obj = {
-  x: 10,
-  y: 20,
-  inner: {
-    x: 20,
-    z: 30,
+const vegetables = [
+  {
+    name: `tomato`,
+    icon: `🍅`,
+    price: 2.3,
   },
-  foo2: {
-    k: 23,
-    p: 13,
+  {
+    name: `carrot`,
+    icon: `🥕`,
+    price: 1.5,
   },
-};
-let newObj = {}
-convert(obj)
-function convert(obj) {
-  let key;
-  let value;
-  for (key of Object.keys(obj)) {
-    for (value of Object.values(obj)) {
-      if (Object.values(obj[key]).length >= 1) {
-        newObj = { ...newObj, ...value };
-      } else if (Object.values(obj[key]).length == 0) {
-        newObj[key] = obj[key]
-      }
-    } 
-  }
-}
-console.log(newObj);
-
-
+  {
+    name: `corn`,
+    icon: `🌽`,
+    price: 2.78,
+    season: true,
+  },
+];
