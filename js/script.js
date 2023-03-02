@@ -41,7 +41,6 @@ class vegetable{
       `);
     }
   }
-
 }
 
 let obj = vegetables.map(el => new vegetable({ ...el }, console.log(el)))
