@@ -17,32 +17,39 @@ const vegetables = [
   },
 ];
 
-
-class vegetable{
+class vegetable {
   constructor(obj) {
-    this.type = `Vegetables`
-    this.seasonKoef = 1.3
-    this.name = Object.values({...obj})
+    this.type = `Vegetables`;
+    this.seasonKoef = 1.3;
+    this.name = obj.name;
+    this.icon = obj.icon;
+    this.price = obj.price;
+    this.season = obj.season;
   }
   getPrice() {
-    let total
-    if (vegetable.season == true) {
-      total = this.price * this.seasonKoef
+    let total;
+    if (this.season == true) {
+      total = this.price * this.seasonKoef;
     }
   }
   getInfo() {
-    if (vegetable.season == true) {
-      document.write(`
+    if (this.season == true) {
+        document.write(`
     Type: Vegetable. SeasonKoef: ${this.seasonKoef}. Name: ${this.name}. Icon: ${this.icon}. Price: ${this.price}. Season: true
-    `)
+    `);
     } else if (vegetable.season == false) {
-      document.write(`
+        document.write(`
     Type: Vegetable. SeasonKoef: ${this.seasonKoef}. Name: ${this.name}. Icon: ${this.icon}. Price: ${this.price}.
-      `);
+    `);
     }
   }
-
 }
 
-let obj = vegetables.map(el => new vegetable({ ...el }, console.log(el)))
-console.log(obj)
+let objArray = vegetables.map((el) => new vegetable({ ...el }));
+console.log(objArray);
+for(let i = 0; i < objArray.length; i++){
+    document.write(`
+    <ul>
+        <li>${i.getInfo()}</li>
+    </ul>`)
+}
