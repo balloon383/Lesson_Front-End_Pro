@@ -30,26 +30,34 @@ class vegetable {
     let total;
     if (this.season == true) {
       total = this.price * this.seasonKoef;
+      alert(total);
+    } else {
+      total = this.price;
+      alert(total)
     }
   }
   getInfo() {
+    let info
     if (this.season == true) {
-        document.write(`
-    Type: Vegetable. SeasonKoef: ${this.seasonKoef}. Name: ${this.name}. Icon: ${this.icon}. Price: ${this.price}. Season: true
-    `);
-    } else if (vegetable.season == false) {
-        document.write(`
-    Type: Vegetable. SeasonKoef: ${this.seasonKoef}. Name: ${this.name}. Icon: ${this.icon}. Price: ${this.price}.
-    `);
+      info = (`
+      <ul>
+        <li>Type: Vegetable. SeasonKoef: ${this.seasonKoef}. Name: ${this.name}. Icon: ${this.icon}. Price: ${this.price * this.seasonKoef}. Season: true</li>
+      </ul>
+      `);
+      document.write(info)
+    } else {
+      info = `
+      <ul>
+        <li>Type: Vegetable. SeasonKoef: ${this.seasonKoef}. Name: ${this.name}. Icon: ${this.icon}. Price: ${this.price}.</li>
+      </ul>
+      `;
+      document.write(info);
     }
   }
 }
-
 let objArray = vegetables.map((el) => new vegetable({ ...el }));
 console.log(objArray);
-for(let i = 0; i < objArray.length; i++){
-    document.write(`
-    <ul>
-        <li>${i.getInfo()}</li>
-    </ul>`)
-}
+
+objArray[0].getInfo()
+objArray[1].getInfo()
+objArray[2].getInfo()
