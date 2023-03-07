@@ -11,9 +11,16 @@ class Hamburger {
   constructor(Hamburger) {
     this.size = Hamburger.size;
     this.type = Hamburger.type;
+    this.topping = []
   }
   set addTopping(topping) {
-    this.topping = topping
+  this.topping.push(topping)
+  }
+  get getPrice() {
+    
+  }
+  get getCalories(){
+    
   }
   burgerPrice() {
     let totalPrice;
@@ -30,15 +37,25 @@ class Hamburger {
     } else if (this.type == `potato`) {
       totalPrice = totalPrice + 15;
     }
-    if (this.topping == true) {
-      if (this.topping == `mayo`) {
-        totalPrice = totalPrice + 20
-      } else {
+
+    if (this.topping.length == 1) {
+      if (this.topping[0] == `mayo`) {
+        totalPrice = totalPrice + 20;
+      } else if (this.topping[0] == `spices`) {
         totalPrice = totalPrice + 15;
       }
+    } else if (this.topping.length >= 2) {
+      for (let i = 0; i < this.topping.length; i++){
+        if (this.topping[i] == `mayo`) {
+          totalPrice = totalPrice + 20;
+        } else if (this.topping[i] == `spices`) {
+          totalPrice = totalPrice + 15;
+        }
+      }
     }
+    
 
-    console.log(`Price: ${totalPrice}`)
+    console.log(`Price: ${totalPrice}`);
   }
 
   burgerCalories() {
@@ -49,7 +66,7 @@ class Hamburger {
       totalCalories = 40;
     }
 
-    if (this.type == `cheese`) {
+    if (typeof this.topping == `string`) {
       totalCalories = totalCalories + 20;
     } else if (this.type == `salad`) {
       totalCalories = totalCalories + 5;
@@ -57,11 +74,19 @@ class Hamburger {
       totalCalories = totalCalories + 10;
     }
 
-    if (this.topping == true) {
-      if (this.topping == `mayo`) {
+    if (this.topping.length == 1) {
+      if (this.topping[0] == `mayo`) {
         totalCalories = totalCalories + 5;
-      } else {
+      } else if (this.topping[0] == `spices`) {
         totalCalories = totalCalories + 0;
+      }
+    } else if (this.topping.length >= 2) {
+      for (let i = 0; i < this.topping.length; i++) {
+        if (this.topping[i] == `mayo`) {
+          totalCalories = totalCalories + 5;
+        } else if (this.topping[i] == `spices`) {
+          totalCalories = totalCalories + 0;
+        }
       }
     }
     console.log(`Calories: ${totalCalories}`);
@@ -72,9 +97,9 @@ const burger = new Hamburger({
   type: STUFFING_POTATO,
 });
 console.log(burger);
-burger.burgerPrice()
-burger.burgerCalories()
 burger.addTopping = TOPPING_MAYO;
+console.log(burger);
+burger.addTopping = TOPPING_SPICES;
 console.log(burger);
 burger.burgerPrice();
 burger.burgerCalories();
