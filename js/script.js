@@ -14,15 +14,18 @@ class Hamburger {
     this.topping = []
   }
   set addTopping(topping) {
-  this.topping.push(topping)
+    this.topping.push(topping)
   }
-  get getPrice() {
-    
+
+  getPrice() {
+    let price = this.#burgerPrice
+    console.log(price);
   }
-  get getCalories(){
-    
+  getCalories() {
+    let calories = this.#burgerCalories
+    console.log(calories);
   }
-  burgerPrice() {
+  get #burgerPrice() {
     let totalPrice;
     if (this.size == `small`) {
       totalPrice = 50;
@@ -54,11 +57,10 @@ class Hamburger {
       }
     }
     
-
-    console.log(`Price: ${totalPrice}`);
+    return totalPrice
   }
 
-  burgerCalories() {
+  get #burgerCalories() {
     let totalCalories;
     if (this.size == `small`) {
       totalCalories = 20;
@@ -89,18 +91,16 @@ class Hamburger {
         }
       }
     }
-    console.log(`Calories: ${totalCalories}`);
+    return totalCalories
   }
 }
 const burger = new Hamburger({
   size: BURGER_LARGE,
-  type: STUFFING_POTATO,
+  type: STUFFING_CHEESE,
 });
-console.log(burger);
 burger.addTopping = TOPPING_MAYO;
-console.log(burger);
 burger.addTopping = TOPPING_SPICES;
-console.log(burger);
-burger.burgerPrice();
-burger.burgerCalories();
+burger.getPrice()
+burger.getCalories()
+
 
