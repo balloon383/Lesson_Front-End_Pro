@@ -8,9 +8,9 @@ const TOPPING_SPICES = `spices`
 
 
 class hamburger {
-  constructor(size, type) {
-    this.size = size;
-    this.type = type;
+  constructor(options) {
+    this.size = options.size;
+    this.type = options.type;
     this.price = this.burgerPrice;
     this.calories = this.burgerCalories;
   }
@@ -51,35 +51,24 @@ class hamburger {
     return totalCalories;
   }
 }
-const burger = new hamburger(BURGER_LARGE, STUFFING_POTATO);
+const burger = new hamburger({
+  size: BURGER_LARGE,
+  type: STUFFING_POTATO,
+});
 console.log(burger);
 
-class addTopping extends hamburger {
-  constructor(size, type, topping) {
-    super(size, type);
-    this.topping = topping;
-    this.price = this.toppingPrice;
-    this.calories = this.toppingCalories;
-  }
-  get toppingPrice() {
-    let totalPrice;
-    if (this.topping == `mayo`) {
-      totalPrice = this.price + 20;
-    } else {
-      totalPrice = this.price + 15;
-    }
-    return totalPrice
-  } 
-  get toppingCalories() {
-    let totalCalories;
-    if (this.topping == `mayo`) {
-      totalCalories = this.calories + 5;
-    } else {
-      totalCalories = this.calories + 0;
-    }
-    return totalCalories;
-  } 
-}
 
-const burgerWithTopping = new addTopping(BURGER_LARGE, STUFFING_POTATO, TOPPING_MAYO);
-console.log(burgerWithTopping);
+
+class Hello{
+  constructor() {
+    this.type = `word`,
+    this.count = 5,
+    this.bool = true
+  }
+  set newType(newOne) {
+    this.topping = newOne;
+  }
+}
+const newObj = new Hello()
+newObj.newType = `mayo`;
+console.log(newObj)
