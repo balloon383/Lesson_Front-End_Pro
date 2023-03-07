@@ -7,22 +7,22 @@ const TOPPING_MAYO = `mayo`
 const TOPPING_SPICES = `spices`
 
 
-class hamburger {
-  constructor(options) {
-    this.size = options.size;
-    this.type = options.type;
-    this.price = this.burgerPrice;
-    this.calories = this.burgerCalories;
+class Hamburger {
+  constructor(Hamburger) {
+    this.size = Hamburger.size;
+    this.type = Hamburger.type;
   }
-
-  get burgerPrice() {
-    let totalPrice
+  set addTopping(topping) {
+    this.topping = topping
+  }
+  burgerPrice() {
+    let totalPrice;
     if (this.size == `small`) {
-      totalPrice = 50
+      totalPrice = 50;
     } else {
-      totalPrice = 100
+      totalPrice = 100;
     }
-    
+
     if (this.type == `cheese`) {
       totalPrice = totalPrice + 10;
     } else if (this.type == `salad`) {
@@ -30,10 +30,18 @@ class hamburger {
     } else if (this.type == `potato`) {
       totalPrice = totalPrice + 15;
     }
-    return totalPrice
+    if (this.topping == true) {
+      if (this.topping == `mayo`) {
+        totalPrice = totalPrice + 20
+      } else {
+        totalPrice = totalPrice + 15;
+      }
+    }
+
+    console.log(`Price: ${totalPrice}`)
   }
 
-  get burgerCalories() {
+  burgerCalories() {
     let totalCalories;
     if (this.size == `small`) {
       totalCalories = 20;
@@ -48,27 +56,26 @@ class hamburger {
     } else if (this.type == `potato`) {
       totalCalories = totalCalories + 10;
     }
-    return totalCalories;
+
+    if (this.topping == true) {
+      if (this.topping == `mayo`) {
+        totalCalories = totalCalories + 5;
+      } else {
+        totalCalories = totalCalories + 0;
+      }
+    }
+    console.log(`Calories: ${totalCalories}`);
   }
 }
-const burger = new hamburger({
+const burger = new Hamburger({
   size: BURGER_LARGE,
   type: STUFFING_POTATO,
 });
 console.log(burger);
+burger.burgerPrice()
+burger.burgerCalories()
+burger.addTopping = TOPPING_MAYO;
+console.log(burger);
+burger.burgerPrice();
+burger.burgerCalories();
 
-
-
-class Hello{
-  constructor() {
-    this.type = `word`,
-    this.count = 5,
-    this.bool = true
-  }
-  set newType(newOne) {
-    this.topping = newOne;
-  }
-}
-const newObj = new Hello()
-newObj.newType = `mayo`;
-console.log(newObj)
