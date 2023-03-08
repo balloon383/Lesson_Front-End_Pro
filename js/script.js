@@ -68,7 +68,7 @@ class Hamburger {
       totalCalories = 40;
     }
 
-    if (typeof this.topping == `string`) {
+    if (this.type == `cheese`) {
       totalCalories = totalCalories + 20;
     } else if (this.type == `salad`) {
       totalCalories = totalCalories + 5;
@@ -100,7 +100,7 @@ const burger = new Hamburger({
 });
 burger.addTopping = TOPPING_MAYO;
 burger.addTopping = TOPPING_SPICES;
+console.log(burger)
 burger.getPrice()
 burger.getCalories()
-
 
