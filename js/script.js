@@ -3,25 +3,29 @@ const SINGLE_LIST_HEAD = {
   value: 5,
   next: null,
 };
-let singleList = [SINGLE_LIST_HEAD,];
+const DEFAULT_PARAMETRS = [1, "two", () => console.log("hello"), true];
 
-
-function funSingleList(values, link = null) {
-  let SINGLE_LIST_OBJECT = {
+function objCreator(values, link = null) {
+  nextObj = {
     value: values,
     next: link,
-  };
-  singleList.forEach((el) => {
-    if (el.next == null) {
-      el.next = SINGLE_LIST_OBJECT;
-      return el.next
-    }
-  })
-  singleList.push(SINGLE_LIST_OBJECT)
+  }
+  findNull(SINGLE_LIST_HEAD, nextObj);
 }
-funSingleList(1)
-funSingleList(true)
-funSingleList(() => console.log('hello'))
-console.log(singleList)
+
+function findNull(item, object) {
+  if (item.next === null) {
+    item.next = object;
+  } else {
+    while (item.next !== null) {
+      item = item.next
+    }
+    findNull(item, object)
+  }
+}
+
+for (let i = 0; i < DEFAULT_PARAMETRS.length; i++) {
+  objCreator(DEFAULT_PARAMETRS[i]);
+} 
 console.log(SINGLE_LIST_HEAD.next.value)
-SINGLE_LIST_HEAD.next.next.next.value()
+console.log(SINGLE_LIST_HEAD.next.next.next.value());
