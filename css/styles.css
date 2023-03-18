@@ -1,9 +1,15 @@
-.block {
+body{
+    width: 1920px;
+    height: 1080px;
+    border: 1px solid red;
+}
+.snitch {
     width: 100px;
     height: 100px;
+    display: inline-block;
     background: black;
     position: relative;
     left: 0;
     top: 0;
-    transition: 0.5s;
+    transition: 2.5s;
 }
