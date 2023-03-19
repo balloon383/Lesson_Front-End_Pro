@@ -44,11 +44,11 @@ function limitsX(){
         console.log(`current posX: ${limsX}`)
         if (limsX >= 910) {
             limsX -= number;
-            setTimeout(() => {snitch.style.left = parseInt(snitch.style.left) - 10 + `px`;}, 300)
+            setTimeout(() => {snitch.style.left = parseInt(snitch.style.left) - 10 + `px`;}, 200)
             console.log(`current posX: ${limsX}`);
         } else if (limsX <= -910) {
             limsX -= number;
-            setTimeout(() => {snitch.style.left = parseInt(snitch.style.left) + 10 + `px`;}, 300)
+            setTimeout(() => {snitch.style.left = parseInt(snitch.style.left) + 10 + `px`;}, 200)
             console.log(`current posX: ${limsX}`);
         }
     }
@@ -62,12 +62,11 @@ function limitsY(){
         console.log(`current pos: ${limsY}`)
         if (limsY >= 490) {
             limsY -= number;
-            snitch.style.top = parseInt(snitch.style.top) - 10 + `px`;
-            setTimeout(() => {snitch.style.top = parseInt(snitch.style.top) - 10 + `px`;}, 300)
+            setTimeout(() => {snitch.style.top = parseInt(snitch.style.top) - 10 + `px`;}, 200)
             console.log(`current posX: ${limsY}`);
         } else if (limsY <= -490) {
             limsY -= number;
-            setTimeout(() => {snitch.style.top = parseInt(snitch.style.top) + 10 + `px`;}, 300)
+            setTimeout(() => {snitch.style.top = parseInt(snitch.style.top) + 10 + `px`;}, 200)
             console.log(`current posX: ${limsY}`);
         }
     }
@@ -76,6 +75,5 @@ function limitsY(){
 
 
 document.addEventListener(`keypress`, (event) => movement(event));
-document.addEventListener(`keypress`, (event) => console.log(event));
 
 
