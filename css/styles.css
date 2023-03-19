@@ -2,6 +2,9 @@ body{
     width: 1920px;
     height: 1080px;
     border: 1px solid red;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 .snitch {
     width: 100px;
@@ -11,5 +14,20 @@ body{
     position: relative;
     left: 0;
     top: 0;
-    transition: 2.5s;
+    transition: .1s;
+    
 }
+/* .snitch .jump{
+    animation: jumping .3s cubic-bezier(.65, -0.24, .48, 1.22);
+    @keyframes jumping {
+        0% {
+            transform: translate(0px, -10px)
+        }
+        100% {
+            transform: translate(0px, 0px)
+        }
+    }
+}
+
+ */
+
