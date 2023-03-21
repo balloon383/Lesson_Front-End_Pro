@@ -5,10 +5,9 @@ let windowWidth = document.body.clientWidth;
 let windowHeight = document.body.clientHeight;
 let playFieldX = windowWidth/2 - 50;
 let playFieldY = windowHeight/2 - 50;
-console.log(playFieldX);
-console.log(playFieldY);
 const collectorY = limitsY();
 const collectorX = limitsX();
+
 function movement(event) {
   if (event.charCode === 119 || event.charCode === 1094) {
     snitch.style.top = parseInt(snitch.style.top) - 10 + `px`;
