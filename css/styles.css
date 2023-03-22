@@ -15,19 +15,12 @@ body{
     left: 0;
     top: 0;
     transition: .1s;
-    
 }
-/* .snitch .jump{
-    animation: jumping .3s cubic-bezier(.65, -0.24, .48, 1.22);
-    @keyframes jumping {
-        0% {
-            transform: translate(0px, -10px)
-        }
-        100% {
-            transform: translate(0px, 0px)
-        }
-    }
+.text{
+    color: black;
+    font-size: 28px;
+    font-weight: 700;
+    text-align: center;
+    text-transform: uppercase;
+    transition: .2s ;
 }
-
- */
-
