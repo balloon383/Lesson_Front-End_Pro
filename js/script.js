@@ -1,6 +1,8 @@
 let snitch = document.querySelector(".snitch");
 snitch.style.top = 0;
 snitch.style.left = 0;
+snitch.style.height = 100 + `px`;
+snitch.style.width = 100 + `px`;
 let windowWidth = document.body.clientWidth;
 let windowHeight = document.body.clientHeight;
 let playFieldX = windowWidth/2 - 50;
@@ -36,6 +38,12 @@ function movement(event) {
     }, 400);
     console.log(`jump`);
   } else if (event.keyCode === 17) {
+    snitch.style.width = 125 + `px`;
+    snitch.style.height = 60 + `px`;
+    document.addEventListener(`keyup`, (event) => {
+      snitch.style.width =  100 + `px`;
+      snitch.style.height = 100 + `px`;
+    });
     console.log(`crouch`);
   }
 }
@@ -91,3 +99,5 @@ function limitsY() {
 }
 
 document.addEventListener(`keypress`, (event) => movement(event));
+document.addEventListener(`keydown`, (event) => movement(event));
+
