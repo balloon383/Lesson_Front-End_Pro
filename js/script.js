@@ -5,16 +5,40 @@ const STUFFING_SALAD = `salad`
 const STUFFING_POTATO = `potato`
 const TOPPING_MAYO = `mayo`
 const TOPPING_SPICES = `spices`
+let userName = document.querySelector(`.input1`);
+let burgerSize = document.querySelector(`.input2`);
+let burgerStuffing = document.querySelectorAll(`.input3`);
+let burgerTopping = document.querySelectorAll(`.input4`);
+let burgerInfo = document.querySelector(`.input5`);
+let orderButton = document.querySelector(`.mac__button`);
+orderButton.addEventListener(`click`, (event) => {
+  event.preventDefault()
+  defineProperties(burgerStuffing, burgerTopping);
+});
+
+function defineProperties(stuffing, topping){
+  const addBurgerStuffing = [...stuffing].filter((el) => {
+    if (el.checked) {
+      return el.value;
+    }
+  });
+  const addBurgerTopping = [...topping].filter((el) => {
+    if (el.checked) {
+      return el.value;
+    }
+  });
+  makeOrder(burgerSize.value, addBurgerStuffing[0].value, addBurgerTopping);
+}
 
 
 class Hamburger {
   constructor(Hamburger) {
     this.size = Hamburger.size;
     this.type = Hamburger.type;
-    this.topping = []
+    this.topping = Hamburger.topping;
   }
   set addTopping(topping) {
-    this.topping.push(topping)
+    this.topping = topping
   }
 
   getPrice() {
@@ -94,13 +118,38 @@ class Hamburger {
     return totalCalories
   }
 }
-const burger = new Hamburger({
-  size: BURGER_LARGE,
-  type: STUFFING_CHEESE,
-});
-burger.addTopping = TOPPING_MAYO;
-burger.addTopping = TOPPING_SPICES;
-console.log(burger)
-burger.getPrice()
-burger.getCalories()
+
+
+function makeOrder(size, stuffing, topping,) {
+  let burgerSize
+  let burgerStuffing
+  let burgerTopping
+  if (size === `large`) {
+    burgerSize = BURGER_LARGE;
+  } else {
+    burgerSize = BURGER_SMALL;
+  }
+
+  if (stuffing === `cheese`) {
+    burgerStuffing = STUFFING_CHEESE
+  } else if (stuffing === `potato`) {
+    burgerStuffing = STUFFING_POTATO;
+  } else {
+    burgerStuffing = STUFFING_SALAD;
+  }
+
+  burgerTopping = topping.map((el) => {
+    return el.value
+  })
+  let burger = new Hamburger({
+    size: burgerSize,
+    type: burgerStuffing,
+    topping: burgerTopping
+  });
+  console.log(burger);
+  burger.getPrice()
+  burger.getCalories()
+}
+
+
 
