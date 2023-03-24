@@ -11,6 +11,7 @@ let burgerStuffing = document.querySelectorAll(`.input3`);
 let burgerTopping = document.querySelectorAll(`.input4`);
 let burgerInfo = document.querySelector(`.input5`);
 let orderButton = document.querySelector(`.mac__button`);
+let orderField = document.querySelector(`.mac__list`)
 orderButton.addEventListener(`click`, (event) => {
   event.preventDefault()
   defineProperties(burgerStuffing, burgerTopping);
@@ -43,11 +44,11 @@ class Hamburger {
 
   getPrice() {
     let price = this.#burgerPrice
-    console.log(price);
+    return price
   }
   getCalories() {
     let calories = this.#burgerCalories
-    console.log(calories);
+    return calories
   }
   get #burgerPrice() {
     let totalPrice;
@@ -146,10 +147,22 @@ function makeOrder(size, stuffing, topping,) {
     type: burgerStuffing,
     topping: burgerTopping
   });
-  console.log(burger);
-  burger.getPrice()
-  burger.getCalories()
+  orderLog(userName.value, burger.size, burger.type, burger.topping, burger.getPrice(), burger.getCalories());
 }
 
+
+function orderLog(name, size, stuffing, topping, price, calories) {
+  let randomValue = (Math.random() * 10).toFixed(1)
+  let message = document.createElement(`div`)
+  message.innerHTML = 
+      `<div class = 'mac__order'>
+        Привет ${name}
+        <br>
+        Ваш заказ ${size} бургер с ${stuffing} и ${topping} будет готов в течении ${randomValue} минут.
+        <br>
+        Стоимость заказа: ${price} ( ${calories} calories)
+      </div>`;
+  orderField.appendChild(message)    
+}
 
 
