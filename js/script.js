@@ -13,9 +13,31 @@ let burgerInfo = document.querySelector(`.input5`);
 let orderButton = document.querySelector(`.mac__button`);
 let orderField = document.querySelector(`.mac__list`);
 let macForm = document.querySelector(`.mac__form`)
+
+function formValidation() {
+  let nameValidation = false
+  let stuffingValidation = false
+  if (userName.value.length >= 1) {
+    nameValidation = true;
+  } else {
+    nameValidation = false;
+  }
+  stuffingValidation = [...burgerStuffing].filter((el) => {
+    if (el.checked) {
+      return stuffingValidation = true
+    }
+  });
+  if (nameValidation && stuffingValidation.length > 0) return true;
+}
+
 orderButton.addEventListener(`click`, (event) => {
   event.preventDefault();
-  defineProperties(burgerSize, burgerStuffing, burgerTopping);
+  
+  if (formValidation()) {
+    defineProperties(burgerSize, burgerStuffing, burgerTopping);
+  } else {
+    alert(`Validate order form`)
+  }
   macForm.reset()
 });
 function defineProperties(size, stuffing, topping) {
