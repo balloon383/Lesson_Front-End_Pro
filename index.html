@@ -5,9 +5,52 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    <link rel="stylesheet" href="./css/styles.css">
 </head>
 <body>
-    Lesson hillel Front-end Pro
+    <h1 class="mac__header">
+        Mac-Dac order UI
+    </h1>
+    <section class="mac__main">
+        <form class="mac__form" action="#">
+            <label for="user__name" class="input1--label">Enter your name</label>
+            <input class="input input1" type="text" name="user__name" placeholder="Name" >
+            <label for="burger__select" class="input2--label">Choose a burger size</label>
+            <select class="input input2" name="pets" id="burger__select">
+                <option value="large">Large</option>
+                <option value="small">Small</option>
+            </select>
+            <section class="mac__input3">
+                <h2 class="mac__header--subheader">
+                    Choose Stuffing
+                </h2>
+                <input type="radio" class="input3" name="stuffing" value="cheese" >
+                <label for="stuffing">Cheese</label>
+                <input type="radio" class="input3" name="stuffing" value="potato">
+                <label for="stuffing">Potato</label>
+                <input type="radio" class="input3" name="stuffing" value="salad">
+                <label for="stuffing">Salad</label>
+            </section>
+            <section class="mac__input4">
+                <h2 class="mac__header--subheader">
+                    Choose Topping
+                </h2>
+                <input type="checkbox" class="input4" name="topping" value="mayo">
+                <label for="topping">Mayo</label>
+                <input type="checkbox" class="input4" name="topping" value="spices">
+                <label for="topping">Spices</label>
+            </section>
+            <h2 class="mac__header--subheader">
+                Additional order info
+            </h2>
+            <input type="text" class="mac__info input5" placeholder="Info" >
+            <button class="mac__button">Make order</button>
+        </form>
+        <section class="mac__list">
+            
+        </section>
+    </section>
+
     <script src="./js/script.js"></script>
 </body>
 </html>

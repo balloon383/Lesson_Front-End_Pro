@@ -1,0 +1,96 @@
+.mac__header {
+    text-align: center;
+    font-weight: 700;
+    font-size: 48px;
+}
+
+.mac__main {
+    max-width: 800px;
+    min-height: 700px;
+    border: 1px solid red;
+    border-radius: 12px;
+    margin: 15px auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+}
+
+.mac__form {
+    min-width: 350px;
+    min-height: 600px;
+    border: 1px solid red;
+    border-radius: 12px;
+    margin-left: 15px;
+    display: flex;
+    flex-direction: column;
+    
+}
+
+.mac__list {
+    min-width: 400px;
+    min-height: 600px;
+    max-height: 600px;
+    border: 1px solid red;
+    border-radius: 12px;
+    margin-right: 15px;
+}
+.input{
+    padding: 15px;
+    border-radius: 12px;
+    margin: 10px;
+}
+.input1--label{
+    font-size: 24px;
+    text-align: center;
+    font-weight: 700;
+}
+.input2--label{
+    text-align: center;
+    font-size: 24px;
+    font-weight: 700;
+}
+.mac__input3{
+    text-align: center;
+    font-size: 24px;
+}
+.mac__header--subheader{
+    font-size: 24px;
+    font-weight: 400;
+    font-weight: 700;
+    text-align: center;
+}
+.mac__input4{
+    text-align: center;
+    font-size: 24px;
+}
+.mac__info{
+    margin: 0px 15px;
+    border-radius: 12px;
+    padding: 5px 5px 45px 5px;
+    white-space: wrap;
+}
+.mac__button{
+    max-width: 30%;
+    margin: 15px auto;
+    padding: 10px 25px;
+    border-radius: 12px;
+    border: none;
+    background-color: black;
+    color: red;
+    cursor: pointer;
+}
+.mac__button:hover{
+    background-color: #272727;
+}
+.mac__list{
+    display: flex;
+    flex-direction: column;
+    overflow: scroll;
+}
+.mac__order{
+    padding: 15px;
+    border-radius: 12px;
+    border: 1px solid red;
+    margin: 10px;
+}
