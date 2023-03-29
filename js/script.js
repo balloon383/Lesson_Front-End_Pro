@@ -6,6 +6,7 @@ const userData = {
   AOA: 100,
 };
 
+
 const bankData = {
   USD: {
     max: 3000,
@@ -29,7 +30,30 @@ const bankData = {
   },
 };
 
-let checker = confirm(`Want to check your balance?`)
-function checkRequest(){
+let checker = confirm(`Want to check your card balance?`)
+console.log(checker);
+const balanceCheck = new Promise((res, rej) => {
+  setTimeout(() => {
+    if (checker) {
+      res(`confirmed`);
+    } else {
+      rej(`rejected`)
+    }
+  }, 1000)
+})
 
-}
+balanceCheck
+  .then((res) => {
+    console.log(res);
+    let askCurrency = prompt(`Enter your currency`).toUpperCase();
+    while (!Object.keys(userData).includes(askCurrency)) {
+      askCurrency = prompt(`Enter your currency`).toUpperCase();
+    }
+    return askCurrency
+  })
+  .then((res) => {
+    console.log(`${userData[res]} ${res}`)    
+  })
+  .catch((error) => {
+    console.log(error);
+  });
