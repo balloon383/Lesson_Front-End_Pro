@@ -6,7 +6,6 @@ const userData = {
   AOA: 100,
 };
 
-
 const bankData = {
   USD: {
     max: 3000,
@@ -30,16 +29,16 @@ const bankData = {
   },
 };
 
-let checker = confirm(`Want to check your card balance?`)
+let checker = confirm(`Want to check your card balance?`);
 const balanceCheck = new Promise((res, rej) => {
   setTimeout(() => {
     if (checker) {
       res(`confirmed`);
     } else {
-      rej(`rejected`)
+      rej(`rejected`);
     }
-  }, 1000)
-})
+  }, 1000);
+});
 
 balanceCheck
   .then((res) => {
@@ -48,29 +47,37 @@ balanceCheck
     while (!Object.keys(userData).includes(askCurrency)) {
       askCurrency = prompt(`Enter your currency`).toUpperCase();
     }
-    return askCurrency
+    console.log(`${userData[askCurrency]} ${askCurrency}`);
+    rej();
   })
-  .then((res) => {
-    console.log(`${userData[res]} ${res}`)
-    rej()
-  })
-  .catch((error) => {
-    let chooseCurrency = prompt(`Choose currency you want to withdraw`).toUpperCase()
-    while (!Object.keys(bankData).includes(chooseCurrency)) {
-      chooseCurrency = prompt(`${chooseCurrency} is not avalible now, choose another currency`).toUpperCase();
+  .catch(() => {
+    let chooseCurrency = prompt(
+      `Choose currency you want to withdraw`
+    ).toUpperCase();
+    while (
+      !Object.keys(bankData).includes(chooseCurrency) ||
+      !Object.keys(userData).includes(chooseCurrency)
+    ) {
+      chooseCurrency = prompt(
+        `${chooseCurrency} is not avalible now, choose another currency`
+      ).toUpperCase();
     }
     return chooseCurrency;
-  }).then((res) => {
-    let currencyAmount = prompt(`How much ${res} you want to withdraw?`)
+  })
+  .then((res) => {
+    let currencyAmount = prompt(`How much ${res} you want to withdraw?`);
     if (currencyAmount < bankData[res].min) {
       console.log(
-        `Введена сума меньша за доступну. Мінімальна сума зняття: ${bankData[res].min}`
+        `The amount entered is less than the available amount. Minimum withdrawal amount: ${bankData[res].min}`
       );
     } else if (currencyAmount > bankData[res].max) {
-      console.log(`Введена сума більша за доступну. Максимальна сума зняття: ${bankData[res].max}`);
+      console.log(
+        `The amount entered is higher than the available amount. Maximum withdrawal amount: ${bankData[res].max}`
+      );
     } else {
-      console.log(`От ваші ${currencyAmount} ${res} ${bankData[res].img}`);
+      console.log(`Here's your ${currencyAmount} ${res} ${bankData[res].img}`);
     }
-  }).finally(() => {
-    console.log(`Дякую, гарного дня 😊`);
   })
+  .finally(() => {
+    console.log(`Thank you, have a nice day 😊`);
+  });
