@@ -31,7 +31,6 @@ const bankData = {
 };
 
 let checker = confirm(`Want to check your card balance?`)
-console.log(checker);
 const balanceCheck = new Promise((res, rej) => {
   setTimeout(() => {
     if (checker) {
@@ -52,8 +51,26 @@ balanceCheck
     return askCurrency
   })
   .then((res) => {
-    console.log(`${userData[res]} ${res}`)    
+    console.log(`${userData[res]} ${res}`)
+    rej()
   })
   .catch((error) => {
-    console.log(error);
-  });
+    let chooseCurrency = prompt(`Choose currency you want to withdraw`).toUpperCase()
+    while (!Object.keys(bankData).includes(chooseCurrency)) {
+      chooseCurrency = prompt(`${chooseCurrency} is not avalible now, choose another currency`).toUpperCase();
+    }
+    return chooseCurrency;
+  }).then((res) => {
+    let currencyAmount = prompt(`How much ${res} you want to withdraw?`)
+    if (currencyAmount < bankData[res].min) {
+      console.log(
+        `Введена сума меньша за доступну. Мінімальна сума зняття: ${bankData[res].min}`
+      );
+    } else if (currencyAmount > bankData[res].max) {
+      console.log(`Введена сума більша за доступну. Максимальна сума зняття: ${bankData[res].max}`);
+    } else {
+      console.log(`От ваші ${currencyAmount} ${res} ${bankData[res].img}`);
+    }
+  }).finally(() => {
+    console.log(`Дякую, гарного дня 😊`);
+  })
