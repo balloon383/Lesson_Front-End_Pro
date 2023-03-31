@@ -70,9 +70,12 @@ balanceCheck
       console.log(
         `The amount entered is less than the available amount. Minimum withdrawal amount: ${bankData[res].min}`
       );
-    } else if (currencyAmount > bankData[res].max) {
+    } else if (
+      currencyAmount > bankData[res].max ||
+      currencyAmount > userData[res]
+    ) {
       console.log(
-        `The amount entered is higher than the available amount. Maximum withdrawal amount: ${bankData[res].max}`
+        `The amount entered is higher than the available amount. Maximum withdrawal amount: ${bankData[res].max}, for you ${userData[res]}`
       );
     } else {
       console.log(`Here's your ${currencyAmount} ${res} ${bankData[res].img}`);
