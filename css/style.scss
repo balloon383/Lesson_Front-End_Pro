@@ -1,0 +1,107 @@
+@import url(reset.css);
+body{
+    font-family: 'Roboto', sans-serif;
+    color: #333333
+}
+.main {
+    
+}
+
+.content {
+
+    // .content__container
+
+    &__container {
+        width: 1440px;
+        margin: 0 auto;
+        display: flex;
+        justify-content: space-between;
+    }
+}
+
+.jokes {
+
+    // .jokes__block
+
+    &__block {
+        padding: 40px 140px;
+    }
+
+    // .jokes__year
+
+    &__year {
+        font-style: normal;
+        font-weight: 700;
+        font-size: 20px;
+        line-height: 28px;
+        margin-bottom: 78px;
+    }
+
+    // .jokes__header
+
+    &__header {
+        font-weight: 700;
+        font-size: 32px;
+        line-height: 44px;
+    }
+
+    // .jokes__heades--second
+
+    &__heades--second {
+        font-weight: 500;
+        font-size: 24px;
+        line-height: 44px;
+        margin-bottom: 43px;
+
+    }
+
+    // .jokes__form
+
+    &__form {
+        font-size: 18px;
+        line-height: 26px;
+    }
+
+    // .jokes__random
+
+    &__random {}
+
+    // .jokes__categories
+
+    &__categories {}
+
+    // .jokes__categories--animal
+
+    &__categories--animal {}
+
+    // .jokes__search
+
+    &__search {}
+
+    // .jokes__search--input
+
+    &__search--input {}
+
+    // .jokes__get--button
+
+    &__get--button {}
+
+    // .jokes__last
+
+    &__last {}
+}
+
+.history {
+
+    // .history__block
+
+    &__block {}
+
+    // .history__header
+
+    &__header {}
+
+    // .history__flex
+
+    &__flex {}
+}

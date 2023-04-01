@@ -1,0 +1,38 @@
+@import url(reset.css);
+body {
+  font-family: "Roboto", sans-serif;
+  color: #333333;
+}
+
+.content__container {
+  width: 1440px;
+  margin: 0 auto;
+  display: flex;
+  justify-content: space-between;
+}
+
+.jokes__block {
+  padding: 40px 140px;
+}
+.jokes__year {
+  font-style: normal;
+  font-weight: 700;
+  font-size: 20px;
+  line-height: 28px;
+  margin-bottom: 78px;
+}
+.jokes__header {
+  font-weight: 700;
+  font-size: 32px;
+  line-height: 44px;
+}
+.jokes__heades--second {
+  font-weight: 500;
+  font-size: 24px;
+  line-height: 44px;
+  margin-bottom: 43px;
+}
+.jokes__form {
+  font-size: 18px;
+  line-height: 26px;
+}/*# sourceMappingURL=style.css.map */
