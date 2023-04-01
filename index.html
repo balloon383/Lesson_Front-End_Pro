@@ -25,20 +25,38 @@
                 </h3>
                 <form action="#" class="jokes__form">
                     <ul>
-                        <li>
-                            <input type="radio" name="jokes__radio" class="jokes__random">
+                        <li class="jokes__list--random">
+                            <input type="radio" name="jokes__radio" class="jokes__radio" value="random">
                             <label for="jokes__radio">Random</label>
                         </li>
-                        <li>
-                            <input type="radio" name="jokes__radio" class="jokes__categories">From categories</input>
-                            <input type="checkbox" class="jokes__categories--animal">animal</input>
-                            <input type="checkbox" class="jokes__categories--animal">career</input>
-                            <input type="checkbox" class="jokes__categories--animal">celebrity</input>
-                            <input type="checkbox" class="jokes__categories--animal">dev</input>
+                        <li class="jokes__list--categories">
+                            <input type="radio" name="jokes__radio" class="jokes__categories jokes__radio">From categories</input>
+                            <ul class="jokes__ul--second">
+                                <li>
+                                    <input type="radio" name="jokes__category" class="jokes__categories--category">
+                                    <label for="jokes__category" class="jokes__categories--category-label">animal</label>
+                                </li>
+                                <li>
+                                    <input type="radio" name="jokes__category" class="jokes__categories--category">
+                                    <label for="jokes__category" class="jokes__categories--category-label">career</label>
+                                </li>
+                                <li>
+                                    <input type="radio" name="jokes__category" class="jokes__categories--category">
+                                    <label for="jokes__category" class="jokes__categories--category-label">celebrity</label>
+                                </li>
+                                <li>
+                                    <input type="radio" name="jokes__category" class="jokes__categories--category">
+                                    <label for="jokes__category " class="jokes__categories--category-label">dev</label>
+                                </li>
+                            </ul>
                         </li>
-                        <li>
-                            <input type="radio" class="jokes__search" name="jokes__radio">Search</input>
-                            <input type="text" class="jokes__search--input" placeholder="Free text search..."></input>
+                        <li class="jokes__list--search ">
+                            <input type="radio" class="jokes__search jokes__radio" name="jokes__radio"> Search</input>
+                            <ul>
+                                <li>
+                                    <input type="text" class="jokes__search--input" placeholder="Free text search..."></input>  
+                                </li>
+                            </ul>
                         </li>
                     </ul>
                 </form>
