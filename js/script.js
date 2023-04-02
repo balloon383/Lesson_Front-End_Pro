@@ -3,6 +3,7 @@ let randomJokeSelector = document.querySelector(".jokes__radio--random");
 let categoriesJokeSelector = document.querySelectorAll(
   ".jokes__categories--category"
 );
+let searchJokeRadio = document.querySelector("jokes__search");
 let searchJokeSelector = document.querySelector(".jokes__search--input");
 let sendButtonSelector = document.querySelector(".jokes__get--button");
 let jokesForm = document.querySelector(".jokes__form");
@@ -36,21 +37,18 @@ function valueValidation(value) {
 let getJokes = (value, keyWord) => {
   let newJoke;
   if (value[0].value === "random") {
-    fetch(`https://api.chucknorris.io/jokes/random`).then((result) => {
-      console.log(result);
-    });
+    fetch(`https://api.chucknorris.io/jokes/random`)
+      .then((res) => res.json())
+      .then((res) => console.log(res.value))
   } else if (value[0].value === "categories") {
-    fetch(`https://api.chucknorris.io/jokes/random?category=${keyWord}`).then(
-      (result) => {
-        console.log(result);
-      }
-    );
+    fetch(`https://api.chucknorris.io/jokes/random?category=${keyWord}`)
+      .then((res) => res.json())
+      .then((res) => console.log(res.value))
   } else if (value[0].value === "search") {
-    fetch(`https://api.chucknorris.io/jokes/search?query=${keyWord}`).then(
-      (result) => {
-        console.log(result);
-      }
-    );
+    fetch(`https://api.chucknorris.io/jokes/search?query=${keyWord}`)
+      .then((res) => res.json())
+      .then((res) => console.log(res.result[0].value))
+      .catch((error) => console.log(`Error: No jokes found`))
   }
 };
 function createJoke(joke) {
