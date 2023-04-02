@@ -26,11 +26,11 @@
                 <form action="#" class="jokes__form">
                     <ul>
                         <li class="jokes__list--random">
-                            <input type="radio" name="jokes__radio" class="jokes__radio" value="random">
+                            <input type="radio" name="jokes__radio" class="jokes__radio jokes__radio--random" value="random">
                             <label for="jokes__radio">Random</label>
                         </li>
                         <li class="jokes__list--categories">
-                            <input type="radio" name="jokes__radio" class="jokes__categories jokes__radio">From categories</input>
+                            <input type="radio" name="jokes__radio" class="jokes__categories jokes__radio" value="categories">From categories</input>
                             <ul class="jokes__ul--second">
                                 <li>
                                     <input type="radio" name="jokes__category" class="jokes__categories--category" value="animal">
@@ -51,7 +51,7 @@
                             </ul>
                         </li>
                         <li class="jokes__list--search ">
-                            <input type="radio" class="jokes__search jokes__radio" name="jokes__radio"> Search</input>
+                            <input type="radio" class="jokes__search jokes__radio" name="jokes__radio" value="search"> Search</input>
                             <ul>
                                 <li>
                                     <input type="text" class="jokes__search--input" placeholder="Free text search..."></input>  
