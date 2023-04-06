@@ -167,6 +167,58 @@ body{
     // .jokes__last
 
     &__last {}
+    
+         // .jokes__svg
+    
+    &__svg {
+        width: 35px;
+        height: 35px;
+
+    }
+    
+         // .jokes__id
+    
+    &__id {
+        color: #ABABAB;
+        font-weight: 500;
+        font-size: 10px;
+        line-height: 14px;
+    }
+    
+         // .jokes__joke
+    
+    &__joke {
+        font-size: 18px;
+        line-height: 26px;
+        color: #333333;
+        max-width: 540px;
+    }
+    
+         // .jokes__timer
+    
+    &__timer {
+        font-size: 10px;
+        line-height: 14px;
+        color: #ABABAB;
+    }
+    
+         // .jokes__category
+    
+    &__category {
+        font-weight: 500;
+        font-size: 10px;
+        line-height: 14px;
+        letter-spacing: 2px;
+        text-transform: uppercase;
+        color: #333333;
+        padding: 6px 20px;
+    }
+    &__field{
+        background: #F8F8F8;
+        border-radius: 20px;
+        margin-bottom: 20px;
+        padding: 67px 40px 45px;
+    }
 }
 
 .history {
