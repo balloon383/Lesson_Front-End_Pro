@@ -101,6 +101,9 @@ body {
   height: 28px;
   display: flex;
 }
+.jokes__list--search {
+  margin-bottom: 20px;
+}
 .jokes__search--input {
   padding: 10px 15px;
   border-radius: 6px;

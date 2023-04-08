@@ -9,7 +9,7 @@ let sendButtonSelector = document.querySelector(".jokes__get--button");
 let jokesForm = document.querySelector(".jokes__form");
 let jokesField = document.querySelector(".jokes__last");
 let favouriteBox = document.querySelector(".history__flex")
-let getStore = () => JSON.parse(localStorage.getItem('favourite'))
+let getStore = () => JSON.parse(localStorage.getItem('favourite')) ?? []
 
 
 function clickheart(joke) {
@@ -17,9 +17,10 @@ function clickheart(joke) {
   let heart = document.querySelector(".jokes__heart");
   heart.src = "./img/heart.svg";
   let store = getStore()
-  store.push({ joke, like: true})
-  localStorage.setItem('favourite', store)
-  createJoke({joke, like: true})
+  console.log(store)
+  store.push({...joke, like: true})
+  localStorage.setItem("favourite", JSON.stringify(store));
+  createJoke({...joke, like: true})
 }
 
 function checkFavourite() {
@@ -111,5 +112,13 @@ function createJoke(joke) {
   heart.addEventListener('click', () => {
     clickheart(joke)
   })
+
+  if (joke.like) {
+    favouriteBox.append(jokeBlock);
+    img.src = "./images/heart.svg";
+  } else {
+    markIfFavorite(joke, img);
+    content.append(p);
+  }
 }
 
