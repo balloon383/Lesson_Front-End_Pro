@@ -127,12 +127,16 @@ body {
   font-weight: 500;
   font-size: 10px;
   line-height: 14px;
+  position: relative;
+  margin-bottom: 5px;
+  text-decoration: none;
 }
 .jokes__joke {
   font-size: 18px;
   line-height: 26px;
   color: #333333;
   max-width: 540px;
+  margin-bottom: 28px;
 }
 .jokes__timer {
   font-size: 10px;
@@ -146,11 +150,53 @@ body {
   letter-spacing: 2px;
   text-transform: uppercase;
   color: #333333;
-  padding: 6px 20px;
+  padding: 5px 20px;
+  background-color: #fff;
+  border-radius: 6px;
 }
 .jokes__field {
   background: #F8F8F8;
   border-radius: 20px;
   margin-bottom: 20px;
-  padding: 67px 40px 45px;
+  padding: 67px 70px 45px;
+  position: relative;
+}
+.jokes__img {
+  position: absolute;
+  left: 0;
+  top: 0;
+  transform: translate(-50px, 0px);
+  padding: 10px;
+  background-color: #fff;
+  border-radius: 14px;
+}
+.jokes__id--svg {
+  position: relative;
+}
+.jokes__id--id {
+  color: #8EA7FF;
+  text-decoration: underline;
+}
+.jokes__info {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.jokes__heart {
+  position: absolute;
+  right: 0;
+  top: 0;
+  transform: translate(-40px, 40px);
+}
+
+.history__block {
+  background-color: #F8F8F8;
+  padding: 40px;
+  width: 480px;
+}
+.history__header {
+  font-weight: 500;
+  font-size: 20px;
+  line-height: 28px;
+  color: #ABABAB;
 }/*# sourceMappingURL=style.css.map */
