@@ -163,6 +163,7 @@ body {
   margin-bottom: 20px;
   padding: 67px 70px 45px;
   position: relative;
+  min-width: 540px;
 }
 .jokes__img {
   position: absolute;
@@ -195,11 +196,28 @@ body {
 .history__block {
   background-color: #F8F8F8;
   padding: 40px;
-  width: 480px;
+  min-width: 480px;
+  min-height: 100vh;
 }
 .history__header {
   font-weight: 500;
   font-size: 20px;
   line-height: 28px;
   color: #ABABAB;
+}
+.history__flex .jokes__field {
+  background: #FFFFFF;
+  border: 1px solid #F8F8F8;
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+  border-radius: 10px;
+}
+.history__flex .jokes__img {
+  background: #F8F8F8;
+}
+.history__flex .jokes__category {
+  display: none;
+}
+.history__flex .jokes__field {
+  min-width: auto;
+  max-width: 400px;
 }/*# sourceMappingURL=style.css.map */

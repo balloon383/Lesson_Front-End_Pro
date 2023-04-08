@@ -10,26 +10,28 @@ let jokesForm = document.querySelector(".jokes__form");
 let jokesField = document.querySelector(".jokes__last");
 let favouriteBox = document.querySelector(".history__flex")
 let getStore = () => JSON.parse(localStorage.getItem('favourite')) ?? []
+checkFavourite()
 
-
-function clickheart(joke) {
-  console.log(joke);
+function clickHeart(joke) {
   let heart = document.querySelector(".jokes__heart");
   heart.src = "./img/heart.svg";
   let store = getStore()
-  console.log(store)
   store.push({...joke, like: true})
   localStorage.setItem("favourite", JSON.stringify(store));
-  createJoke({...joke, like: true})
+  addFavourite()
 }
 
 function checkFavourite() {
   let store = JSON.parse(localStorage.getItem("favourite")) ?? [];
   store.forEach((joke) => createJoke(joke));
 }
-
-function addFavourite() {}
-function removeFavourite() { }
+function addFavourite() {
+  let favoriteJokeStorage = localStorage.getItem('favourite')
+  favoriteJokeStorage = JSON.parse(favoriteJokeStorage);
+  favoriteJokeStorage = favoriteJokeStorage[favoriteJokeStorage.length - 1];
+  createJoke(favoriteJokeStorage);
+}
+function removeFavourite() {}
 
 
 
@@ -88,7 +90,7 @@ let getJokes = (value, keyWord) => {
 };
 function createJoke(joke) {
   let jokeBlock = document.createElement("div");
-  let heart = document.createElement("img")
+  jokesField.innerHTML = "";
   jokeBlock.innerHTML = `
   <div class='jokes__field'>
     <span class='jokes__id--svg'>
@@ -101,24 +103,20 @@ function createJoke(joke) {
       <p class="jokes__timer">Last update:  hours ago</p>
       <p class="jokes__category">CAT</p>
     </span>
-    <span class='jokes__heart--container'></span>
+    <img class='jokes__heart' src = './img/Vector.svg'>
   </div>`;
-  heart.src = "./img/Vector.svg";
-  heart.classList.add(`jokes__heart`); 
-  jokesField.appendChild(jokeBlock)
-  let likeButtonContainer = document.querySelector(".jokes__heart--container");
-  likeButtonContainer.appendChild(heart);
-  jokeBlock.dataset.id = joke.id
-  heart.addEventListener('click', () => {
-    clickheart(joke)
-  })
-
   if (joke.like) {
-    favouriteBox.append(jokeBlock);
-    img.src = "./images/heart.svg";
+    favouriteBox.appendChild(jokeBlock);
   } else {
-    markIfFavorite(joke, img);
-    content.append(p);
+    jokesField.appendChild(jokeBlock);
   }
+  jokeBlock.dataset.id = joke.id
+  let jokesHeart = document.querySelector(".jokes__heart");
+  jokesHeart.addEventListener("click", () => {
+    jokesHeart.src = "./img/Heart.svg";
+    setTimeout(() => {
+      clickHeart(joke);
+    }, 200)
+  });
 }
 
