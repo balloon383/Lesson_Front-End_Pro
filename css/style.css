@@ -220,4 +220,7 @@ body {
 .history__flex .jokes__field {
   min-width: auto;
   max-width: 400px;
+}
+.history__flex .jokes__heart {
+  content: url(../img/heart.svg);
 }/*# sourceMappingURL=style.css.map */

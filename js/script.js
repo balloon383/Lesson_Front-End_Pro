@@ -12,13 +12,13 @@ let favouriteBox = document.querySelector(".history__flex")
 let getStore = () => JSON.parse(localStorage.getItem('favourite')) ?? []
 checkFavourite()
 
-function clickHeart(joke) {
+function clickHeart(joke, jokesHeart) {
   let heart = document.querySelector(".jokes__heart");
   heart.src = "./img/heart.svg";
-  let store = getStore()
-  store.push({...joke, like: true})
+  let store = getStore();
+  store.push({ ...joke, like: true });
   localStorage.setItem("favourite", JSON.stringify(store));
-  addFavourite()
+  addFavourite();
 }
 
 function checkFavourite() {
@@ -31,7 +31,10 @@ function addFavourite() {
   favoriteJokeStorage = favoriteJokeStorage[favoriteJokeStorage.length - 1];
   createJoke(favoriteJokeStorage);
 }
-function removeFavourite() {}
+function removeFavourite() {
+  let heart = document.querySelector(".jokes__heart");
+  console.log(heart)
+}
 
 
 
@@ -115,7 +118,7 @@ function createJoke(joke) {
   jokesHeart.addEventListener("click", () => {
     jokesHeart.src = "./img/Heart.svg";
     setTimeout(() => {
-      clickHeart(joke);
+      clickHeart(joke, jokesHeart);
     }, 200)
   });
 }

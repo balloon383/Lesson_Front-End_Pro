@@ -287,5 +287,8 @@ body{
             min-width: auto;
             max-width: 400px;
         }
+        & .jokes__heart{
+            content:url(../img/heart.svg);
+        }
     }
 }
