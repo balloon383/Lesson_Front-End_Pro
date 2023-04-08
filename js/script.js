@@ -8,6 +8,29 @@ let searchJokeSelector = document.querySelector(".jokes__search--input");
 let sendButtonSelector = document.querySelector(".jokes__get--button");
 let jokesForm = document.querySelector(".jokes__form");
 let jokesField = document.querySelector(".jokes__last");
+let favouriteBox = document.querySelector(".history__flex")
+let getStore = () => JSON.parse(localStorage.getItem('favourite'))
+
+
+function clickheart(joke) {
+  console.log(joke);
+  let heart = document.querySelector(".jokes__heart");
+  heart.src = "./img/heart.svg";
+  let store = getStore()
+  store.push({ joke, like: true})
+  localStorage.setItem('favourite', store)
+  createJoke({joke, like: true})
+}
+
+function checkFavourite() {
+  let store = JSON.parse(localStorage.getItem("favourite")) ?? [];
+  store.forEach((joke) => createJoke(joke));
+}
+
+function addFavourite() {}
+function removeFavourite() { }
+
+
 
 searchJokeSelector.style.display = "none";
 searchJokeRadio.addEventListener("change", () => {
@@ -84,11 +107,9 @@ function createJoke(joke) {
   jokesField.appendChild(jokeBlock)
   let likeButtonContainer = document.querySelector(".jokes__heart--container");
   likeButtonContainer.appendChild(heart);
-
-  let likeButton = document.querySelector(".jokes__heart");
-  likeJoke(likeButton);
-}
-function likeJoke(like) {
-  like.addEventListener
+  jokeBlock.dataset.id = joke.id
+  heart.addEventListener('click', () => {
+    clickheart(joke)
+  })
 }
 
