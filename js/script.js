@@ -8,44 +8,36 @@ let searchJokeSelector = document.querySelector(".jokes__search--input");
 let sendButtonSelector = document.querySelector(".jokes__get--button");
 let jokesForm = document.querySelector(".jokes__form");
 let jokesField = document.querySelector(".jokes__last");
-let favouriteBox = document.querySelector(".history__flex")
-let getStore = () => JSON.parse(localStorage.getItem('favourite')) ?? []
+let favoriteBox = document.querySelector(".history__flex");
+let getStore = () => JSON.parse(localStorage.getItem("favorite")) ?? [];
 checkFavourite()
 
-function clickHeart(joke, jokesHeart) {
-  let heart = document.querySelector(".jokes__heart");
-  heart.src = "./img/heart.svg";
-  let store = getStore();
+let addFavorite = (joke, store) => {
   store.push({ ...joke, like: true });
-  localStorage.setItem("favourite", JSON.stringify(store));
-  addFavourite();
-}
 
-function checkFavourite() {
-  let store = JSON.parse(localStorage.getItem("favourite")) ?? [];
-  store.forEach((joke) => createJoke(joke));
-}
-function addFavourite() {
-  let favoriteJokeStorage = localStorage.getItem('favourite')
-  favoriteJokeStorage = JSON.parse(favoriteJokeStorage);
-  favoriteJokeStorage = favoriteJokeStorage[favoriteJokeStorage.length - 1];
-  createJoke(favoriteJokeStorage);
-}
-function removeFavourite() {
-  let heart = document.querySelector(".jokes__heart");
-  console.log(heart)
-}
+  localStorage.setItem("favorite", JSON.stringify(store));
 
+  createJoke({ ...joke, like: true });
+};
 
+let removeFavorite = (joke, store) => {
+  let updatedStore = store.filter((el) => el.id !== joke.id);
+  localStorage.setItem("favorite", JSON.stringify(updatedStore));
+  favoriteBox.querySelector(`div[data-id="${joke.id}"]`).remove();
+  
+};
 
-searchJokeSelector.style.display = "none";
-searchJokeRadio.addEventListener("change", () => {
-  if (searchJokeRadio.checked) {
-    searchJokeSelector.style.display = "block";
-  } else if (!searchJokeRadio.checked) {
-    searchJokeSelector.style.display = "none";
+function clickHeart(joke) {
+  let heart = document.querySelector(`div[data-id="${joke.id}"] .jokes__heart`);
+  let store = getStore();
+  if (heart.src.includes("heart")) {
+    heart.src = "./img/Vector.svg";
+    removeFavorite(joke, store);
+  } else {
+    heart.src = "./img/heart.svg";
+    addFavorite(joke, store);
   }
-});
+}
 
 sendButtonSelector.addEventListener("click", (event) => {
   let chosenValue = [...jokesRadio].filter((el) => {
@@ -56,6 +48,7 @@ sendButtonSelector.addEventListener("click", (event) => {
   valueValidation(chosenValue);
   event.preventDefault();
 });
+
 
 function valueValidation(value) {
   let getterValue;
@@ -74,6 +67,7 @@ function valueValidation(value) {
   getJokes(value, getterValue);
   jokesForm.reset();
 }
+
 let getJokes = (value, keyWord) => {
   let newJoke;
   if (value[0].value === "random") {
@@ -91,8 +85,18 @@ let getJokes = (value, keyWord) => {
       .catch((error) => console.log(`Error: No jokes found`));
   }
 };
+let markFavorite = (joke, img) => {
+  let store = getStore();
+  store.findIndex((el) => el.id === joke.id) >= 0 &&
+    (img.src = "./img/heart.svg");
+};
+
+
 function createJoke(joke) {
   let jokeBlock = document.createElement("div");
+  let jokeLike = document.createElement("img");
+  jokeLike.src = "./img/Vector.svg";
+  jokeLike.classList.add("jokes__heart");
   jokesField.innerHTML = "";
   jokeBlock.innerHTML = `
   <div class='jokes__field'>
@@ -106,20 +110,26 @@ function createJoke(joke) {
       <p class="jokes__timer">Last update:  hours ago</p>
       <p class="jokes__category">CAT</p>
     </span>
-    <img class='jokes__heart' src = './img/Vector.svg'>
+    <p class='jokes__heart--box'></p>
   </div>`;
-  if (joke.like) {
-    favouriteBox.appendChild(jokeBlock);
-  } else {
-    jokesField.appendChild(jokeBlock);
-  }
-  jokeBlock.dataset.id = joke.id
-  let jokesHeart = document.querySelector(".jokes__heart");
-  jokesHeart.addEventListener("click", () => {
-    jokesHeart.src = "./img/Heart.svg";
-    setTimeout(() => {
-      clickHeart(joke, jokesHeart);
-    }, 200)
+  jokeBlock.dataset.id = joke.id;
+  jokeLike.addEventListener("click", () => {
+    clickHeart(joke);
   });
+  if (joke.like) {
+    jokeLike.src = "./img/heart.svg";
+    favoriteBox.append(jokeBlock);
+  } else {
+    markFavorite(joke, jokeLike);
+    jokesField.append(jokeBlock);
+  }
+  let jokesLikeBox = document.querySelector(`div[data-id="${joke.id}"] .jokes__heart--box`);
+  jokesLikeBox.appendChild(jokeLike);
 }
+
+function checkFavourite() {
+  let store = getStore();
+  store.forEach((joke) => createJoke(joke));
+}
+
 

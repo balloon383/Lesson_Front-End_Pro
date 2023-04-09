@@ -247,6 +247,13 @@ body{
         top: 0;
         transform: translate(-40px, 40px);
     }
+    &__heart--box img{
+        position: absolute;
+        right: 0;
+        top: 0;
+        transform: translate(-40px, 40px);
+    }
+
 }
 
 .history {

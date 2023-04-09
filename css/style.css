@@ -192,6 +192,12 @@ body {
   top: 0;
   transform: translate(-40px, 40px);
 }
+.jokes__heart--box img {
+  position: absolute;
+  right: 0;
+  top: 0;
+  transform: translate(-40px, 40px);
+}
 
 .history__block {
   background-color: #F8F8F8;
