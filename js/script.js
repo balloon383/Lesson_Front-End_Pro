@@ -12,6 +12,13 @@ let favoriteBox = document.querySelector(".history__flex");
 let getStore = () => JSON.parse(localStorage.getItem("favorite")) ?? [];
 checkFavourite()
 
+function timer(time) {
+  const startDate = new Date(time);
+  const now = new Date();
+  const elapsedTime = now.getTime() - startDate.getTime();
+  return (elapsedTime / 1000 / 60 / 60).toFixed();
+}
+
 let addFavorite = (joke, store) => {
   store.push({ ...joke, like: true });
 
@@ -98,20 +105,44 @@ function createJoke(joke) {
   jokeLike.src = "./img/Vector.svg";
   jokeLike.classList.add("jokes__heart");
   jokesField.innerHTML = "";
-  jokeBlock.innerHTML = `
+  if (joke.categories[0]) {
+    jokeBlock.innerHTML = `
   <div class='jokes__field'>
     <span class='jokes__id--svg'>
       <img class='jokes__img' src = './img/message.svg'>
-      <a href="#" class="jokes__id">ID: <span class='jokes__id--id'>${joke.id}</span></a>
+      <a href="#" class="jokes__id">ID: <span class='jokes__id--id'>${
+        joke.id
+      }</span></a>
       <img src = './img/link.svg'>
     </span>
     <p class="jokes__joke">${joke.value}</p>
     <span class='jokes__info'>
-      <p class="jokes__timer">Last update:  hours ago</p>
-      <p class="jokes__category">CAT</p>
+      <p class="jokes__timer">Last update: ${timer(
+        joke.created_at
+      )} hours ago</p>
+      <p class="jokes__category">${joke.categories[0]}</p>
     </span>
     <p class='jokes__heart--box'></p>
   </div>`;
+  } else {
+    jokeBlock.innerHTML = `
+  <div class='jokes__field'>
+    <span class='jokes__id--svg'>
+      <img class='jokes__img' src = './img/message.svg'>
+      <a href="#" class="jokes__id">ID: <span class='jokes__id--id'>${
+        joke.id
+      }</span></a>
+      <img src = './img/link.svg'>
+    </span>
+    <p class="jokes__joke">${joke.value}</p>
+    <span class='jokes__info'>
+      <p class="jokes__timer">Last update:  ${timer(
+        joke.created_at
+      )} hours ago</p>
+    </span>
+    <p class='jokes__heart--box'></p>
+  </div>`;
+  }
   jokeBlock.dataset.id = joke.id;
   jokeLike.addEventListener("click", () => {
     clickHeart(joke);
