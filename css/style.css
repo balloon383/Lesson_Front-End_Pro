@@ -1,1 +1,67 @@
-@import url(reset.css);
+body {
+  font-family: "Roboto", sans-serif;
+  color: #333333;
+}
+
+.header__hero {
+  text-align: center;
+}
+
+.content__container {
+  max-width: 1024px;
+  margin: 0 auto;
+}
+
+.hero__creation--container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 40px;
+}
+.hero__creation--form {
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+  text-align: center;
+  background: rgb(182, 182, 182);
+  padding: 20px;
+  border-radius: 12px;
+}
+.hero__cards--container {
+  display: flex;
+  justify-content: start;
+  gap: 40px;
+}
+.hero__form--submit {
+  border: none;
+  background-color: black;
+  color: red;
+  border-radius: 12px;
+  padding: 5px 12px;
+}
+.hero__card--form {
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  gap: 30px;
+}
+.hero__card {
+  text-align: center;
+  background: rgb(182, 182, 182);
+  padding: 20px;
+  border-radius: 12px;
+}
+.hero__card--delete {
+  border: none;
+  background-color: black;
+  color: red;
+  border-radius: 12px;
+  padding: 5px 12px;
+}
+.hero__card--update {
+  border: none;
+  background-color: black;
+  color: red;
+  border-radius: 12px;
+  padding: 5px 12px;
+}/*# sourceMappingURL=style.css.map */
