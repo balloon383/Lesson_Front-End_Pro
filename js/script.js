@@ -4,17 +4,15 @@ let heroFavourite = document.querySelector("#hero__checkbox");
 let heroButtonPut = document.querySelector('.hero__form--submit')
 let heroField = document.querySelector('.hero__cards--container');
 let heroCreationForm = document.querySelector(".hero__creation--form");
-
 heroButtonPut.addEventListener('click', (event) => {
-  event.preventDefault()
-  heroCreationForm.reset()
-  let newHero = {
+  let hero = {
     name: heroName.value,
     comics: heroUniverse.value,
     favourite: heroFavourite.checked,
   };
-  console.log(newHero)
-  createHero(newHero);
+  event.preventDefault();
+  heroCreationForm.reset();
+  createHero(hero);
 })
 
 async function createHero(hero) {
@@ -28,7 +26,6 @@ async function createHero(hero) {
       body: JSON.stringify(hero),
     }
   ).then((res) => res.json());
-  console.log(res)
   getHero(res);
 }
 
@@ -72,20 +69,20 @@ async function getHero(hero) {
       },
     }
   ).then((res) => res.json());
-  console.log(res)
   createHeroCard(res);
 }
 function createHeroCard(hero) {
   let newCard = document.createElement("div");
   newCard.classList.add("hero__card");
-  newCard.dataset.id = hero.id;
+ //if (!hero.id) {
+    newCard.dataset.id = hero.id;
+  //}
   newCard.innerHTML = `
     <form action="" class="hero__card--form">
         <label for="" class="hero__card--name-label">
             Name:
-            <input type="text" class="hero__card--name-input" value="${
-              hero.name
-            }">
+            <input type="text" class="hero__card--name-input" value="${hero.name
+    }">
         </label>
         <label for="universe--card">
             Comics:
@@ -100,11 +97,68 @@ function createHeroCard(hero) {
     </form>
   `;
   heroField.appendChild(newCard);
-  bindButtons(newCard);
-  console.log(newCard);
+  let deleteBtn = document.querySelector(
+    `div[data-id="${hero.id}"] .hero__card--delete`
+  );
+  let updateBtn = document.querySelector(
+    `div[data-id="${hero.id}"] .hero__card--update`
+  );
+  deleteBtn.addEventListener(`click`, (e) => {
+    e.preventDefault()
+    console.log(`clicked delete`);
+    deleteElement(hero);
+  })
+  updateBtn.addEventListener(`click`, (e) => {
+    e.preventDefault();
+    console.log(`clicked update`);
+    updateElement(hero);
+  });
 }
 
-async function bindButtons(newCard) {
-  let localDelete = document;
-  console.log(localDelete);
+async function deleteElement(hero) {
+  let element = await fetch(
+    `https://63693f7228cd16bba71904e4.mockapi.io/universes/${hero.id}`,
+    {
+      method: "DELETE",
+    }
+  ).then((res) => res.json());
+  renderCards();
+  location.reload();
 }
+async function updateElement(hero) {
+  let newName = document.querySelector(
+    `div[data-id="${hero.id}"] .hero__card--name-input`
+  );
+  let newUniverse = document.querySelector(
+    `div[data-id="${hero.id}"] .hero__card--select`
+  );
+  let newFavourite = document.querySelector(
+    `div[data-id="${hero.id}"] #hero__card--checkbox`
+  );
+  let newHero = {
+    name: newName.value,
+    comics: newUniverse.value,
+    favourite: newFavourite.checked,
+  };
+  let element = await fetch(
+    `https://63693f7228cd16bba71904e4.mockapi.io/universes/${hero.id}`,
+    {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(newHero),
+    }
+  ).then((res) => res.json());
+  renderCards();
+  location.reload();
+}
+
+async function renderCards() {
+  let render = await fetch("https://63693f7228cd16bba71904e4.mockapi.io/universes").then(res => res.json());
+  for (let i = 0; i < 9; i++){
+    if (render[i]) createHeroCard(render[i]);
+  }
+}
+renderCards();
+
