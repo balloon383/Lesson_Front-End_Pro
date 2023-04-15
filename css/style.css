@@ -29,8 +29,9 @@ body {
 }
 .hero__cards--container {
   display: flex;
-  justify-content: start;
+  justify-content: center;
   gap: 40px;
+  flex-wrap: wrap;
 }
 .hero__form--submit {
   border: none;

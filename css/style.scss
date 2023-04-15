@@ -60,8 +60,9 @@ body {
 
     &__cards--container {
         display: flex;
-        justify-content: start;
+        justify-content: center;
         gap: 40px;
+        flex-wrap: wrap;
     }
     &__form--submit{
         border: none;

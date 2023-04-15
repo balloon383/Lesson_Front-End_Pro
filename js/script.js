@@ -10,14 +10,22 @@ heroButtonPut.addEventListener('click', (event) => {
     comics: heroUniverse.value,
     favourite: heroFavourite.checked,
   };
+  getNames(hero)
   event.preventDefault();
   heroCreationForm.reset();
-  createHero(hero);
 })
-
+async function getNames(hero) {
+  const heroes = await fetch("https://63693f7228cd16bba71904e4.mockapi.io/heroes").then(res => res.json());
+  
+  const heroNames = heroes.map(el => el.name);
+  
+  if (!heroNames.includes(hero.name)) {
+    createHero(hero);
+  }
+}
 async function createHero(hero) {
   let res = await fetch(
-    "https://63693f7228cd16bba71904e4.mockapi.io/universes",
+    " https://63693f7228cd16bba71904e4.mockapi.io/heroes",
     {
       method: "POST",
       headers: {
@@ -61,7 +69,7 @@ function renderFavorite(hero) {
 
 async function getHero(hero) {
   let res = await fetch(
-    `https://63693f7228cd16bba71904e4.mockapi.io/universes/${hero.id}`,
+    `https://63693f7228cd16bba71904e4.mockapi.io/heroes/${hero.id}`,
     {
       method: "GET",
       headers: {
@@ -74,9 +82,7 @@ async function getHero(hero) {
 function createHeroCard(hero) {
   let newCard = document.createElement("div");
   newCard.classList.add("hero__card");
- //if (!hero.id) {
-    newCard.dataset.id = hero.id;
-  //}
+  newCard.dataset.id = hero.id;
   newCard.innerHTML = `
     <form action="" class="hero__card--form">
         <label for="" class="hero__card--name-label">
@@ -117,7 +123,7 @@ function createHeroCard(hero) {
 
 async function deleteElement(hero) {
   let element = await fetch(
-    `https://63693f7228cd16bba71904e4.mockapi.io/universes/${hero.id}`,
+    ` https://63693f7228cd16bba71904e4.mockapi.io/heroes/${hero.id}`,
     {
       method: "DELETE",
     }
@@ -141,7 +147,7 @@ async function updateElement(hero) {
     favourite: newFavourite.checked,
   };
   let element = await fetch(
-    `https://63693f7228cd16bba71904e4.mockapi.io/universes/${hero.id}`,
+    `https://63693f7228cd16bba71904e4.mockapi.io/heroes/${hero.id}`,
     {
       method: "PUT",
       headers: {
@@ -155,10 +161,17 @@ async function updateElement(hero) {
 }
 
 async function renderCards() {
-  let render = await fetch("https://63693f7228cd16bba71904e4.mockapi.io/universes").then(res => res.json());
-  for (let i = 0; i < 9; i++){
+  let render = await fetch("https://63693f7228cd16bba71904e4.mockapi.io/heroes").then(res => res.json());
+  for (let i = 0; i < 20; i++){
     if (render[i]) createHeroCard(render[i]);
   }
 }
-renderCards();
+async function getUniverses() {
+  let render = await fetch(" https://63693f7228cd16bba71904e4.mockapi.io/universes").then(res => res.json());
+  
+  return render
+}
+
+
+renderCards()
 
