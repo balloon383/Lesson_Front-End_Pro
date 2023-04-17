@@ -21,9 +21,7 @@ function timer(time) {
 
 let addFavorite = (joke, store) => {
   store.push({ ...joke, like: true });
-
   localStorage.setItem("favorite", JSON.stringify(store));
-
   createJoke({ ...joke, like: true });
 };
 
@@ -31,7 +29,6 @@ let removeFavorite = (joke, store) => {
   let updatedStore = store.filter((el) => el.id !== joke.id);
   localStorage.setItem("favorite", JSON.stringify(updatedStore));
   favoriteBox.querySelector(`div[data-id="${joke.id}"]`).remove();
-  
 };
 
 function clickHeart(joke) {
@@ -104,10 +101,10 @@ function createJoke(joke) {
   let jokeLike = document.createElement("img");
   jokeLike.src = "./img/Vector.svg";
   jokeLike.classList.add("jokes__heart");
-  jokesField.innerHTML = "";
+  //jokesField.innerHTML = "";
   if (joke.categories[0]) {
     jokeBlock.innerHTML = `
-  <div class='jokes__field'>
+  <div class='jokes__field'>    
     <span class='jokes__id--svg'>
       <img class='jokes__img' src = './img/message.svg'>
       <a href="#" class="jokes__id">ID: <span class='jokes__id--id'>${
@@ -150,12 +147,16 @@ function createJoke(joke) {
   if (joke.like) {
     jokeLike.src = "./img/heart.svg";
     favoriteBox.append(jokeBlock);
+    let jokesLikeBox = document.querySelector(`.history__flex div[data-id="${joke.id}"] .jokes__heart--box`);
+    jokesLikeBox.appendChild(jokeLike);
   } else {
     markFavorite(joke, jokeLike);
     jokesField.append(jokeBlock);
+    let jokesLikeBox = document.querySelector(`div[data-id="${joke.id}"] .jokes__heart--box`);
+    jokesLikeBox.appendChild(jokeLike);
   }
-  let jokesLikeBox = document.querySelector(`div[data-id="${joke.id}"] .jokes__heart--box`);
-  jokesLikeBox.appendChild(jokeLike);
+  
+  
 }
 
 function checkFavourite() {
