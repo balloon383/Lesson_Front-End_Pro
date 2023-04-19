@@ -5,9 +5,42 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="./css/style.css">
 </head>
-<body>
-    Lesson hillel Front-end Pro
+    <header class="header">
+        <h1 class="header__hero">Heroes</h1>
+    </header>
+    <main class="main">
+        <section class="content__container">
+            <section class="hero__creation--container">
+                <form action="" class="hero__creation--form">
+                    <label for="" class="hero__name--label">
+                        Name:
+                        <input type="text" class="hero__name--input">
+                    </label>
+                    <label for="universe">
+                        Comics:
+                        <select name="universe" class="hero__select">
+                            <option value="DC">DC</option>
+                            <option value="Marvel">Marvel</option>
+                        </select>
+                    </label>
+                    <label for="hero__checkbox">
+                        Favourite:
+                        <input type="checkbox" name="hero__checkbox" id="hero__checkbox">
+                    </label>
+                    <button type="submit" class="hero__form--submit">Add</button>
+                </form>
+
+            </section>
+            <section class="hero__cards--container">
+                
+            </section>
+        </section>
+    </main>
     <script src="./js/script.js"></script>
 </body>
 </html>

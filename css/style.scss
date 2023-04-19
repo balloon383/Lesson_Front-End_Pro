@@ -1,0 +1,100 @@
+body {
+    font-family: 'Roboto', sans-serif;
+    color: #333333
+}
+.header {
+
+    // .header__hero
+
+    &__hero {
+        text-align: center;
+
+    }
+}
+.content {
+
+    // .content__container
+
+    &__container {
+        max-width: 1024px;
+        margin: 0 auto;
+    }
+}
+
+.hero {
+
+    // .hero__creation--container
+
+    &__creation--container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin-bottom: 40px;
+    }
+
+    // .hero__creation--form
+
+    &__creation--form {
+        display: flex;
+        flex-direction: column;
+        gap: 30px;
+        text-align: center;
+        background: rgb(182, 182, 182);
+        padding: 20px;
+        border-radius: 12px;
+    }
+
+    // .hero__name--label
+
+    &__name--label {}
+
+    // .hero__select
+
+    &__select {}
+
+    // .hero__checkbox
+
+    &__checkbox {}
+
+    // .hero__cards--container
+
+    &__cards--container {
+        display: flex;
+        justify-content: center;
+        gap: 40px;
+        flex-wrap: wrap;
+    }
+    &__form--submit{
+        border: none;
+        background-color: black;
+        color: red;
+        border-radius: 12px;
+        padding: 5px 12px;
+    }
+    &__card--form{
+        display: flex;
+        flex-direction: column;
+        text-align: center;
+        gap: 30px;
+    }
+    &__card{
+        text-align: center;
+        background: rgb(182, 182, 182);
+        padding: 20px;
+        border-radius: 12px;
+    }
+    &__card--delete{
+        border: none;
+        background-color: black;
+        color: red;
+        border-radius: 12px;
+        padding: 5px 12px;
+    }
+    &__card--update{
+        border: none;
+        background-color: black;
+        color: red;
+        border-radius: 12px;
+        padding: 5px 12px;
+    }
+}
