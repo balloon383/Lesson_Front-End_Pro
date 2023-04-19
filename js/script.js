@@ -111,25 +111,23 @@ function createHeroCard(hero) {
   );
   deleteBtn.addEventListener(`click`, (e) => {
     e.preventDefault()
-    console.log(`clicked delete`);
     deleteElement(hero);
   })
   updateBtn.addEventListener(`click`, (e) => {
     e.preventDefault();
-    console.log(`clicked update`);
     updateElement(hero);
   });
 }
 
 async function deleteElement(hero) {
-  console.log(hero)
+  let delElement = document.querySelector(`div[data-id="${hero.id}"]`)
+  delElement.remove()
   let element = await fetch(
     ` https://63693f7228cd16bba71904e4.mockapi.io/heroes/${hero.id}`,
     {
       method: "DELETE",
     }
   ).then((res) => res.json());
-  renderCards();
 }
 async function updateElement(hero) {
   let newName = document.querySelector(
@@ -156,7 +154,6 @@ async function updateElement(hero) {
       body: JSON.stringify(newHero),
     }
   ).then((res) => res.json());
-  renderCards();
 }
 
 async function renderCards() {
