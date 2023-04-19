@@ -122,6 +122,7 @@ function createHeroCard(hero) {
 }
 
 async function deleteElement(hero) {
+  console.log(hero)
   let element = await fetch(
     ` https://63693f7228cd16bba71904e4.mockapi.io/heroes/${hero.id}`,
     {
@@ -129,7 +130,6 @@ async function deleteElement(hero) {
     }
   ).then((res) => res.json());
   renderCards();
-  location.reload();
 }
 async function updateElement(hero) {
   let newName = document.querySelector(
@@ -157,10 +157,10 @@ async function updateElement(hero) {
     }
   ).then((res) => res.json());
   renderCards();
-  location.reload();
 }
 
 async function renderCards() {
+  heroField.innerHTML = ``
   let render = await fetch("https://63693f7228cd16bba71904e4.mockapi.io/heroes").then(res => res.json());
   for (let i = 0; i < 20; i++){
     if (render[i]) createHeroCard(render[i]);
