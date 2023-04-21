@@ -7,7 +7,7 @@ $.ajax({
     method: "GET",
     dataType: "JSON",
     success: res =>{
-        renderColors(res)
+        renderButtons(res)
     }, 
     error: err => {
         console.log(err)
@@ -15,7 +15,7 @@ $.ajax({
 })
 
 
-function renderColors(data){
+function renderButtons(data){
     colorButtonsArr.each((i, el) => {
         $(el).css(`background-color`, `${data[i].color}`)
         $(el).on('click', () => {
