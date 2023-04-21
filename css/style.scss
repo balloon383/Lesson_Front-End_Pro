@@ -1,7 +1,44 @@
-@import url(reset.css);
-body{
-    font-family: 'Roboto', sans-serif;
-    color: #333333
+@import 'reset';
+.header {
+
+    // .header__logo
+
+    &__logo {
+        padding: 15px;
+    }
+}
+.main {
+    text-align: center;
+    // .main__name
+
+    &__name {
+        font-size: 24px;
+        line-height: 1;
+    }
+
+    // .main__header
+
+    &__header {
+        font-size: 50px;
+        margin-top: 5px;
+        font-weight: 500;
+        line-height: 1;
+        margin-bottom: 14px;
+    }
+
+    // .main__model
+
+    &__model {
+        font-size: 23px;
+    font-weight: 300;
+    margin-top: 5px;
+    line-height: 1;
+    color: #f35626;
+    background-image: -webkit-linear-gradient(74deg,#ff0000,#AF233E);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    -webkit-animation: hue 1s infinite linear;
+    }
 }
 
 .content {
@@ -9,293 +46,82 @@ body{
     // .content__container
 
     &__container {
-        width: 1440px;
+        width: 1200px;
         margin: 0 auto;
-        display: flex;
-        justify-content: space-between;
     }
 }
+.tesla {
 
-.jokes {
+    // .tesla__img--box
 
-    // .jokes__block
-
-    &__block {
-        padding: 40px 140px;
+    &__img--box {
     }
 
-    // .jokes__year
+    // .tesla__colors
 
-    &__year {
-        font-style: normal;
-        font-weight: 700;
-        font-size: 20px;
-        line-height: 28px;
-        margin-bottom: 78px;
+    &__colors {
     }
 
-    // .jokes__header
+    // .tesla__colors--name
 
-    &__header {
-        font-weight: 700;
-        font-size: 32px;
-        line-height: 44px;
-    }
-
-    // .jokes__heades--second
-
-    &__heades--second {
-        font-weight: 500;
-        font-size: 24px;
-        line-height: 44px;
-        margin-bottom: 43px;
-
-    }
-
-    // .jokes__form
-
-    &__form {
-        font-size: 18px;
-        line-height: 26px;
-    }
-
-    // .jokes__random
-    &__radio{
-        position: relative;
-            color: black;
-            appearance: none;
-            border: 2px solid black;
-            border-radius: 50%;
-            width: 20px;
-            height: 20px;
-            transition: all 0.3s ease-in-out;
-            transform: translate(0, 3px);
-        
-            &:checked::before {
-                content: '';
-                width: 13px;
-                height: 13px;
-                position: absolute;
-                left: 0;
-                top: 0;
-                background-color: black;
-                border-radius: 50%;
-                transform: translate(1.95px, 1.55px);
-            }
-    }
-
-    // .jokes__categories
-
-    &__categories {
-
-        &:checked + .jokes__ul--second{
-            display: flex;
-        }
-    }
-    
-    // .jokes__categories--animal
-    
-    &__categories--category {
-        appearance: none;
-        position: relative;
-        cursor: pointer;
-        width: 65px;
-        height: 28px;
-        z-index: 15;
-        &:checked + label {
-            color: #333333;
-            border-color: #333333;
-        }
-    }   
-    &__categories--category-label{
-        text-transform: uppercase;
-        font-weight: 500;
-        font-size: 12px;
-        line-height: 16px;
-        color: #ABABAB;
-        position: absolute;
-        border: 1px solid #ABABAB;
-        border-radius: 6px;
-        padding: 6px 5px;
-        width: 65px;
+    &__colors--name {
         text-align: center;
-    }
-    // jokes__search
-    &__ul--second{
-        display: none;
-        margin: 20px 0 20px;
-        gap: 20px;
-        & li{
-            position: relative;
-            width: 65px;
-            height: 28px;
-            display: flex;
-        }
-    }
-    &__list--search{
-        margin-bottom: 20px;
-    }
-    // .jokes__search--input
-
-    &__search--input {
-        padding: 10px 15px;
-        border-radius: 6px;
-        border: 1px solid #ABABAB;
-        margin: 20px 0px;
-        display: block;
-        width: 100%;
+        color: #cccccc;
+        font-size: 15px;
+        margin-bottom: 25px;
     }
 
-    // .jokes__get--button
+    // .tesla__colors--box
 
-    &__get--button {
-        cursor: pointer;
-        background: linear-gradient(90.55deg, #8EA7FF 0%, #7291FF 100%);
-        border-radius: 10px;
-        border: none;
-        padding: 10px 40px;
-        color: white;
-        margin-bottom: 50px;
-    }
-
-    // .jokes__last
-
-    
-         // .jokes__svg
-    
-    &__svg {
-        width: 35px;
-        height: 35px;
-
-    }
-    
-         // .jokes__id
-    
-    &__id {
-        color: #ABABAB;
-        font-weight: 500;
-        font-size: 10px;
-        line-height: 14px;
-        position: relative;
-        margin-bottom: 5px;
-        text-decoration: none;
-    }
-    
-         // .jokes__joke
-    
-    &__joke {
-        font-size: 18px;
-        line-height: 26px;
-        color: #333333;
-        max-width: 540px;
-        margin-bottom: 28px;
-    }
-    
-         // .jokes__timer
-    
-    &__timer {
-        font-size: 10px;
-        line-height: 14px;
-        color: #ABABAB;
-    }
-    
-         // .jokes__category
-    
-    &__category {
-        font-weight: 500;
-        font-size: 10px;
-        line-height: 14px;
-        letter-spacing: 2px;
-        text-transform: uppercase;
-        color: #333333;
-        padding: 5px 20px;
-        background-color: #fff;
-        border-radius: 6px;
-    }
-    &__field{
-        background: #F8F8F8;
-        border-radius: 20px;
-        margin-bottom: 20px;
-        padding: 67px 70px 45px;
-        position: relative; 
-        min-width: 540px;
-    }
-    &__img{
-        position: absolute;
-        left: 0;
-        top: 0;
-        transform: translate(-50px, 0px );
-        padding: 10px;
-        background-color: #fff;
-        border-radius: 14px;
-    }
-    &__id--svg{
-        position: relative;
-    }
-    &__id--id{
-        color: #8EA7FF;
-        text-decoration: underline;
-    }
-    &__info{
+    &__colors--box {
         display: flex;
-        justify-content: space-between;
-        align-items: center;
-    }
-    &__heart{
-        position: absolute;
-        right: 0;
-        top: 0;
-        transform: translate(-40px, 40px);
-    }
-    &__heart--box img{
-        position: absolute;
-        right: 0;
-        top: 0;
-        transform: translate(-40px, 40px);
+        column-gap: 10px;
+        justify-content: center;
+        margin-bottom: 60px;
     }
 
+    // .tesla__color
+
+    &__color {
+        width: 25px;
+        height: 35px;
+    }
 }
+.footer {
 
-.history {
-    // .history__block
-
-    &__block {
-        background-color: #F8F8F8;
-        padding: 40px;
-        min-width: 480px;
-        min-height: 100vh;
+    // .footer__more
+    text-align: center;
+    &__more {
+        margin-bottom: 5px;
     }
 
-    // .history__header
+    // .footer__ul
 
-    &__header {
-        font-weight: 500;
-        font-size: 20px;
-        line-height: 28px;
-        color: #ABABAB;
+    &__ul {
+        display: flex;
+        justify-content: center;
+        column-gap: 5px;
+        margin-bottom: 5px;
     }
 
-    // .history__flex
+    // .footer__li
 
-    &__flex {
-        & .jokes__field{
-            background: #FFFFFF;
-            border: 1px solid #F8F8F8;
-            box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
-            border-radius: 10px;
+    &__li {
+        border-right: 1px solid black;
+        padding-right: 5px;
+        &:last-child{
+            border: none;
         }
-        & .jokes__img{
-            background: #F8F8F8;
-        }
-        & .jokes__category{
-            display: none;
-        }
-        & .jokes__field{
-            min-width: auto;
-            max-width: 400px;
-        }
-        & .jokes__heart{
-            content:url(../img/heart.svg);
-        }
+
+    }
+
+    // .footer__li-a
+
+    &__li-a {
+    }
+
+    // .footer__fun
+
+    &__fun {
     }
 }
