@@ -7,40 +7,6 @@
         padding: 15px;
     }
 }
-.main {
-    text-align: center;
-    // .main__name
-
-    &__name {
-        font-size: 24px;
-        line-height: 1;
-    }
-
-    // .main__header
-
-    &__header {
-        font-size: 50px;
-        margin-top: 5px;
-        font-weight: 500;
-        line-height: 1;
-        margin-bottom: 14px;
-    }
-
-    // .main__model
-
-    &__model {
-        font-size: 23px;
-    font-weight: 300;
-    margin-top: 5px;
-    line-height: 1;
-    color: #f35626;
-    background-image: -webkit-linear-gradient(74deg,#ff0000,#AF233E);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    -webkit-animation: hue 1s infinite linear;
-    }
-}
-
 .content {
 
     // .content__container
@@ -48,80 +14,5 @@
     &__container {
         width: 1200px;
         margin: 0 auto;
-    }
-}
-.tesla {
-
-    // .tesla__img--box
-
-    &__img--box {
-    }
-
-    // .tesla__colors
-
-    &__colors {
-    }
-
-    // .tesla__colors--name
-
-    &__colors--name {
-        text-align: center;
-        color: #cccccc;
-        font-size: 15px;
-        margin-bottom: 25px;
-    }
-
-    // .tesla__colors--box
-
-    &__colors--box {
-        display: flex;
-        column-gap: 10px;
-        justify-content: center;
-        margin-bottom: 60px;
-    }
-
-    // .tesla__color
-
-    &__color {
-        width: 25px;
-        height: 35px;
-    }
-}
-.footer {
-
-    // .footer__more
-    text-align: center;
-    &__more {
-        margin-bottom: 5px;
-    }
-
-    // .footer__ul
-
-    &__ul {
-        display: flex;
-        justify-content: center;
-        column-gap: 5px;
-        margin-bottom: 5px;
-    }
-
-    // .footer__li
-
-    &__li {
-        border-right: 1px solid black;
-        padding-right: 5px;
-        &:last-child{
-            border: none;
-        }
-
-    }
-
-    // .footer__li-a
-
-    &__li-a {
-    }
-
-    // .footer__fun
-
-    &__fun {
     }
 }

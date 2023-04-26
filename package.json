@@ -1,0 +1,22 @@
+{
+  "name": "lesson-front-end-pro",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/balloon383/Lesson_Front-End_Pro.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/balloon383/Lesson_Front-End_Pro/issues"
+  },
+  "homepage": "https://github.com/balloon383/Lesson_Front-End_Pro#readme",
+  "dependencies": {
+    "jquery": "^3.6.4"
+  }
+}
