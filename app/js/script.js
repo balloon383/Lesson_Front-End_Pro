@@ -67,22 +67,23 @@ function fillCategory(categories, categoryName, products) {
                     }</h3>
                     <ul class="main__category--card-ul">
                         <li class="main__category--card-li"><span class='main__category--card-li-sale'>$${
-                          products[i].price
-                        }
-                        </span>$${
-                          products[i].price -
-                          (products[i].price * products[i].salePercent) / 100
-                        }
-                <span class='main__category--card-li-salePercent'>-${
-                  products[i].salePercent
-                }%</span>
-                </li>
+                              products[i].price
+                            }
+                            </span>$${
+                              products[i].price -
+                              (products[i].price * products[i].salePercent) / 100
+                            }
+                            <span class='main__category--card-li-salePercent'>-${
+                              products[i].salePercent
+                            }%</span>
+                        </li>
                         <li class="main__category--card-li"><img class="main__category--card-li-img" src="./img/shopping-cart.png" alt="shopping cart" width="25px" height="25px"></li>
                     </ul>
                 </section>
             `;
             }
-            
+            let shoppingCart = document.querySelector(`section[data-id="${products[i].id}"]`);
+            console.log(shoppingCart);
             category.append(el)
         }
     }
