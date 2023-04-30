@@ -1,4 +1,6 @@
 let categoryField = document.querySelector(".main__container");
+let getStore = () => JSON.parse(localStorage.getItem("shoppingCart")) ?? [];
+let cartCount = document.querySelector(".header__shoppingcart--counter");
 getCategories();
 
 async function getCategories() {
@@ -52,7 +54,7 @@ function fillCategory(categories, categoryName, products) {
                     <h3 class="main__category--card-header">${products[i].title}</h3>
                     <ul class="main__category--card-ul">
                         <li class="main__category--card-li">$${products[i].price}</li>
-                        <li class="main__category--card-li"><img src="./img/shopping-cart.png" alt="shopping cart" width="25px" height="25px"></li>
+                        <li class="main__category--card-li main__category--card-li-button"><img src="./img/shopping-cart.png" alt="shopping cart" width="25px" height="25px"></li>
                     </ul>
                 </section>
             `;
@@ -67,24 +69,59 @@ function fillCategory(categories, categoryName, products) {
                     }</h3>
                     <ul class="main__category--card-ul">
                         <li class="main__category--card-li"><span class='main__category--card-li-sale'>$${
-                              products[i].price
-                            }
+                          products[i].price
+                        }
                             </span>$${
                               products[i].price -
-                              (products[i].price * products[i].salePercent) / 100
+                              (products[i].price * products[i].salePercent) /
+                                100
                             }
                             <span class='main__category--card-li-salePercent'>-${
                               products[i].salePercent
                             }%</span>
                         </li>
-                        <li class="main__category--card-li"><img class="main__category--card-li-img" src="./img/shopping-cart.png" alt="shopping cart" width="25px" height="25px"></li>
+                        <li class="main__category--card-li main__category--card-li-button"><img class="main__category--card-li-img" src="./img/shopping-cart.png" alt="shopping cart" width="25px" height="25px"></li>
                     </ul>
                 </section>
             `;
             }
-            let shoppingCart = document.querySelector(`section[data-id="${products[i].id}"]`);
-            console.log(shoppingCart);
             category.append(el)
+            let toCartButton = document.querySelector(
+              `section[data-id="${products[i].id}"] .main__category--card-li-button`
+            );
+            toCartButton.addEventListener('click', (el) => {
+                if (toCartButton.classList.contains("main__category--card-li-button-in")) {
+                    toCartButton.classList.remove(
+                      "main__category--card-li-button-in"
+                    );
+                    removeFromCart(products[i]);
+                } else {
+                    toCartButton.classList.add(
+                      "main__category--card-li-button-in"
+                    );
+                    addToCart(products[i]);
+                }
+                
+            })
         }
     }
+}
+
+let addToCart = (goods, store) => {
+    store = getStore();
+    store.push({ ...goods });
+    localStorage.setItem("shoppingCart", JSON.stringify(store));
+    changeCartCounter();
+};
+
+let removeFromCart = (goods, store) => {
+    store = getStore();
+    updatedStore = store.filter(el => el.id !== goods.id)
+    localStorage.setItem("shoppingCart", JSON.stringify(updatedStore));
+    changeCartCounter();
+};
+
+function changeCartCounter() {
+    store = getStore();
+    cartCount.innerText = store.length;
 }
