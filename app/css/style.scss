@@ -56,6 +56,7 @@ a{
         display: flex;
         align-items: center;
         column-gap: 5px;
+        position: relative;
         &:nth-child(1){
             border-right: 1px solid black;
             padding-right: 10px;
@@ -67,8 +68,21 @@ a{
     &__nav--user {
     }
     &__shoppingcart{
-        position: relative;
-
+    }
+    &__shoppingcart--counter{
+        position: absolute;
+        right: 0;
+        top: 0;
+        background-color: #fff;
+        border-radius: 50%;
+        width: 22px;
+        height: 22px;
+        transform: translate(7px, -4px);
+        color: #1a9c00bb;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-weight: 700;
     }
     &__logout{
         display: none;
@@ -85,10 +99,10 @@ a{
     // .main__category
 
     &__category {
-
+        margin-bottom: 40px;
     }
     &__category--name {
-        margin-bottom: 30px;
+        margin-bottom: 20px;
         font-weight: 700;
         font-size: 26px;
     }
@@ -123,12 +137,44 @@ a{
     &__category--card-li{
         font-weight: 700;
         font-size: 20px;
+        position: relative;
         &:nth-child(2){
             padding: 3px 14px 2px 12px;
-            background-color: rgb(0, 178, 0);
             border-radius: 3px;
             cursor: pointer;
+            background-color: rgb(0, 178, 0);
         }
+    }
+    &__category--card-li-sale{
+        position: absolute;
+        left: 0;
+        top: 0;
+        font-weight: 400;
+        font-size: 16px;
+        color: gray;
+        transform: translate(0, -25px);
+        &::before{
+            content: '';
+            height: 1px;
+            display: block;
+            position: absolute;
+            left: 0;
+            right: 0;
+            background-color: gray;
+            transform: translate(0px, 6px);
+        }
+    }
+    &__category--card-li-salePercent{
+        font-weight: 700;
+        font-size: 16px;
+        position: absolute;
+        right: 0;
+        top: 0;
+        color: white;
+        padding: 3px;
+        border-radius: 4px;
+        background-color: rgb(0, 178, 0);
+        transform: translate(43px, -29px);
     }
 }
 .footer {
