@@ -22,6 +22,42 @@
             </nav>
         </section>
     </header>
-    <script src="../../js/script.js"></script>
+    <main class="main">
+        <section class="content__container main__flex--container">
+            <section class="main__login--container">
+                <h2 class="main__login--header main__header">
+                    Secure Sign In
+                </h2>
+                <h3 class="main__login--comment main__comment">
+                    For current customers
+                </h3>
+                <p class="main__error main__error--password">Invalid password.</p>
+                <p class="main__error main__error--email">Invalid login.</p>
+                <form action="GET" class="main__login--form">
+                    <input class="main__input main__login--email" type="email" name="email" placeholder="Email Address">
+                    <input class="main__input main__login--password" type="password" name="password" placeholder="Password">
+                </form>
+                <button class="main__button main__login--button">Sign in</button>
+            </section>
+            <section class="main__register--container">
+                <h2 class="main__register--header main__header">
+                    Quick Registration
+                </h2>
+                <h3 class="main__register--comment main__comment">
+                    For new customers
+                </h3>
+                <p class="main__error main__error--password-register">Passwords not matches, or shorter than 5 symbols</p>
+                <p class="main__error main__error--email-register">Invalid login, example: login@email.com</p>
+                <form class="main__register--form" action="PUT">
+                    <input class="main__input main__register--name" type="text" class="Full name" placeholder="Full name">
+                    <input class="main__input main__register--email" type="email" name="email" placeholder="Email Address">
+                    <input class="main__input main__register--password" type="password" name="password" placeholder="Password">
+                    <input class="main__input main__register--password-verify" type="password" name="password" placeholder="Verify Password">
+                </form>
+                <button class="main__button main__register--button">Create Account</button>
+            </section>
+        </section>
+    </main>
+    <script src="../../js/login.js"></script>
 </body>
 </html>

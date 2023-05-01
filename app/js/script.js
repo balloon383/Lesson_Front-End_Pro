@@ -1,5 +1,5 @@
 let categoryField = document.querySelector(".main__container");
-let getStore = () => JSON.parse(localStorage.getItem("shoppingCart")) ?? [];
+let getShoppingCart = () => JSON.parse(localStorage.getItem("shoppingCart")) ?? [];
 let cartCount = document.querySelector(".header__shoppingcart--counter");
 getCategories();
 
@@ -108,20 +108,20 @@ function fillCategory(categories, categoryName, products) {
 }
 
 let addToCart = (goods, store) => {
-    store = getStore();
+    store = getShoppingCart();
     store.push({ ...goods });
     localStorage.setItem("shoppingCart", JSON.stringify(store));
     changeCartCounter();
 };
 
 let removeFromCart = (goods, store) => {
-    store = getStore();
+    store = getShoppingCart();
     updatedStore = store.filter(el => el.id !== goods.id)
     localStorage.setItem("shoppingCart", JSON.stringify(updatedStore));
     changeCartCounter();
 };
 
 function changeCartCounter() {
-    store = getStore();
+    store = getShoppingCart();
     cartCount.innerText = store.length;
 }

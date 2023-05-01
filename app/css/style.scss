@@ -1,5 +1,5 @@
 @import 'reset';
-@import 'login';
+@import 'login.css';
 body{
     font-family: 'Montserrat', sans-serif;
     background-color: #ecececa7;
@@ -32,13 +32,6 @@ a{
         display: flex;
         justify-content: space-between;
         align-items: center;
-    }
-    &__logo {
-    }
-
-    // .header__nav
-
-    &__nav {
     }
 
     // .header__nav--ul
@@ -182,3 +175,4 @@ a{
 }
 .footer {
 }
+
