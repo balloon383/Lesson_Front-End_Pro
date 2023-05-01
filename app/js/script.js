@@ -1,8 +1,16 @@
 let categoryField = document.querySelector(".main__container");
 let getShoppingCart = () => JSON.parse(localStorage.getItem("shoppingCart")) ?? [];
+let getLoggedUser = () => JSON.parse(localStorage.getItem("loggedUser")) ?? [];
 let cartCount = document.querySelector(".header__shoppingcart--counter");
 getCategories();
-
+checkLoggedUser()
+function checkLoggedUser() {
+  let user = getLoggedUser()
+  console.log(user)
+  if (user.status === true) {
+    console.log('user logged')
+  }
+}
 async function getCategories() {
     let productsCategory = [];
     
@@ -18,8 +26,6 @@ async function getCategories() {
     return i === self.indexOf(el);
   });
     
-    console.log(productsCategory);
-    console.log(products)
     for (let i = 0; i < productsCategory.length; i++){
         createCategory(productsCategory[i], products);
         
@@ -125,3 +131,4 @@ function changeCartCounter() {
     store = getShoppingCart();
     cartCount.innerText = store.length;
 }
+

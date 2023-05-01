@@ -10,6 +10,7 @@ let errorPassword = document.querySelector(".main__error--password");
 let errorEmail = document.querySelector(".main__error--email");
 let errorPasswordRegister = document.querySelector(".main__error--password-register");
 let errorEmailRegister = document.querySelector(".main__error--email-register");
+let userExist = document.querySelector(".main__error--exist-register");
 const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 registerButton.addEventListener('click', () => {
     validateRegistration(
@@ -29,14 +30,37 @@ async function getUsers() {
     
     return users
   }
-
+async function changeStatus(id) {
+  let newStatus = {
+    status: "false",
+  };
+  let request = await fetch(
+      `https://634e9f834af5fdff3a625f84.mockapi.io/users/${id}`,
+      {
+        method: "PATCH",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(newStatus),
+      }).then(res => res.json())
+  console.log(request)
+}
 async function checkUser(email, password) {
   let usersArr = await getUsers()
   for (let i = 0; i < usersArr.length; i++) {
     if (email === usersArr[i].email) {
       if (password === usersArr[i].password) {
         console.log(`success`);
-        return;
+        changeStatus(usersArr[i].id);
+        let user = {
+          name: usersArr[i].name,
+          email: usersArr[i].email,
+          password: usersArr[i].password,
+          status: 'true',
+        };
+        localStorage.setItem("loggedUser", JSON.stringify(user));
+        window.location.replace("../../index.html");
+        return
       } else {
         errorEmail.classList.remove("main__error--email-display");
         errorPassword.classList.add("main__error--password-display");
@@ -46,6 +70,7 @@ async function checkUser(email, password) {
         errorPassword.classList.remove("main__error--password-display");
     }
   }
+
 }
 
 function validateRegistration(name, email, password, passwordVerify) {
@@ -74,12 +99,32 @@ function validateRegistration(name, email, password, passwordVerify) {
 }
 
 async function registerUser(name, email, password) {
-    let usersArr = await getUsers()
+  let usersArr = await getUsers()
+  let newUser = {}
     for(let i = 0; i < usersArr.length; i++){
       if(email === usersArr[i].email){
-        console.log('eq')
+        userExist.classList.add("main__error--exist-register-display");
         return
-      } else{
+      } else {
+        userExist.classList.remove("main__error--exist-register-display");
+        newUser = {
+          name: name, 
+          email: email,
+          password: password,
+          status: true,
+        }
       }
+  }
+  let registration = await fetch(
+    "https://634e9f834af5fdff3a625f84.mockapi.io/users",
+    {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(newUser),
     }
+  ).then(res => console.log(res));
+  localStorage.setItem('loggedUser', JSON.stringify(newUser))
+  window.location.replace('../../index.html')
 }
