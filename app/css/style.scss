@@ -62,6 +62,9 @@ a{
     }
     &__shoppingcart{
     }
+    &__shoppingcart--link{
+        position: relative;
+    }
     &__shoppingcart--counter{
         position: absolute;
         right: 0;
@@ -79,6 +82,9 @@ a{
     }
     &__logout{
         display: none;
+        &-logged{
+            display: block;
+        }
     }
 }
 

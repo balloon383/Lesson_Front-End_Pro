@@ -175,6 +175,9 @@ a {
   border-right: 1px solid black;
   padding-right: 10px;
 }
+.header__shoppingcart--link {
+  position: relative;
+}
 .header__shoppingcart--counter {
   position: absolute;
   right: 0;
@@ -192,6 +195,9 @@ a {
 }
 .header__logout {
   display: none;
+}
+.header__logout-logged {
+  display: block;
 }
 
 .main__category {

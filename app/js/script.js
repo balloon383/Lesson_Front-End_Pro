@@ -2,14 +2,26 @@ let categoryField = document.querySelector(".main__container");
 let getShoppingCart = () => JSON.parse(localStorage.getItem("shoppingCart")) ?? [];
 let getLoggedUser = () => JSON.parse(localStorage.getItem("loggedUser")) ?? [];
 let cartCount = document.querySelector(".header__shoppingcart--counter");
+let userName = document.querySelector('.header__nav--user')
+let userLogout = document.querySelector(".header__logout");
+let shoppingCart = document.querySelector(".header__shoppingcart--link");
 getCategories();
 checkLoggedUser()
 function checkLoggedUser() {
   let user = getLoggedUser()
   console.log(user)
-  if (user.status === true) {
+  if (user.status === 'true') {
     console.log('user logged')
+    userName.innerText = user.name
+    userName.href = "./pages/account-page/index.html";
+    userLogout.classList.add("header__logout-logged");
+    userLogout.addEventListener('click', () => { logOut() })
+    shoppingCart.href = ('./pages/shopping-cart/index.html')
   }
+}
+async function logOut() {
+  localStorage.clear()
+  location.reload()
 }
 async function getCategories() {
     let productsCategory = [];
