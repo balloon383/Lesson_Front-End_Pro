@@ -1,4 +1,4 @@
-import { getLoggedUser, changeStatus, logOut } from "./get-modules.js";
+import { getLoggedUser, logOut, } from "./get-modules.js";
 let categoryField = document.querySelector(".main__container");
 let cartCount = document.querySelector(".header__shoppingcart--counter");
 let userName = document.querySelector(".header__nav--user");
@@ -7,9 +7,8 @@ let shoppingCart = document.querySelector(".header__shoppingcart--link");
 getCategories();
 checkLoggedUser();
 changeCartCounter()
-function checkLoggedUser() {
+export function checkLoggedUser() {
   let user = getLoggedUser();
-  console.log(user);
   if (user.status) {
     userName.innerText = user.name;
     userName.href = "./pages/account-page/index.html";
@@ -126,6 +125,7 @@ function fillCategory(categories, categoryName, products) {
 
 let addToCart = (goods, store) => {
   store = getLoggedUser();
+  goods.quantity = '1'
   store.shoppingCart.push({...goods})
   localStorage.setItem("loggedUser", JSON.stringify(store));
   changeCartCounter(store); 
@@ -140,6 +140,5 @@ let removeFromCart = (goods) => {
 };
 
 function changeCartCounter(storeCounter = getLoggedUser()) {
-  console.log(storeCounter)
   cartCount.innerText = storeCounter.shoppingCart.length;
 }

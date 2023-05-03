@@ -1,4 +1,4 @@
-import { getLoggedUser, logOut } from "./get-modules.js";
+import { getLoggedUser } from "./get-modules.js";
 let userName = document.querySelector(".header__nav--user");
 let userLogout = document.querySelector(".header__logout");
 let shoppingCart = document.querySelector(".header__shoppingcart--link");
@@ -6,46 +6,51 @@ let cartCount = document.querySelector(".header__shoppingcart--counter");
 let tableArea = document.querySelector(".main__shoppingcart--tbody");
 let orderButton = document.querySelector(".main__order--complete");
 let orderTotalCounter = document.querySelector(".main__order--total-number");
-checkLoggedUser()
+
+checkLoggedUser(userName, userLogout, shoppingCart)
 checkCart()
+checkTotal()
+
+
 orderButton.addEventListener('click', () => {
-    makeOrder()
+    completeOrder()
 })
+function checkLoggedUser() {
+    let user = getLoggedUser();
+    if (user.status) {
+      userName.innerText = user.name;
+      userName.href = "../account-page/index.html";
+      userLogout.classList.add("header__logout-logged");
+      userLogout.addEventListener("click", () => {
+          logOut();
+          window.location.replace("../../index.html");
+      });
+      shoppingCart.href = "#";
+    }
+  }
 function checkCart() {
     let goods = getLoggedUser()
     let goodsArr = goods.shoppingCart
     changeCartCounter(goodsArr)
     renderCart(goodsArr)
 }
-function checkLoggedUser() {
-  let user = getLoggedUser();
-  if (user.status) {
-    userName.innerText = user.name;
-    userName.href = "#";
-    userLogout.classList.add("header__logout-logged");
-    userLogout.addEventListener("click", () => {
-        logOut();
-        window.location.replace("../../index.html");
-    });
-    shoppingCart.href = "#";
-  }
-}
-function changeCartCounter(storeCounter) {
+
+function changeCartCounter(storeCounter = getLoggedUser().shoppingCart) {
   cartCount.innerText = storeCounter.length;
 }
 function renderCart(goodsArr) {
     for (let i = 0; i < goodsArr.length; i++){
         let component = document.createElement("tr");
         component.dataset.id = goodsArr[i].id
-        if (goodsArr[i].sales == 'true') {
+        if (goodsArr[i].sale == true) {
             component.innerHTML = `
             <tr class="main__shoppingcart--tr-body main__shoppingcart--tr-{$item}">
                 <td class="main__shoppingcart--img-box" ><img class="main__shoppingcart--img" src="../../img/products/${goodsArr[i].img}.png" width="150px" height="150px" alt="${goodsArr[i].title}">${goodsArr[i].title}</td>
                 <td class="main__shoppingcart--price">$${goodsArr[i].price}</td>
                 <td class="main__shoppingcart--sale"><p class="main__shoppingcart--sale-number">-${goodsArr[i].salePercent}%</p></td>
-                <td><input type="text" class="main__shoppingcart--quantity" value="1"></td>
-                <td class="main__shoppingcart--total">$2000</td>
-                <td><img src="../../img/delete.png" class="main__shoppingcart--delete" width="35px" height="35px" alt="delete"></td>
+                <td><input type="text" class="main__shoppingcart--quantity" value="${goodsArr[i].quantity}" oninput="if(parseInt(value) < 1) value = 1"></td>
+                <td class="main__shoppingcart--total">$${goodsArr[i].price -    (goodsArr[i].price * (goodsArr[i].salePercent / 100))}</td>
+                <td><img src="../../img/delete.png" class="main__shoppingcart--delete${goodsArr[i].id}" width="35px" height="35px" alt="delete"></td>
             </tr>
         `;
         } else {
@@ -54,7 +59,7 @@ function renderCart(goodsArr) {
                 <td class="main__shoppingcart--img-box" ><img class="main__shoppingcart--img" src="../../img/products/${goodsArr[i].img}.png" width="150px" height="150px" alt="${goodsArr[i].title}">${goodsArr[i].title}</td>
                 <td class="main__shoppingcart--price">$${goodsArr[i].price}</td>
                 <td class="main__shoppingcart--sale"><p>-</p></td>
-                <td><input type="text" class="main__shoppingcart--quantity" value="1"></td>
+                <td><input type="text" class="main__shoppingcart--quantity" value="${goodsArr[i].quantity}" oninput="if(parseInt(value) < 1) value = 1"></td>
                 <td class="main__shoppingcart--total">$${goodsArr[i].price}</td>
                 <td><img src="../../img/delete.png" class="main__shoppingcart--delete${goodsArr[i].id}" width="35px" height="35px" alt="delete"></td>
             </tr>
@@ -74,10 +79,29 @@ function renderCart(goodsArr) {
             let totalPrice = document.querySelector(
               `tr[data-id="${goodsArr[i].id}"] .main__shoppingcart--total`
             );
-            totalPrice.innerText = `$${goodsArr[i].price * quantity.value}`;
+            let total
+            if(goodsArr[i].salePercent){
+                total = goodsArr[i].price * quantity.value - ((goodsArr[i].price * (goodsArr[i].salePercent / 100)))
+            } else{
+                total = goodsArr[i].price * quantity.value
+            }
+            totalPrice.innerText = `$${total}`;
+            changeItem(goodsArr[i], quantity.value)
         });
     }
 }
+
+function changeItem(arr, quantity){
+    arr.quantity = quantity
+    let localUser = getLoggedUser()
+    let updatedCart = localUser.shoppingCart.filter((el) => el.id !== arr.id)
+    localUser.shoppingCart = updatedCart
+    localUser.shoppingCart.push(arr)
+    localStorage.setItem('loggedUser', JSON.stringify(localUser))
+    localUser = getLoggedUser()
+    checkTotal()
+}
+
 function deleteItem(delItem, id) {
     let item = document.querySelector(`tr[data-id="${id}"]`);
     let store = getLoggedUser();
@@ -87,14 +111,48 @@ function deleteItem(delItem, id) {
     item.remove();
     changeCartCounter(store.shoppingCart);
 }
-function makeOrder() {
-    
+async function completeOrder(){
+    let user = getLoggedUser()
+    let orderedItems = {
+        orders: user.shoppingCart
+    }
+    for(let i = 0; i < user.shoppingCart.length; i++){
+        console.log(user.shoppingCart[i].id)
+        deleteItem(user, user.shoppingCart[i].id)
+    }
+    let request = await fetch(
+        `https://634e9f834af5fdff3a625f84.mockapi.io/users/${user.id}`,
+        {
+          method: "PUT",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(orderedItems),
+        }
+      ).then((res) => res.json()); 
+        user.orders = user.shoppingCart
+        user.shoppingCart = []
+        localStorage.setItem('loggedUser', JSON.stringify(user))
+        changeCartCounter()
 }
-checkTotal()
+
 function checkTotal() {
-let orderTotalElements = document.querySelectorAll(".main__shoppingcart--total");
-    for (let i = 0; i < orderTotalElements.length; i++) {
-        
-    } 
+    let totalPrice
+    let cartArr = getLoggedUser().shoppingCart
+    let priceArr = cartArr.map((el) => {
+        let total
+        if(el.sale){
+            total = el.price * el.quantity - (el.price * (el.salePercent / 100))
+        } else{
+            total = el.price * el.quantity
+        }
+        return total
+    })
+    console.log(priceArr)
+    
+    totalPrice = priceArr.reduce((el, acc) => {
+        return el + acc
+    })
+    orderTotalCounter.innerText = totalPrice
 }
 
