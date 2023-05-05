@@ -1,4 +1,4 @@
-import { getLoggedUser, logOut } from "./get-modules.js";
+import { getLoggedUser, getUsers, logOut } from "./get-modules.js";
 let userName = document.querySelector(".header__nav--user");
 let userLogout = document.querySelector(".header__logout");
 let shoppingCart = document.querySelector(".header__shoppingcart--link");
@@ -15,7 +15,7 @@ checkLoggedUser(userName, userLogout, shoppingCart)
 
 changeCartCounter()
 
-function checkLoggedUser(userName, userLogout, shoppingCart) {
+async function checkLoggedUser(userName, userLogout, shoppingCart) {
     let user = getLoggedUser();
     if (user.status) {
       userName.innerText = user.name;
@@ -29,7 +29,9 @@ function checkLoggedUser(userName, userLogout, shoppingCart) {
       userInfoName.innerText = user.name
       userInfoEmail.innerText = user.email
       if(user.orders.length > 0){
-        renderCart(user.orders)
+        let serverUserOrders = await getUsers(user.id)
+        serverUserOrders = serverUserOrders.orders
+        renderCart(serverUserOrders)
       }
     }
   }

@@ -1,4 +1,4 @@
-import { getLoggedUser, logOut } from "./get-modules.js";
+import { getLoggedUser, logOut, getUsers } from "./get-modules.js";
 let userName = document.querySelector(".header__nav--user");
 let userLogout = document.querySelector(".header__logout");
 let shoppingCart = document.querySelector(".header__shoppingcart--link");
@@ -28,11 +28,12 @@ function checkLoggedUser() {
       shoppingCart.href = "#";
     }
   }
-function checkCart() {
-    let goods = getLoggedUser()
-    let goodsArr = goods.shoppingCart
-    changeCartCounter(goodsArr)
-    renderCart(goodsArr)
+async function checkCart() {
+    let loggedUser = getLoggedUser()
+    let serverUserCart = await getUsers(loggedUser.id)
+    serverUserCart = serverUserCart.shoppingCart
+    changeCartCounter(serverUserCart)
+    renderCart(serverUserCart)
 }
 
 function changeCartCounter(storeCounter = getLoggedUser().shoppingCart) {
@@ -111,6 +112,7 @@ function deleteItem(delItem, id) {
     item.remove();
     changeCartCounter(store.shoppingCart);
 }
+
 async function completeOrder(){
     let user = getLoggedUser()
     let orderedItems = {
@@ -138,7 +140,9 @@ async function completeOrder(){
 
 function checkTotal() {
     let totalPrice
-    let cartArr = getLoggedUser().shoppingCart
+    let localUser = getLoggedUser()
+    let cartArr = getUsers(localUser.id)
+    cartArr = cartArr.shoppingCart
     let priceArr = cartArr.map((el) => {
         let total
         if(el.sale){

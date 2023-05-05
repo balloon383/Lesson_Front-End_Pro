@@ -1,10 +1,11 @@
-import { getLoggedUser, logOut } from "./get-modules.js";
+import { getLoggedUser, logOut, changeStatus, getUsers } from "./get-modules.js";
 let categoryField = document.querySelector(".main__container");
 let cartCount = document.querySelector(".header__shoppingcart--counter");
 let userName = document.querySelector(".header__nav--user");
 let userLogout = document.querySelector(".header__logout");
 let shoppingCart = document.querySelector(".header__shoppingcart--link");
-changeCartCounter();
+let render
+changeCartCounter(render = true);
 checkLoggedUser();
 export function checkLoggedUser() {
   let user = getLoggedUser();
@@ -67,7 +68,7 @@ async function fillCategory(categories, categoryName, products) {
                     <h3 class="main__category--card-header">${products[i].title}</h3>
                     <ul class="main__category--card-ul">
                         <li class="main__category--card-li">$${products[i].price}</li>
-                        <li class="main__category--card-li main__category--card-li-button main__category--card-li-button-in"><img src="./img/shopping-cart.png" alt="shopping cart" width="25px" height="25px"></li>
+                        <li class="main__category--card-li main__category--card-li-button"><img src="./img/shopping-cart.png" alt="shopping cart" width="25px" height="25px"></li>
                     </ul>
                 </section>
             `;
@@ -93,7 +94,7 @@ async function fillCategory(categories, categoryName, products) {
                               products[i].salePercent
                             }%</span>
                         </li>
-                        <li class="main__category--card-li main__category--card-li-button main__category--card-li-button-in"><img class="main__category--card-li-img" src="./img/shopping-cart.png" alt="shopping cart" width="25px" height="25px"></li>
+                        <li class="main__category--card-li main__category--card-li-button"><img class="main__category--card-li-img" src="./img/shopping-cart.png" alt="shopping cart" width="25px" height="25px"></li>
                     </ul>
                 </section>
             `;
@@ -102,15 +103,12 @@ async function fillCategory(categories, categoryName, products) {
       let toCartButton = document.querySelector(
         `section[data-id="${products[i].id}"] .main__category--card-li-button`
       );
-      toCartButton.classList.remove("main__category--card-li-button-in");
       toCartButton.addEventListener("click", (el) => {
         let checker = getLoggedUser();
         if (checker.length == 0) {
           window.location.replace("./pages/login-page/index.html");
         } else if (checker.length == undefined) {
-          if (
-            toCartButton.classList.contains("main__category--card-li-button-in")
-          ) {
+          if (toCartButton.classList.contains("main__category--card-li-button-in")) {
             toCartButton.classList.remove("main__category--card-li-button-in");
             removeFromCart(products[i]);
           } else {
@@ -123,27 +121,36 @@ async function fillCategory(categories, categoryName, products) {
   }
 }
 
-let addToCart = (goods, store) => {
-  store = getLoggedUser();
+let addToCart = async (goods, store) => {
+  let localUser = getLoggedUser()
+  store = await getUsers(localUser.id);
   goods.quantity = "1";
   store.shoppingCart.push({ ...goods });
-  localStorage.setItem("loggedUser", JSON.stringify(store));
-  changeCartCounter(store);
+  await changeStatus(store)
+  await changeCartCounter();
 };
 
-let removeFromCart = (goods) => {
-  let store = getLoggedUser();
+let removeFromCart = async (goods) => {
+  let localUser = getLoggedUser()
+  let store = await getUsers(localUser.id);
   let updatedStore = store.shoppingCart.filter((el) => el.id !== goods.id);
   store.shoppingCart = updatedStore;
-  localStorage.setItem("loggedUser", JSON.stringify(store));
-  changeCartCounter(store);
+  let removeElement = document.querySelector(`section[data-id="${goods.id}"] .main__category--card-li-button`)
+  removeElement.classList.remove('main__category--card-li-button-in')
+  await changeStatus(store)
+  await changeCartCounter();
 };
-async function changeCartCounter(storeCounter = getLoggedUser()) {
-  await getCategories();
-  cartCount.innerText = storeCounter.shoppingCart.length;
-  for (let i = 0; i < storeCounter.shoppingCart.length; i++) {
+
+async function changeCartCounter(render = false, localUser = getLoggedUser()) {
+  if(render){
+    await getCategories();
+  }
+  let remoteUser = await getUsers(localUser.id)
+  let counter = remoteUser.shoppingCart.length
+  cartCount.innerText = counter
+  for (let i = 0; i < remoteUser.shoppingCart.length; i++) {
     let selectedItems = document.querySelector(
-      `section[data-id="${storeCounter.shoppingCart[i].id}"] .main__category--card-li-button`
+      `section[data-id="${remoteUser.shoppingCart[i].id}"] .main__category--card-li-button`
     );
     selectedItems.classList.add("main__category--card-li-button-in");
   }

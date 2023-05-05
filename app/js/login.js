@@ -31,30 +31,6 @@ loginButton.addEventListener("click", () => {
   checkUser(loginEmail.value, loginPassword.value);
 });
 
-/* async function checkUser(email, password) {
-  let usersArr = await getUsers();
-  for (let i = 0; i < usersArr.length; i++) {
-    if (email === usersArr[i].email) {
-      if (password === usersArr[i].password) {
-        await changeStatus(usersArr[i], 'true');
-        let user = usersArr[i];
-        user.status = true
-        localStorage.setItem("loggedUser", JSON.stringify(user));
-        window.location.replace("../../index.html"); 
-        console.log('success')
-        return;
-      } else {
-        debugger
-        errorEmail.classList.remove("main__error--email-display");
-        errorPassword.classList.add("main__error--password-display");
-        break
-      }
-    } else {
-      errorEmail.classList.add("main__error--email-display");
-      errorPassword.classList.remove("main__error--password-display");
-    }
-  }
-} */
 async function checkUser(email, password){
   let usersArr = await getUsers();
   const userCheck = usersArr.find(el => el.email === email)
@@ -72,7 +48,11 @@ async function checkUser(email, password){
   }
   console.log("Успішний вхід");
   await changeStatus(userCheck, 'true');
-  let user = userCheck;
+  let user = {
+    name: userCheck.name,
+    email: userCheck.email,
+    id: userCheck.id
+  }
   user.status = true
   localStorage.setItem("loggedUser", JSON.stringify(user));
   window.location.replace("../../index.html"); 
