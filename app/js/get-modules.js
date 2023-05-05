@@ -6,12 +6,13 @@ export async function getUsers() {
   return users;
 }
 
-export async function changeStatus(id, userStatus) {
+export async function changeStatus(user, userStatus) {
   let newStatus = {
     status: userStatus,
+    shoppingCart: user.shoppingCart
   };
   let request = await fetch(
-    `https://634e9f834af5fdff3a625f84.mockapi.io/users/${id}`,
+    `https://634e9f834af5fdff3a625f84.mockapi.io/users/${user.id}`,
     {
       method: "PUT",
       headers: {
@@ -19,14 +20,15 @@ export async function changeStatus(id, userStatus) {
       },
       body: JSON.stringify(newStatus),
     }
-  ).then((res) => res.json());
+  ).then((res) => res.json())
+  .then((res) => console.log(res))
 }
 
 export let getLoggedUser = () => JSON.parse(localStorage.getItem("loggedUser")) ?? [];
 
 export async function logOut() {
   let loggedUser = getLoggedUser();
-  changeStatus(loggedUser.id, "false");
+  await changeStatus(loggedUser, "false");
   localStorage.clear();
   location.reload();
 }

@@ -6,6 +6,10 @@ let cartCount = document.querySelector(".header__shoppingcart--counter");
 let userInfoName = document.querySelector('.main__info--name-name')
 let userInfoEmail = document.querySelector(".main__info--email-email")
 let tableArea = document.querySelector(".main__shoppingcart--tbody");
+let deleteAccountButton = document.querySelector('.main__info--delete')
+deleteAccountButton.addEventListener('click', () => {
+  deleteAccount()
+})
 
 checkLoggedUser(userName, userLogout, shoppingCart)
 
@@ -29,9 +33,11 @@ function checkLoggedUser(userName, userLogout, shoppingCart) {
       }
     }
   }
+
   function changeCartCounter(storeCounter = getLoggedUser().shoppingCart) {
     cartCount.innerText = storeCounter.length;
   }
+
   function renderCart(goodsArr) {
     for (let i = 0; i < goodsArr.length; i++){
         let component = document.createElement("tr");
@@ -60,4 +66,16 @@ function checkLoggedUser(userName, userLogout, shoppingCart) {
         tableArea.append(component)
         
     }
+}
+
+async function deleteAccount(){
+  let user = getLoggedUser()
+  const deletion = await fetch(
+    `https://634e9f834af5fdff3a625f84.mockapi.io/users/${user.id}`,
+    {
+      method: 'DELETE',
+    }
+  ).then((res) => res.json());
+  localStorage.clear();
+  window.location.replace("../../index.html");
 }

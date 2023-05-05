@@ -17,6 +17,7 @@ let errorPasswordRegister = document.querySelector(
 let errorEmailRegister = document.querySelector(".main__error--email-register");
 let userExist = document.querySelector(".main__error--exist-register");
 const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
 registerButton.addEventListener("click", () => {
   validateRegistration(
     registerName.value,
@@ -25,32 +26,57 @@ registerButton.addEventListener("click", () => {
     registerPasswordVerify.value
   );
 });
+
 loginButton.addEventListener("click", () => {
   checkUser(loginEmail.value, loginPassword.value);
 });
 
-
-
-async function checkUser(email, password) {
+/* async function checkUser(email, password) {
   let usersArr = await getUsers();
   for (let i = 0; i < usersArr.length; i++) {
     if (email === usersArr[i].email) {
       if (password === usersArr[i].password) {
-        await changeStatus(usersArr[i].id, 'true');
+        await changeStatus(usersArr[i], 'true');
         let user = usersArr[i];
         user.status = true
         localStorage.setItem("loggedUser", JSON.stringify(user));
-        window.location.replace("../../index.html");
+        window.location.replace("../../index.html"); 
+        console.log('success')
         return;
       } else {
+        debugger
         errorEmail.classList.remove("main__error--email-display");
         errorPassword.classList.add("main__error--password-display");
+        break
       }
     } else {
       errorEmail.classList.add("main__error--email-display");
       errorPassword.classList.remove("main__error--password-display");
     }
   }
+} */
+async function checkUser(email, password){
+  let usersArr = await getUsers();
+  const userCheck = usersArr.find(el => el.email === email)
+  if(!userCheck){
+    console.log("Не правильний логін та пароль");
+    errorEmail.classList.add("main__error--email-display");
+    errorPassword.classList.remove("main__error--password-display");
+    return;
+  }
+  if (userCheck.password !== password) {
+    console.log("Не правильний пароль");
+    errorEmail.classList.remove("main__error--email-display");
+    errorPassword.classList.add("main__error--password-display");
+    return;
+  }
+  console.log("Успішний вхід");
+  await changeStatus(userCheck, 'true');
+  let user = userCheck;
+  user.status = true
+  localStorage.setItem("loggedUser", JSON.stringify(user));
+  window.location.replace("../../index.html"); 
+  console.log('success')
 }
 
 function validateRegistration(name, email, password, passwordVerify) {

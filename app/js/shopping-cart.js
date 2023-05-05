@@ -1,4 +1,4 @@
-import { getLoggedUser } from "./get-modules.js";
+import { getLoggedUser, logOut } from "./get-modules.js";
 let userName = document.querySelector(".header__nav--user");
 let userLogout = document.querySelector(".header__logout");
 let shoppingCart = document.querySelector(".header__shoppingcart--link");
@@ -148,11 +148,12 @@ function checkTotal() {
         }
         return total
     })
-    console.log(priceArr)
-    
-    totalPrice = priceArr.reduce((el, acc) => {
+    if(priceArr.length > 0){
+        totalPrice = priceArr.reduce((el, acc) => {
         return el + acc
     })
-    orderTotalCounter.innerText = totalPrice
+    orderTotalCounter.innerText = `$${totalPrice}`
+    }
+    
 }
 
