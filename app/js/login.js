@@ -35,28 +35,18 @@ async function checkUser(email, password){
   let usersArr = await getUsers();
   const userCheck = usersArr.find(el => el.email === email)
   if(!userCheck){
-    console.log("Не правильний логін та пароль");
     errorEmail.classList.add("main__error--email-display");
     errorPassword.classList.remove("main__error--password-display");
     return;
   }
   if (userCheck.password !== password) {
-    console.log("Не правильний пароль");
     errorEmail.classList.remove("main__error--email-display");
     errorPassword.classList.add("main__error--password-display");
     return;
   }
-  console.log("Успішний вхід");
-  await changeStatus(userCheck, 'true');
-  let user = {
-    name: userCheck.name,
-    email: userCheck.email,
-    id: userCheck.id
-  }
-  user.status = true
+  const user = await changeStatus(userCheck, 'true');
   localStorage.setItem("loggedUser", JSON.stringify(user));
   window.location.replace("../../index.html"); 
-  console.log('success')
 }
 
 function validateRegistration(name, email, password, passwordVerify) {
@@ -107,7 +97,8 @@ async function registerUser(name, email, password) {
       },
       body: JSON.stringify(newUser),
     }
-  ).then((res) => console.log(res));
+  ).then((res) => res.json());
+  newUser = {...registration}
   localStorage.setItem("loggedUser", JSON.stringify(newUser));
   window.location.replace("../../index.html");
 }

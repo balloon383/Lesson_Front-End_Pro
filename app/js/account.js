@@ -28,6 +28,7 @@ async function checkLoggedUser(userName, userLogout, shoppingCart) {
       shoppingCart.href = "../shopping-cart/index.html";
       userInfoName.innerText = user.name
       userInfoEmail.innerText = user.email
+      console.log(user.orders.length)
       if(user.orders.length > 0){
         let serverUserOrders = await getUsers(user.id)
         serverUserOrders = serverUserOrders.orders
@@ -41,6 +42,7 @@ async function checkLoggedUser(userName, userLogout, shoppingCart) {
   }
 
   function renderCart(goodsArr) {
+    console.log(goodsArr)
     for (let i = 0; i < goodsArr.length; i++){
         let component = document.createElement("tr");
         component.dataset.id = goodsArr[i].id

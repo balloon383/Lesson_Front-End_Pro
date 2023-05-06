@@ -115,12 +115,17 @@ function deleteItem(delItem, id) {
 
 async function completeOrder(){
     let user = getLoggedUser()
+    let oldOrders = user.orders
+    let newOrders = user.shoppingCart 
     let orderedItems = {
-        orders: user.shoppingCart
+        ...user,
+        orders: [...oldOrders, ...newOrders]
     }
-    for(let i = 0; i < user.shoppingCart.length; i++){
-        console.log(user.shoppingCart[i].id)
-        deleteItem(user, user.shoppingCart[i].id)
+    console.log(orderedItems)
+
+    for(let i = 0; i < newOrders.length; i++){
+        console.log(newOrders[i])
+        deleteItem(newOrders[i], newOrders[i].id)
     }
     let request = await fetch(
         `https://634e9f834af5fdff3a625f84.mockapi.io/users/${user.id}`,
@@ -132,16 +137,16 @@ async function completeOrder(){
           body: JSON.stringify(orderedItems),
         }
       ).then((res) => res.json()); 
-        user.orders = user.shoppingCart
+        user.orders = orderedItems.orders
         user.shoppingCart = []
         localStorage.setItem('loggedUser', JSON.stringify(user))
         changeCartCounter()
 }
 
-function checkTotal() {
+async function checkTotal() {
     let totalPrice
     let localUser = getLoggedUser()
-    let cartArr = getUsers(localUser.id)
+    let cartArr = localUser
     cartArr = cartArr.shoppingCart
     let priceArr = cartArr.map((el) => {
         let total

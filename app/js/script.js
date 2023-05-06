@@ -123,10 +123,12 @@ async function fillCategory(categories, categoryName, products) {
 
 let addToCart = async (goods, store) => {
   let localUser = getLoggedUser()
-  store = await getUsers(localUser.id);
-  goods.quantity = "1";
-  store.shoppingCart.push({ ...goods });
-  await changeStatus(store)
+  let dataToUpdate = {
+    ...localUser,
+    shoppingCart: [{...goods, quantity: 1}, ...localUser.shoppingCart]
+  }; 
+  const userUpdated = await changeStatus(dataToUpdate)
+  localStorage.setItem('loggedUser', JSON.stringify(userUpdated))
   await changeCartCounter();
 };
 
@@ -145,12 +147,11 @@ async function changeCartCounter(render = false, localUser = getLoggedUser()) {
   if(render){
     await getCategories();
   }
-  let remoteUser = await getUsers(localUser.id)
-  let counter = remoteUser.shoppingCart.length
+  let counter = localUser.shoppingCart.length
   cartCount.innerText = counter
-  for (let i = 0; i < remoteUser.shoppingCart.length; i++) {
+  for (let i = 0; i < localUser.shoppingCart.length; i++) {
     let selectedItems = document.querySelector(
-      `section[data-id="${remoteUser.shoppingCart[i].id}"] .main__category--card-li-button`
+      `section[data-id="${localUser.shoppingCart[i].id}"] .main__category--card-li-button`
     );
     selectedItems.classList.add("main__category--card-li-button-in");
   }
