@@ -8,13 +8,17 @@ export default function App() {
   const [todoData, setTodoData] = useState([])
 
   function handleData(data1, data2){
-    let obj = 
+    let newObj = 
     {
       title: data1,
       description: data2,
       status: 'Pending'
     }
-    setTodoData(todoData.push(obj))
+    setTodoData( prevTodoData => {
+      prevTodoData.push(newObj)
+      return prevTodoData
+    
+    })
     console.log(todoData)
   }
   
