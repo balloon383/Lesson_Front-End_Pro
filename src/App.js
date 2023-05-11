@@ -12,12 +12,12 @@ export default function App() {
     {
       title: data1,
       description: data2,
-      status: 'Pending'
+      status: 'Pending',
+      id: (Math.random() * 1000).toFixed()
     }
     setTodoData( prevTodoData => {
       prevTodoData.push(newObj)
-      return prevTodoData
-    
+      return [...prevTodoData]
     })
     console.log(todoData)
   }
