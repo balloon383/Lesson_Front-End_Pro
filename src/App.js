@@ -5,7 +5,7 @@ import './App.css';
 
 export default function App() {
   
-  const [todoData, setTodoData] = useState([])
+  let [todoData, setTodoData] = useState([])
 
   function handleData(data1, data2){
     let newObj = 
@@ -19,8 +19,12 @@ export default function App() {
       prevTodoData.push(newObj)
       return [...prevTodoData]
     })
-    console.log(todoData)
   }
+
+  const deleteItem = (id) => {
+    todoData = todoData.filter((el) => el.id !== id);
+    setTodoData(todoData);
+  };
   
   return (
     <div className="App">
@@ -28,7 +32,7 @@ export default function App() {
         <section className='content__container'>
           <h2 className='todo__header'>Todo Application</h2>
           <TodoHeader setData={handleData}/>
-          <TodoList todoProps={todoData}/>
+          <TodoList todoProps={todoData} deleteItem={deleteItem} />
         </section>
       </section>
       

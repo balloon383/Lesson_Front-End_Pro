@@ -2,22 +2,10 @@ import './style.css';
 import NewTodo from './new-todo/new-todo.jsx'
 import React, { useState, useEffect } from 'react'
 
-export default function TodoList({ todoProps }) {
-  
-  let [todoPropsArr, updateTodoPropsArr] = useState(todoProps)
+export default function TodoList({ todoProps, deleteItem }) {
 
-  useEffect(() => {
-    updateTodoPropsArr(todoProps);
-  }, [todoProps]);
-  
-  
-
-
-  const deleteItem = (id) => {
-    const updatedTodoPropsArr = todoPropsArr.filter((el) => el.id !== id);
-    console.log(updatedTodoPropsArr)
-    updateTodoPropsArr(updatedTodoPropsArr);
-    console.log(updatedTodoPropsArr)
+  const handleDelete = (id) => {
+    deleteItem(id)
   }
 
   return (
@@ -31,7 +19,7 @@ export default function TodoList({ todoProps }) {
                   <td>Status</td>
                   <td>Action</td>
               </tr>
-              {todoPropsArr.map(todo => <NewTodo todoData={todo} key={todo.id} id={todo.id} deletion={deleteItem}/>)}
+              {todoProps.map(todo => <NewTodo todoData={todo} key={todo.id} id={todo.id} deletion={handleDelete}/>)}
         </tbody>
       </table>
     </section>
