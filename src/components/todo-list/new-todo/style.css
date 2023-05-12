@@ -1,4 +1,4 @@
-.list__nav{
+.list_item{
     display: flex;
     align-items: center;
     column-gap: 15px;
@@ -8,12 +8,15 @@
     background-color: #4400ff;
     border-radius: 4px;
     color: #fff;
+    display: inline;
+    margin-right: 10px;
 }
 .list__delete{
     padding: 5px 14px;
     background-color: red;
     border-radius: 4px;
     color: #fff;
+    display: inline;
 }
 .list__status--green{
     padding: 5px 14px;

@@ -9,10 +9,15 @@ export default function TodoList({ todoProps }) {
   useEffect(() => {
     updateTodoPropsArr(todoProps);
   }, [todoProps]);
+  
+  
+
 
   const deleteItem = (id) => {
     const updatedTodoPropsArr = todoPropsArr.filter((el) => el.id !== id);
+    console.log(updatedTodoPropsArr)
     updateTodoPropsArr(updatedTodoPropsArr);
+    console.log(updatedTodoPropsArr)
   }
 
   return (
