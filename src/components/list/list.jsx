@@ -1,5 +1,5 @@
 import './style.css';
-import NewTodo from './new-todo/new-todo.jsx'
+import NewTodo from './new/new-todo.jsx'
 import React, { useState, useEffect } from 'react'
 
 export default function TodoList({ todoProps, deleteItem }) {

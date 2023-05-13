@@ -7,15 +7,17 @@ export default function NewTodo(props) {
   const [status, updateStatus] = useState('Pending')
   const [statusClass, updateStatusClass] = useState('list__status--red')
   const [readOnly, updateReadOnly] = useState(true)
-
+  const [statusChecker, updateStatusChecker] = useState(false)
 
   function changeStatus(){
     if(status === 'Pending'){
       updateStatus('Completed')
       updateStatusClass('list__status--green')
+      updateStatusChecker(true)
     } else{
       updateStatus('Pending')
       updateStatusClass('list__status--red')
+      updateStatusChecker(false)
     }
   }
 
@@ -32,7 +34,7 @@ export default function NewTodo(props) {
 
   return (
     <tr className='list__row'>
-        <td><input type="checkbox"/></td>
+        <td><input type="checkbox" checked={statusChecker} onClick={changeStatus}/></td>
         <td><input className='list__input' type="text" value={titleValue} onChange={(el) => updateTitle(el.target.value)} readOnly={readOnly}/></td>
         <td><input className='list__input' type="text" value={descriptionValue} onChange={(el) => updateDescription(el.target.value)} readOnly={readOnly}/></td>
         <td onClick={changeStatus} ><p className={statusClass}>{status}</p></td>

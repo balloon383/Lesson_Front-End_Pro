@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react'
-import TodoHeader from './components/todo-header/todo-header.jsx';
-import TodoList from './components/todo-list/todo-list.jsx';
+import TodoHeader from './components/header/header.jsx';
+import TodoList from './components/list/list.jsx';
+import Tools from './components/tools/tools.jsx';
 import './App.css';
 
 export default function App() {
@@ -31,7 +32,8 @@ export default function App() {
       <section className='todo'>
         <section className='content__container'>
           <h2 className='todo__header'>Todo Application</h2>
-          <TodoHeader setData={handleData}/>
+          <TodoHeader setData={handleData} />
+          <Tools/>
           <TodoList todoProps={todoData} deleteItem={deleteItem} />
         </section>
       </section>
