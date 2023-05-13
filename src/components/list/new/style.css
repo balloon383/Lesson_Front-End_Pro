@@ -8,12 +8,14 @@
     background-color: #4400ff;
     border-radius: 4px;
     color: #fff;
+    cursor: pointer;
 }
 .list__delete{
     padding: 5px 14px;
     background-color: red;
     border-radius: 4px;
     color: #fff;
+    cursor: pointer;
 }
 .list__status--green{
     padding: 5px 14px;
@@ -21,6 +23,7 @@
     border-radius: 4px;
     color: white;
     display: inline;
+    cursor: pointer;
 }
 .list__status--red{
     padding: 5px 14px;
@@ -28,7 +31,7 @@
     border-radius: 4px;
     color: white; 
     display: inline;
-
+    cursor: pointer;
 }
 .list__input{
     border: none;

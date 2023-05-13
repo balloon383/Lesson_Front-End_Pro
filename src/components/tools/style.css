@@ -16,12 +16,12 @@
     cursor: pointer;
 }
 
-.tools__button-all{
+.tools__button--all{
     background-color: rgb(81, 81, 255);
 }
-.tools__button-pending{
+.tools__button--pending{
     background-color: red;
 }
-.tools__button-completed{
+.tools__button--completed{
     background-color: #0dff00;
 }

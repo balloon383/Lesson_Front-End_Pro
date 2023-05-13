@@ -2,12 +2,14 @@ import './style.css';
 import NewTodo from './new/new-todo.jsx'
 import React, { useState, useEffect } from 'react'
 
-export default function TodoList({ todoProps, deleteItem }) {
+export default function TodoList({ todoProps, deleteItem, updateTodo }) {
 
   const handleDelete = (id) => {
     deleteItem(id)
   }
-
+  const handleUpdate = (item) => {
+    updateTodo(item)
+  } 
   return (
     <section className='list__body'>
       <table>
@@ -19,7 +21,7 @@ export default function TodoList({ todoProps, deleteItem }) {
                   <td>Status</td>
                   <td>Action</td>
               </tr>
-              {todoProps.map(todo => <NewTodo todoData={todo} key={todo.id} id={todo.id} deletion={handleDelete}/>)}
+          {todoProps.todos.map(todo => <NewTodo todoData={todo} key={todo.id} id={todo.id} deletion={handleDelete} updating = {handleUpdate} />)}
         </tbody>
       </table>
     </section>
