@@ -3,7 +3,7 @@ import NewTodo from './new/new-todo.jsx'
 import React, { useState, useEffect } from 'react'
 
 export default function TodoList({ todoProps, deleteItem, updateTodo }) {
-
+  console.log(todoProps)
   const handleDelete = (id) => {
     deleteItem(id)
   }
@@ -21,7 +21,7 @@ export default function TodoList({ todoProps, deleteItem, updateTodo }) {
                   <td>Status</td>
                   <td>Action</td>
               </tr>
-          {todoProps.todos.map(todo => <NewTodo todoData={todo} key={todo.id} id={todo.id} deletion={handleDelete} updating = {handleUpdate} />)}
+          {todoProps.map(todo => <NewTodo todoData={todo} key={todo.id} id={todo.id} deletion={handleDelete} updating = {handleUpdate} />)}
         </tbody>
       </table>
     </section>

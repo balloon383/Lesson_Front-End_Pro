@@ -7,19 +7,36 @@ import './App.css';
 
 export default function App() {
   
-  let [todoData, setTodoData] = useState({
+  let [todoData, setTodoData] = useState([]);
+  let [todoData2, setTodoData2] = useState({
     todos: [],
+    pendingTodos: [],
+    completedTodos: []
   });
+  let [filter, setFilter] = useState(todoData.todos);
+  
   
   
   useEffect(() => {
 
     async function fetchTodos() {
       const todos = await getTodos()
-      setTodoData(todoData.todos = todos);
+      setTodoData(todos);
+      let pendingTodos = todos.filter((el) => el.completed == 'false');
+      let completedTodos = todos.filter((el) => el.completed == true);
+      setTodoData2({
+        todos: todos,
+        pendingTodos: pendingTodos, 
+        completedTodos: completedTodos
+      });
+      
     }
+
     fetchTodos();
+
+    console.log(todoData2);
   }, []);
+
 
   async function createObject(data1, data2) {
     
@@ -54,17 +71,22 @@ export default function App() {
 
   async function sortAll() {
     console.log(`all`)
-    
+    setFilter(`todoData.todos`)
+    console.log(filter);
+
   }
 
   function sortByPending(){
     console.log(`pend`);
-    
+    setFilter(todoData.pendingTodos);
+    console.log(filter);
+
   }
 
   function sortByCompleted(){
     console.log(`comp`);
-    
+    setFilter(todoData.completedTodos);
+    console.log(filter);
   }
 
   return (
