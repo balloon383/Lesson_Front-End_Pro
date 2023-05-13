@@ -18,23 +18,21 @@ export default function App() {
   
   
   useEffect(() => {
-
     async function fetchTodos() {
-      const todos = await getTodos()
+      const todos = await getTodos();
       setTodoData(todos);
-      let pendingTodos = todos.filter((el) => el.completed == 'false');
+      let pendingTodos = todos.filter((el) => el.completed == false);
       let completedTodos = todos.filter((el) => el.completed == true);
       setTodoData2({
-        todos: todos,
-        pendingTodos: pendingTodos, 
-        completedTodos: completedTodos
+        todos: todoData.todos,
+        pendingTodos: pendingTodos,
+        completedTodos: completedTodos,
       });
-      
+      sortAll();
+      return todos;
     }
 
-    fetchTodos();
-
-    console.log(todoData2);
+    const arr = fetchTodos();
   }, []);
 
 
@@ -55,9 +53,7 @@ export default function App() {
   }
 
   const updateTodo = async (todo) => {
-    console.log(todo)
     putTodos(todo)
-
   }
 
   const deleteItem = async (id) => {
@@ -68,25 +64,18 @@ export default function App() {
     
     setTodoData(todoData);
   };
-
+  
   async function sortAll() {
-    console.log(`all`)
-    setFilter(`todoData.todos`)
-    console.log(filter);
+    setFilter(todoData.todos)
 
   }
 
   function sortByPending(){
-    console.log(`pend`);
-    setFilter(todoData.pendingTodos);
-    console.log(filter);
-
+    setFilter(todoData2.pendingTodos);
   }
 
   function sortByCompleted(){
-    console.log(`comp`);
-    setFilter(todoData.completedTodos);
-    console.log(filter);
+    setFilter(todoData2.completedTodos);
   }
 
   return (
@@ -101,7 +90,7 @@ export default function App() {
             sortByCompleted={sortByCompleted}
           />
           <TodoList
-            todoProps={todoData}
+            todoProps={filter || todoData}
             deleteItem={deleteItem}
             updateTodo={updateTodo}
           />

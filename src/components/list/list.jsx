@@ -3,7 +3,6 @@ import NewTodo from './new/new-todo.jsx'
 import React, { useState, useEffect } from 'react'
 
 export default function TodoList({ todoProps, deleteItem, updateTodo }) {
-  console.log(todoProps)
   const handleDelete = (id) => {
     deleteItem(id)
   }
