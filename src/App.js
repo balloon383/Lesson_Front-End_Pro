@@ -7,33 +7,41 @@ import './App.css';
 
 export default function App() {
   
+  
   let [todoData, setTodoData] = useState([]);
   let [todoData2, setTodoData2] = useState({
     todos: [],
     pendingTodos: [],
     completedTodos: []
   });
-  let [filter, setFilter] = useState(todoData.todos);
-  
-  
+  let [filter, setFilter] = useState(todoData);
   
   useEffect(() => {
     async function fetchTodos() {
       const todos = await getTodos();
       setTodoData(todos);
-      let pendingTodos = todos.filter((el) => el.completed == false);
-      let completedTodos = todos.filter((el) => el.completed == true);
+    }
+
+    fetchTodos();
+
+  }, []);
+  
+
+  useEffect(
+    (prevTodoData) => {
+      let pendingTodos = todoData.filter((el) => el.completed == false);
+      let completedTodos = todoData.filter((el) => el.completed == true);
       setTodoData2({
-        todos: todoData.todos,
         pendingTodos: pendingTodos,
         completedTodos: completedTodos,
       });
       sortAll();
-      return todos;
-    }
+      return prevTodoData;
+    },
+    [todoData]
+  );
+  
 
-    const arr = fetchTodos();
-  }, []);
 
 
   async function createObject(data1, data2) {
@@ -45,9 +53,13 @@ export default function App() {
     }
     let serverObj = await postTodos(newObj)
 
-    setTodoData( prevTodoData => {
-      prevTodoData.push(serverObj);
-      return [...prevTodoData]
+    setTodoData(prevTodoData => {
+      console.log(serverObj)
+      if (!prevTodoData.some((item) => item.id === serverObj.id)) {
+        prevTodoData.push(serverObj);
+      }
+      return [...prevTodoData];
+
     })
 
   }
@@ -66,7 +78,7 @@ export default function App() {
   };
   
   async function sortAll() {
-    setFilter(todoData.todos)
+    setFilter(todoData)
 
   }
 
@@ -90,7 +102,7 @@ export default function App() {
             sortByCompleted={sortByCompleted}
           />
           <TodoList
-            todoProps={filter || todoData}
+            todoProps={filter}
             deleteItem={deleteItem}
             updateTodo={updateTodo}
           />

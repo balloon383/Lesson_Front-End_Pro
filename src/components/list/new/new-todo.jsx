@@ -8,12 +8,7 @@ export default function NewTodo(props) {
   const [statusClass, updateStatusClass] = useState(props.todoData.completed ? 'list__status--green' : 'list__status--red')
   const [readOnly, updateReadOnly] = useState(true)
   const [statusChecker, updateStatusChecker] = useState(props.todoData.completed)
-
-  function changeTodo() {
-    if (readOnly === true) {
-      updateReadOnly(false)
-    }
-  }
+  const [edit, updateEdit] = useState('Edit')
 
   function handleDelete(){
     props.deletion(props.id)
@@ -23,8 +18,10 @@ export default function NewTodo(props) {
   function updateItem(){
     if(readOnly === true){
       updateReadOnly(false)
+      updateEdit('Submit')
     } else{
       updateReadOnly(true)
+      updateEdit('Edit')
 
       let obj = {
         title: titleValue,
@@ -66,7 +63,7 @@ export default function NewTodo(props) {
         <td><input className='list__input' type="text" value={titleValue} onChange={(el) => updateTitle(el.target.value)} readOnly={readOnly}/></td>
         <td><input className='list__input' type="text" value={descriptionValue} onChange={(el) => updateDescription(el.target.value)} readOnly={readOnly}/></td>
         <td ><p className={statusClass} onClick={updateServerStatus}>{status}</p></td>
-        <td className='list__nav'><p onClick={updateItem} className='list__edit'>Edit</p><p className='list__delete' onClick={handleDelete}>Delete</p></td>
+      <td className='list__nav'><p onClick={updateItem} className='list__edit'>{ edit }</p><p className='list__delete' onClick={handleDelete}>Delete</p></td>
     </tr>
   )
 }
