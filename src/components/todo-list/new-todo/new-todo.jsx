@@ -34,7 +34,7 @@ export default function NewTodo(props) {
 
   return (
     <tr className='list__row'>
-        <td><input type="checkbox" checked={statusChecker} onClick={changeStatus}/></td>
+        <td><input type="checkbox" checked={statusChecker} onChange={(el) => updateStatusChecker(el.target.value)} onClick={changeStatus}/></td>
         <td><input className='list__input' type="text" value={titleValue} onChange={(el) => updateTitle(el.target.value)} readOnly={readOnly}/></td>
         <td><input className='list__input' type="text" value={descriptionValue} onChange={(el) => updateDescription(el.target.value)} readOnly={readOnly}/></td>
         <td onClick={changeStatus} ><p className={statusClass}>{status}</p></td>
