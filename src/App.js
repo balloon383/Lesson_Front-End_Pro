@@ -16,8 +16,11 @@ export default function App() {
       id: (Math.random() * 1000).toFixed()
     }
     setTodoData( prevTodoData => {
-      prevTodoData.push(newObj)
-      return [...prevTodoData]
+      console.log(newObj);
+      if (!prevTodoData.some((item) => item.id === newObj.id)) {
+        prevTodoData.push(newObj);
+      }
+      return [...prevTodoData];
     })
   }
 
