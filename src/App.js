@@ -9,38 +9,34 @@ export default function App() {
   
   
   let [todoData, setTodoData] = useState([]);
-  let [todoData2, setTodoData2] = useState({
-    todos: [],
-    pendingTodos: [],
-    completedTodos: []
-  });
-  let [filter, setFilter] = useState(todoData);
+  let [todoData2, setTodoData2] = useState([]);
+  let [filter, setFilter] = useState(`All`);
   
   useEffect(() => {
     async function fetchTodos() {
       const todos = await getTodos();
       setTodoData(todos);
     }
-
     fetchTodos();
-
   }, []);
   
 
-  useEffect(
-    (prevTodoData) => {
-      let pendingTodos = todoData.filter((el) => el.completed == false);
-      let completedTodos = todoData.filter((el) => el.completed == true);
-      setTodoData2({
-        pendingTodos: pendingTodos,
-        completedTodos: completedTodos,
-      });
-      sortAll();
-      return prevTodoData;
-    },
-    [todoData]
-  );
+  useEffect(() => {
+    if (filter === 'Completed') {
+      const completed = todoData.filter((el) => el.completed)
+      console.log(todoData.completed)
+      setTodoData2(completed);
+
+    } else if (filter === 'Pending') {
+      const pending = todoData.filter((el) => !el.completed)
+      setTodoData2(pending);
+
+    } else {
+      setTodoData2(todoData)
+    }
   
+  }, [filter, todoData])
+    
 
 
 
@@ -65,6 +61,15 @@ export default function App() {
   }
 
   const updateTodo = async (todo) => {
+    const updatedTodoArr = todoData.map((el) => {
+      if (el.id === todo.id) {
+        el = todo
+        return el
+      } else {
+        return el
+      }
+    })
+    setTodoData(updatedTodoArr);
     putTodos(todo)
   }
 
@@ -78,16 +83,15 @@ export default function App() {
   };
   
   async function sortAll() {
-    setFilter(todoData)
-
+    setFilter('All')
   }
 
   function sortByPending(){
-    setFilter(todoData2.pendingTodos);
+    setFilter('Pending');
   }
 
   function sortByCompleted(){
-    setFilter(todoData2.completedTodos);
+    setFilter("Completed");
   }
 
   return (
@@ -102,7 +106,7 @@ export default function App() {
             sortByCompleted={sortByCompleted}
           />
           <TodoList
-            todoProps={filter}
+            todoProps={todoData2}
             deleteItem={deleteItem}
             updateTodo={updateTodo}
           />
