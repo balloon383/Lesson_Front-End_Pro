@@ -1,22 +1,16 @@
-import './style.css';
-import React, { useState } from 'react'
-
-
-export default function TodoHeader(props) {
-  const [titleValue, setTitle] = useState('')
-  const [descriptionValue, setDescription] = useState('')
-
-  function set(){
-    props.setData(titleValue, descriptionValue) 
-  }
-
+import React from 'react'
+import './style.css'
+import logo from '../../images/logo.png'
+import Nav from './nav/Nav.jsx'
+export default function Header() {
   return (
-    <section className='header__body'>
-      <input type="text" placeholder='Todo Title' className='header__input--title header__input' value={titleValue} onChange={(e) => setTitle(e.target.value)}/>
-      <input type="text" placeholder='Todo description' className='header__input--description header__input' value={descriptionValue} onChange={(e) => setDescription(e.target.value)}/>
-      <button className='header__button' onClick={set}>Create Todo</button>  
+    <section className='header'>
+      <section className='content__container'>
+        <section className='header__flex'>
+          <a href="#main-page"><img src={logo} alt="LOGO" width='35px' /></a>
+          <Nav />
+        </section>
+      </section>
     </section>
-  )
-
+    )
 }
-
