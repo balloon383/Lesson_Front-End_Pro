@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { getUsers, changeStatus } from "../../../api";
-import checkLogged from '../../../components/header/nav/Nav'
+//import checkLogged from '../../../components/header/nav/Nav'
 export default function LoginInputs() {
   const [login, setLogin] = useState("");
   const [password, setPassword] = useState("");
