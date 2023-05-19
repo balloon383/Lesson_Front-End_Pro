@@ -42,11 +42,7 @@ export default function Nav({changePage}) {
     return (
     <nav>
         <ul className="header__nav--ul">
-                <li className="header__nav--li" >Hi, <a href="" className="header__nav--user"
-                    onClick={() => {
-                        handleChangePage('user')
-                    }}
-                >{userName}</a></li>
+                <li className="header__nav--li" >Hi, <a href="" className="header__nav--user" onClick={() => {handleChangePage('user')}}>{userName}</a></li>
             <li className="header__nav--li">
                 <a href="#">
                         <img className="header__shoppingcart" src={shoppingCart} alt="shopping cart" width="35px" height="35px" onClick={() => {
@@ -57,7 +53,7 @@ export default function Nav({changePage}) {
                 <a href="#" className="header__logout" style={LogOutStatus} onClick={() => {
                         logOut()
                         checkLogged()
-                        changePage('main')
+                        handleChangePage('main')
                 }}>Log out</a>
             </li>
         </ul>

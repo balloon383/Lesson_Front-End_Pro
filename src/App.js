@@ -10,19 +10,27 @@ export default function App() {
   const [state, setState] = useState('main')
 
   function changePage(pageName) {
-    
-    console.log(pageName);
-
     setState(pageName)
+  }
 
+  function setPage(state) {
     console.log(state)
 
+    if (state === "login") {
+      return <Login />;
+    } else if (state === "main") {
+      return <Main />;
+    } else if (state === "user") {
+      return <User />;
+    } else if (state === "shoppingCart") {
+      return <ShoppingCart />;
+    }
   }
 
   return (
     <div className="App">
-      <Header changePage={ changePage } />
-      {state === "login" ? <Login /> : state === "main" ? <Main/> : state === 'user' ? <User/> : <ShoppingCart/>}
+      <Header changePage={changePage} />
+      {setPage(state)}
     </div>
   );
   
