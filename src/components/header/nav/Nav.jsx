@@ -53,7 +53,7 @@ export default function Nav(props) {
                 </a>
                 <a href="#" className="header__logout" style={LogOutStatus} onClick={() => {
                         logOut()
-                        checkLogged()
+                        holdCheck()
                         handleChangePage('main')
                 }}>Log out</a>
             </li>
