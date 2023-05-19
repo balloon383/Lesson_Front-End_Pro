@@ -3,7 +3,7 @@ import React, { useState, useEffect } from 'react'
 import shoppingCart from '../../../images/shopping-cart.png'
 import { getLoggedUser, logOut } from '../../../api'
 import './style.css'
-export default function Nav({changePage}) {
+export default function Nav(props) {
 
     const [userName, setUserName] = useState('Log In')
     const [LogOutStatus, setLogOutStatus] = useState({
@@ -17,6 +17,7 @@ export default function Nav({changePage}) {
     function holdCheck() {
         checkLogged()
     }
+
     function checkLogged() {
 
         let loggedUser = getLoggedUser()
@@ -35,7 +36,7 @@ export default function Nav({changePage}) {
     }
     
     function handleChangePage(page) {
-        changePage(page)
+        props.changePage(page)
     }
 
 
