@@ -3,11 +3,11 @@ import './App.css';
 import Login from './pages/login/Login';
 export default function App() {
 
-  const [state, setState] = useState(<Login/>)
+  const [state, setState] = useState('login')
 
   return (
     <div className="App">
-      {state}
+      {state === 'login' ? <Login/> : <></>}
     </div>
   );
   
