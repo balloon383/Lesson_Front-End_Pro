@@ -4,22 +4,16 @@ import Login from './pages/login/Login';
 import Main from './pages/mainPage/MainPage'
 import User from './pages/user/User'
 import ShoppingCart from './pages/shoppingCart/ShoppingCart'
-import Header from './components/header/header';
+import Header from './components/header/Header';
 export default function App() {
 
-  const [state, setState] = useState('login')
+  const [state, setState] = useState('main')
 
-  function changePage(pageName = 'login') {
+  function changePage(pageName) {
+    
+    console.log(pageName);
 
-    if (pageName === 'login') {
-      setState('login')
-    } else if (pageName === 'main') {
-      setState("main");
-    } else if (pageName === 'user') {
-      setState('user')
-    } else if (pageName === 'shoppingCart') {
-      setState("shoppingCart");
-    }
+    setState(pageName)
 
     console.log(state)
 
