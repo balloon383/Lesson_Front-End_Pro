@@ -1,6 +1,7 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import { getUsers, changeStatus } from "../../../api";
-import checkLogged from '../../../components/header/nav/Nav'
+import UserContext from "../../../context/UserContext";
+
 
 export default function LoginInputs() {
   const [login, setLogin] = useState("");
@@ -11,6 +12,8 @@ export default function LoginInputs() {
   const [passwordError, setPasswordError] = useState({
     display: "none",
   });
+
+
   function setLoginInfo() {
     const userLogin = login;
     const userPassword = password;
@@ -38,7 +41,7 @@ export default function LoginInputs() {
         display: 'block'
         })
       return;
-      }
+    }
       setLoginError({
         display: 'none'
       })
@@ -48,7 +51,6 @@ export default function LoginInputs() {
     console.log("success");
     const user = await changeStatus(userCheck, "true");
     localStorage.setItem("loggedUser", JSON.stringify(user));
-    checkLogged()
   }
 
   return (

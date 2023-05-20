@@ -1,14 +1,19 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useContext } from 'react'
 import shoppingCart from '../../../images/shopping-cart.png'
 import { getLoggedUser, logOut } from '../../../api'
 import './style.css'
+import UserContext from '../../../context/UserContext'
+
+
 export default function Nav(props) {
 
     const [userName, setUserName] = useState('Log In')
     const [LogOutStatus, setLogOutStatus] = useState({
         display: 'none' 
     })
+
+    let [userLink, setUserLink] = useState('/login')
 
     useEffect(() => {
         checkLogged()
@@ -26,35 +31,32 @@ export default function Nav(props) {
             setLogOutStatus({
                 display: 'block' 
             })
+            setUserLink('/user')
             setUserName(loggedUser.name)
         } else {
             setLogOutStatus({
                 display: 'none' 
             })
             setUserName('Log In')
+            setUserLink('/login')
+
         }
-    }
-    
-    function handleChangePage(page) {
-        props.changePage(page)
+
     }
 
 
     return (
     <nav>
         <ul className="header__nav--ul">
-                <li className="header__nav--li" >Hi, <a href="" className="header__nav--user" onClick={() => {handleChangePage('user')}}>{userName}</a></li>
+                <li className="header__nav--li" >Hi, <a href={userLink} className="header__nav--user" >{userName}</a></li>
             <li className="header__nav--li">
-                <a href="#">
-                        <img className="header__shoppingcart" src={shoppingCart} alt="shopping cart" width="35px" height="35px" onClick={() => {
-                            handleChangePage('shoppingCart')
-                        }} />
+                <a href="/shoppingCart">
+                        <img className="header__shoppingcart" src={shoppingCart} alt="shopping cart" width="35px" height="35px" />
                     <span className="header__shoppingcart--counter">0</span>
                 </a>
-                <a href="#" className="header__logout" style={LogOutStatus} onClick={() => {
+                <a href="/main" className="header__logout" style={LogOutStatus} onClick={() => {
                         logOut()
                         holdCheck()
-                        handleChangePage('main')
                 }}>Log out</a>
             </li>
         </ul>
