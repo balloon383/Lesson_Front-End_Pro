@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { getUsers } from '../../../api'
 
-export default function Register() {
+export default function Register({checkLogged}) {
   const [name, setName] = useState("");
   const [login, setLogin] = useState("");
   const [password, setPassword] = useState("");
@@ -17,6 +17,10 @@ export default function Register() {
     })
     
   const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+  function holdCheck(userName){
+    checkLogged(userName)
+  }
 
   function setRegisterInfo() {
     const userName = name;
@@ -86,7 +90,7 @@ export default function Register() {
     ).then((res) => res.json());
     newUser = { ...registration };
     localStorage.setItem("loggedUser", JSON.stringify(newUser));
-    console.log('success')
+    holdCheck(newUser.name)
   }
 
   return (

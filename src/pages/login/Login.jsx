@@ -4,13 +4,12 @@ import './style.css'
 import LoginInputs from './loginInputs/LoginInputs'
 import Register from './register/Register'
 
-export default function Login() {
-
+export default function Login({checkLogged}) {
   return (
     <section className='Login'>
       <section className='main__login'>
-      <LoginInputs/>
-      <Register/>
+      <LoginInputs checkLogged={checkLogged}/>
+      <Register checkLogged={checkLogged}/>
       </section>
     </section>
     )

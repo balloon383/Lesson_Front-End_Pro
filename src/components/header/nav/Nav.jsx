@@ -6,18 +6,19 @@ import './style.css'
 import UserContext from '../../../context/UserContext'
 
 
-export default function Nav(props) {
-
+export default function Nav({changeUserName}) {
     const [userName, setUserName] = useState('Log In')
     const [LogOutStatus, setLogOutStatus] = useState({
         display: 'none' 
     })
 
     let [userLink, setUserLink] = useState('/login')
-
-    useEffect(() => {
+    
+      useEffect(() => {
         checkLogged()
-    }, [userName])
+    console.log(userName, changeUserName)
+
+    }, [userName, changeUserName])
     
     function holdCheck() {
         checkLogged()

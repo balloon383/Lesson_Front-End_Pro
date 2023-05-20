@@ -6,22 +6,25 @@ import User from './pages/user/User'
 import ShoppingCart from './pages/shoppingCart/ShoppingCart'
 import Header from './components/header/Header';
 import { Route, Routes } from 'react-router-dom';
-import { Context } from 'react';
-import UserContext from './context/UserContext';
+
+
 export default function App() {
 
+  const [userName, setUserName] = useState('');
+
+  const checkLogged = (newUser) => {
+    setUserName(newUser);
+  };
 
   return (
     <div className="App">
-      <UserContext.Provider>
-        <Header />
+        <Header userName={userName}/>
         <Routes>
           <Route path="/main" element={<MainPage />} />
-          <Route path="/login" element={<Login />} />
+          <Route path="/login" element={<Login checkLogged={checkLogged}/>} />
           <Route path="/user" element={<User />} />
           <Route path="/shoppingCart" element={<ShoppingCart />} />
           </Routes>
-      </UserContext.Provider>
     </div>
   );
   

@@ -3,7 +3,7 @@ import { getUsers, changeStatus } from "../../../api";
 import UserContext from "../../../context/UserContext";
 
 
-export default function LoginInputs() {
+export default function LoginInputs({checkLogged}) {
   const [login, setLogin] = useState("");
   const [password, setPassword] = useState("");
   const [loginError, setLoginError] = useState({
@@ -13,6 +13,9 @@ export default function LoginInputs() {
     display: "none",
   });
 
+  function holdCheck(userName){
+    checkLogged(userName)
+  }
 
   function setLoginInfo() {
     const userLogin = login;
@@ -51,6 +54,7 @@ export default function LoginInputs() {
     console.log("success");
     const user = await changeStatus(userCheck, "true");
     localStorage.setItem("loggedUser", JSON.stringify(user));
+    holdCheck(user.name)
   }
 
   return (

@@ -3,7 +3,7 @@ import './style.css'
 import logo from '../../images/logo.png'
 import Nav from './nav/Nav.jsx'
 import UserContext from '../../context/UserContext'
-export default function Header() {
+export default function Header(props) {
 
 
   return (
@@ -11,7 +11,7 @@ export default function Header() {
       <section className='content__container'>
         <section className='header__flex'>
           <a href="/main"><img src={logo} alt="LOGO" width='35px' /></a>
-            <Nav />
+            <Nav changeUserName={props}/>
         </section>
       </section>
     </section>
