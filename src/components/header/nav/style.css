@@ -15,6 +15,9 @@ ul{
     column-gap: 5px;
     position: relative;
 }
+.header__nav--li a{
+    position: relative;
+}
 .header__nav--li:nth-child(1) {
     border-right: 1px solid black;
     padding-right: 10px;

@@ -14,9 +14,8 @@ export default function Nav({changeUserName}) {
 
     let [userLink, setUserLink] = useState('/login')
     
-      useEffect(() => {
+    useEffect(() => {
         checkLogged()
-    console.log(userName, changeUserName)
 
     }, [userName, changeUserName])
     
@@ -27,13 +26,17 @@ export default function Nav({changeUserName}) {
     function checkLogged() {
 
         let loggedUser = getLoggedUser()
+        
+        console.log(loggedUser.status)
 
-        if (loggedUser.status === 'true') {
+        if (loggedUser.status === 'true' || loggedUser.status === true) {
             setLogOutStatus({
                 display: 'block' 
             })
             setUserLink('/user')
             setUserName(loggedUser.name)
+            console.log(loggedUser)
+
         } else {
             setLogOutStatus({
                 display: 'none' 
