@@ -1,0 +1,84 @@
+*{
+    padding: 0;
+}
+.card{
+    padding: 15px;
+    font-size: 18px;
+    min-width: 180px;
+    background-color: #ffffff;
+    border-radius: 4px;
+    -webkit-box-shadow: 5px 6px 10px -3px rgba(0, 0, 0, 0.12);
+    -moz-box-shadow: 5px 6px 10px -3px rgba(0, 0, 0, 0.12);
+    box-shadow: 5px 6px 10px -3px rgba(0, 0, 0, 0.12);
+    display: flex;
+    justify-content: space-between;
+    flex-direction: column;
+}
+
+.card__header {
+    font-weight: 700;
+    margin-bottom: 35px;
+}
+
+.card__ul {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    padding-left: 0;
+
+}
+
+.card__li {
+    font-weight: 700;
+    font-size: 20px;
+    position: relative;
+}
+
+.card__li--button {
+    padding: 3px 14px 2px 12px;
+    border-radius: 3px;
+    cursor: pointer;
+    background-color: red;
+    align-self: flex-end;
+}
+
+
+.card__li--sale {
+    position: absolute;
+    left: 0;
+    top: 0;
+    font-weight: 400;
+    font-size: 16px;
+    color: gray;
+    transform: translate(0, -25px);
+}
+
+.card__li--price-prev{
+    color: gray;
+    font-weight: 400;
+    font-size: 16px;
+    text-align: center;
+}
+.card__li--price-prev::before {
+    content: '';
+    height: 1px;
+    display: block;
+    position: absolute;
+    left: 0;
+    right: 0;
+    background-color: gray;
+    transform: translate(0px, 11px);
+}
+.card__li--salePercent {
+    font-weight: 700;
+    font-size: 16px;
+    position: absolute;
+    right: 0;
+    top: 0;
+    color: white;
+    padding: 3px;
+    border-radius: 4px;
+    background-color: rgb(0, 178, 0);
+    transform: translate(48px, 0);
+}

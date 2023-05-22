@@ -13,6 +13,9 @@ export async function getUsers(flag = "false") {
   }
 }
 
+export async function getProducts() {
+  return await fetch(`https://634e9f834af5fdff3a625f84.mockapi.io/products`).then(res => res.json());
+}
 
 export async function changeStatus(dataToUpdate, userStatus = "true") {
   dataToUpdate.status = userStatus
@@ -44,3 +47,4 @@ export async function logOut() {
   
   await changeStatus(loggedUser, 'false');
 }
+

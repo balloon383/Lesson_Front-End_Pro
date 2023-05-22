@@ -24,7 +24,7 @@ export default function App() {
           <Route path="/login" element={<Login checkLogged={checkLogged}/>} />
           <Route path="/user" element={<User />} />
           <Route path="/shoppingCart" element={<ShoppingCart />} />
-          </Routes>
+        </Routes>
     </div>
   );
   

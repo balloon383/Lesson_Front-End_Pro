@@ -27,7 +27,6 @@ export default function Nav({changeUserName}) {
 
         let loggedUser = getLoggedUser()
         
-        console.log(loggedUser.status)
 
         if (loggedUser.status === 'true' || loggedUser.status === true) {
             setLogOutStatus({
