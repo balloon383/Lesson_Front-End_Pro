@@ -1,10 +1,73 @@
-import React from "react";
+import React, { useEffect, useState, useContext } from "react";
 import "./style.css";
 import shoppingCart from '../../../../images/shopping-cart.png'
+import { getLoggedUser, changeStatus, getUsers } from "../../../../api";
+import UserContext from "../../../../context/UserContext";
 
 export default function Card({ product }) {
-    
-console.log(product);
+
+  const [buttonStatus, setButtonStatus] = useState({
+    background: 'red'
+  })
+  useEffect(() => {
+    checkButtonStatus()
+  }, [])
+  
+  let { counter, setCounter } = useContext(UserContext)
+  
+  function checkButtonStatus() {
+    let shoppingCart = getLoggedUser().shoppingCart || []
+    if (shoppingCart.length > 0) {
+      setCounter(shoppingCart.length)
+      for (let i = 0; i < shoppingCart.length; i++){
+        if (shoppingCart[i].id === product.id) {
+          setButtonStatus({
+          background: 'rgb(0, 178, 0)'/* green */
+          })
+        }
+      }
+    }
+  }
+
+  function toCart() {
+    let user = getLoggedUser()
+    if (user.length == - 0) {
+      console.log(`user not logged`)
+    } else {
+      if (buttonStatus.background == 'red') {
+        setButtonStatus({
+          background: 'rgb(0, 178, 0)'/* green */
+        })
+        addToCart()
+        setCounter(counter + 1)
+      } else {
+        setButtonStatus({
+          background: 'red'
+        })
+        removeFromCart()
+        setCounter(counter - 1)
+      }
+      
+    }
+  }
+
+  async function addToCart() {
+    let localUser = getLoggedUser()
+    let dataToUpdate = {
+    ...localUser,
+    shoppingCart: [{...product, quantity: 1}, ...localUser.shoppingCart]
+    }; 
+    const userUpdated = await changeStatus(dataToUpdate)
+    localStorage.setItem('loggedUser', JSON.stringify(userUpdated))
+  }
+  async function removeFromCart() {
+    let localUser = getLoggedUser()
+    let store = await getUsers(localUser.id);
+    let updatedStore = store.shoppingCart.filter((el) => el.id !== product.id);
+    store.shoppingCart = updatedStore;
+    await changeStatus(store)
+    localStorage.setItem('loggedUser', JSON.stringify(store))
+  }
     
     return (
     <section className="card">
@@ -23,7 +86,7 @@ console.log(product);
                 <span className="card__li--price">${product.price}</span>
             }
         </li>
-        <li className="card__li card__li--button">
+        <li className="card__li card__li--button" onClick={toCart} style={buttonStatus}>
           <img
             className="card__li--img"
             src={shoppingCart}

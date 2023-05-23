@@ -1,6 +1,7 @@
 import React, { useState, useContext } from "react";
 import { getUsers, changeStatus } from "../../../api";
 import UserContext from "../../../context/UserContext";
+import { redirect } from "react-router-dom";
 
 
 export default function LoginInputs({checkLogged}) {
@@ -87,7 +88,7 @@ export default function LoginInputs({checkLogged}) {
         className="main__button main__login--button"
         onClick={setLoginInfo}
       >
-        Sign in
+      Sign in
       </button>
     </section>
   );
