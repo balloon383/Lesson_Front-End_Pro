@@ -31,21 +31,20 @@ export default function Card({ product }) {
 
   function toCart() {
     let user = getLoggedUser()
-    if (user.length == - 0) {
+    if (user.length === 0) {
       console.log(`user not logged`)
     } else {
-      if (buttonStatus.background == 'red') {
+      if (buttonStatus.background === 'red') {
         setButtonStatus({
           background: 'rgb(0, 178, 0)'/* green */
         })
         addToCart()
-        setCounter(counter + 1)
       } else {
         setButtonStatus({
           background: 'red'
         })
         removeFromCart()
-        setCounter(counter - 1)
+
       }
       
     }
@@ -59,6 +58,7 @@ export default function Card({ product }) {
     }; 
     const userUpdated = await changeStatus(dataToUpdate)
     localStorage.setItem('loggedUser', JSON.stringify(userUpdated))
+    setCounter(counter + 1)
   }
   async function removeFromCart() {
     let localUser = getLoggedUser()
@@ -67,6 +67,7 @@ export default function Card({ product }) {
     store.shoppingCart = updatedStore;
     await changeStatus(store)
     localStorage.setItem('loggedUser', JSON.stringify(store))
+    setCounter(counter - 1)
   }
     
     return (

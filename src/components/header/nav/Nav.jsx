@@ -7,14 +7,15 @@ import UserContext from '../../../context/UserContext'
 import { Link } from 'react-router-dom'
 
 
-export default function Nav({changeUserName}) {
+export default function Nav({ changeUserName }) {
+    
     const [userName, setUserName] = useState('Log In')
     const [LogOutStatus, setLogOutStatus] = useState({
         display: 'none' 
     })
     let [userLink, setUserLink] = useState('/login')
+    let { counter, setCounter } = useContext(UserContext)
     
-    let {counter, setCounter} = useContext(UserContext)
     
     useEffect(() => {
         checkLogged()
