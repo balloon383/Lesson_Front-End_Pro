@@ -6,7 +6,7 @@ import UserContext from '../../context/UserContext'
 import { Link } from 'react-router-dom'
 export default function Header(props) {
 
-
+  
   return (
     <section className='header'>
       <section className='content__container'>

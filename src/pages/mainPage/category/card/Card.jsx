@@ -3,9 +3,9 @@ import "./style.css";
 import shoppingCart from '../../../../images/shopping-cart.png'
 import { getLoggedUser, changeStatus, getUsers } from "../../../../api";
 import UserContext from "../../../../context/UserContext";
+import images from "../../../../images";
 
 export default function Card({ product }) {
-
   const [buttonStatus, setButtonStatus] = useState({
     background: 'red'
   })
@@ -71,7 +71,7 @@ export default function Card({ product }) {
     
     return (
     <section className="card">
-      <img src='' className="card__img" alt="card Img" width='25px' height='25px'/>
+      <img src={images[product.img]} className="card__img" alt="card Img" width='150px' />
       <h3 className="card__header">{product.title}</h3>
       <ul className="card__ul">
         <li className="card__li">

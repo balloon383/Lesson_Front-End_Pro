@@ -48,7 +48,6 @@ export default function Nav({changeUserName}) {
 
     }
 
-
     return (
     <nav>
         <ul className="header__nav--ul">
