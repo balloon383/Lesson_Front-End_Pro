@@ -1,0 +1,41 @@
+.list_item{
+    display: flex;
+    align-items: center;
+    column-gap: 15px;
+}
+.list__edit{
+    padding: 5px 14px;
+    background-color: #4400ff;
+    border-radius: 4px;
+    color: #fff;
+    display: inline;
+    margin-right: 10px;
+}
+.list__delete{
+    padding: 5px 14px;
+    background-color: red;
+    border-radius: 4px;
+    color: #fff;
+    display: inline;
+}
+.list__status--green{
+    padding: 5px 14px;
+    background-color: #0dff00;
+    border-radius: 4px;
+    color: white;
+    display: inline;
+}
+.list__status--red{
+    padding: 5px 14px;
+    background-color: red;
+    border-radius: 4px;
+    color: white; 
+    display: inline;
+
+}
+.list__input{
+    border: none;
+}
+.list__input:focus{
+    outline: none;
+}
