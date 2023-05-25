@@ -1,8 +1,9 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import { getUsers } from '../../../api'
 import { Navigate } from "react-router-dom";
+import UserContext from "../../../context/UserContext";
 
-export default function Register({checkLogged}) {
+export default function Register() {
   const [name, setName] = useState("");
   const [login, setLogin] = useState("");
   const [password, setPassword] = useState("");
@@ -20,9 +21,11 @@ export default function Register({checkLogged}) {
     })
     
   const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  const {checkLoggedUser} = useContext(UserContext)
 
-  function holdCheck(userName){
-    checkLogged(userName)
+  function holdCheck() {
+    checkLoggedUser()
+
   }
 
   function setRegisterInfo() {
@@ -81,6 +84,7 @@ export default function Register({checkLogged}) {
       }
     }
 
+
     let registration = await fetch(
       "https://634e9f834af5fdff3a625f84.mockapi.io/users",
       {
@@ -91,14 +95,18 @@ export default function Register({checkLogged}) {
         body: JSON.stringify(newUser),
       }
     ).then((res) => res.json());
+    await registration
     newUser = { ...registration };
     localStorage.setItem("loggedUser", JSON.stringify(newUser));
-    holdCheck(newUser.name)
+    holdCheck()
     setRedirect('true')
   }
+
     if (redirect === 'true') {
       return <Navigate to='/'/>
-    } 
+  } 
+  
+
   return (
     <section className="main__register--container">
       <h2 className="main__register--header main__header">
@@ -155,7 +163,6 @@ export default function Register({checkLogged}) {
         onClick={() =>
         {
           setRegisterInfo()
-          checkLogged()
         }}
       >
         Create Account

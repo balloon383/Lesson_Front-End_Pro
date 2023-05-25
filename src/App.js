@@ -18,8 +18,7 @@ export default function App() {
 
   const checkLoggedUser = () => {
     let localUser = getLoggedUser();
-
-    if (localUser.status === "true") {
+    if (localUser.status === "true" || localUser.status === true) {
       setIsAuth(true);
     } else if (localUser.status === undefined) {
       setIsAuth(false);
@@ -42,7 +41,7 @@ export default function App() {
           <Route path="/" element={<MainPage />} />
           <Route
             path="/login"
-            element={<Login checkLogged={checkLoggedUser} />}
+            element={<Login />}
           />
           <Route
             path="/user"

@@ -1,9 +1,10 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import { getUsers, changeStatus } from "../../../api";
 import { Navigate } from "react-router-dom";
+import UserContext from "../../../context/UserContext";
 
 
-export default function LoginInputs({checkLogged}) {
+export default function LoginInputs() {
   const [login, setLogin] = useState("");
   const [password, setPassword] = useState("");
   const [loginError, setLoginError] = useState({
@@ -13,9 +14,11 @@ export default function LoginInputs({checkLogged}) {
     display: "none",
   });
   const [redirect, setRedirect] = useState('')
+  const {checkLoggedUser} = useContext(UserContext)
 
-  function holdCheck(userName){
-    checkLogged(userName)
+
+  function holdCheck(){
+    checkLoggedUser()
   }
 
   function setLoginInfo() {
@@ -54,7 +57,7 @@ export default function LoginInputs({checkLogged}) {
         })
     const user = await changeStatus(userCheck, "true");
     localStorage.setItem("loggedUser", JSON.stringify(user));
-    holdCheck(user.name)
+    holdCheck()
     setRedirect('true')
   }
   if (redirect === 'true') {
@@ -90,7 +93,7 @@ export default function LoginInputs({checkLogged}) {
         className="main__button main__login--button"
         onClick={() => {
           setLoginInfo()
-          checkLogged()
+          holdCheck()
         }}
       >
       Sign in
