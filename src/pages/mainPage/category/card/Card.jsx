@@ -4,17 +4,19 @@ import shoppingCart from '../../../../images/shopping-cart.png'
 import { getLoggedUser, changeStatus, getUsers } from "../../../../api";
 import UserContext from "../../../../context/UserContext";
 import images from "../../../../images";
+import { Navigate } from "react-router-dom";
 
 export default function Card({ product }) {
   const [buttonStatus, setButtonStatus] = useState({
     background: 'red'
   })
+  const [redirect, setRedirect] = useState('')
   useEffect(() => {
     checkButtonStatus()
   }, [])
   
   let { counter, setCounter } = useContext(UserContext)
-  
+
   function checkButtonStatus() {
     let shoppingCart = getLoggedUser().shoppingCart || []
     if (shoppingCart.length > 0) {
@@ -32,7 +34,7 @@ export default function Card({ product }) {
   function toCart() {
     let user = getLoggedUser()
     if (user.length === 0) {
-      console.log(`user not logged`)
+      setRedirect('false')
     } else {
       if (buttonStatus.background === 'red') {
         setButtonStatus({
@@ -46,7 +48,7 @@ export default function Card({ product }) {
         removeFromCart()
 
       }
-      
+      setRedirect('true')
     }
   }
 
@@ -69,7 +71,9 @@ export default function Card({ product }) {
     localStorage.setItem('loggedUser', JSON.stringify(store))
     setCounter(counter - 1)
   }
-    
+  if (redirect === 'false') {
+      return <Navigate to='/login'/>
+  } 
     return (
     <section className="card">
       <img src={images[product.img]} className="card__img" alt="card Img" width='150px' />

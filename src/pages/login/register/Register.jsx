@@ -1,11 +1,14 @@
 import React, { useState } from "react";
 import { getUsers } from '../../../api'
+import { Navigate } from "react-router-dom";
 
 export default function Register({checkLogged}) {
   const [name, setName] = useState("");
   const [login, setLogin] = useState("");
   const [password, setPassword] = useState("");
   const [passwordVerify, setPasswordVerify] = useState("");
+  const [redirect, setRedirect] = useState('')
+
     const [loginError, setLoginError] = useState({
         display: 'none'
   })
@@ -91,8 +94,11 @@ export default function Register({checkLogged}) {
     newUser = { ...registration };
     localStorage.setItem("loggedUser", JSON.stringify(newUser));
     holdCheck(newUser.name)
+    setRedirect('true')
   }
-
+    if (redirect === 'true') {
+      return <Navigate to='/'/>
+    } 
   return (
     <section className="main__register--container">
       <h2 className="main__register--header main__header">
@@ -146,7 +152,11 @@ export default function Register({checkLogged}) {
       </form>
       <button
         className="main__button main__register--button"
-        onClick={setRegisterInfo}
+        onClick={() =>
+        {
+          setRegisterInfo()
+          checkLogged()
+        }}
       >
         Create Account
       </button>

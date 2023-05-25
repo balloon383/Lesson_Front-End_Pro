@@ -1,7 +1,6 @@
-import React, { useState, useContext } from "react";
+import React, { useState } from "react";
 import { getUsers, changeStatus } from "../../../api";
-import UserContext from "../../../context/UserContext";
-import { redirect } from "react-router-dom";
+import { Navigate } from "react-router-dom";
 
 
 export default function LoginInputs({checkLogged}) {
@@ -13,6 +12,7 @@ export default function LoginInputs({checkLogged}) {
   const [passwordError, setPasswordError] = useState({
     display: "none",
   });
+  const [redirect, setRedirect] = useState('')
 
   function holdCheck(userName){
     checkLogged(userName)
@@ -52,12 +52,14 @@ export default function LoginInputs({checkLogged}) {
       setPasswordError({
         display: 'none'
         })
-    console.log("success");
     const user = await changeStatus(userCheck, "true");
     localStorage.setItem("loggedUser", JSON.stringify(user));
     holdCheck(user.name)
+    setRedirect('true')
   }
-
+  if (redirect === 'true') {
+      return <Navigate to='/'/>
+    } 
   return (
     <section className="main__login--container">
       <h2 className="main__login--header main__header">Secure Sign In</h2>
@@ -86,7 +88,10 @@ export default function LoginInputs({checkLogged}) {
       </form>
       <button
         className="main__button main__login--button"
-        onClick={setLoginInfo}
+        onClick={() => {
+          setLoginInfo()
+          checkLogged()
+        }}
       >
       Sign in
       </button>

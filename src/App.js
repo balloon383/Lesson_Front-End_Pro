@@ -14,22 +14,36 @@ export default function App() {
 
   const [userName, setUserName] = useState('');
   const [counter, setCounter] = useState(0);
-  const [isAuth, setIsAuth] = useState(false)
+  const [isAuth, setIsAuth] = useState('')
 
-  const checkLogged = (newUser) => {
-    setUserName(newUser);
-    let localUser = getLoggedUser()
-    console.log(localUser)
-    
+  const checkLoggedUser = () => {
+    let localUser = getLoggedUser();
+
+    if (localUser.status === "true") {
+      setIsAuth(true);
+    } else if (localUser.status === undefined) {
+      setIsAuth(false);
+    }
+    setUserName(localUser.name);
+
   };
+
+  useEffect(() => {
+    checkLoggedUser();
+  }, [isAuth]);
   
+
+
   return (
     <div className="App">
-      <UserContext.Provider value={{ counter, setCounter }}>
+      <UserContext.Provider value={{ counter, setCounter, checkLoggedUser }}>
         <Header userName={userName} />
         <Routes>
           <Route path="/" element={<MainPage />} />
-          <Route path="/login" element={<Login checkLogged={checkLogged} />} />
+          <Route
+            path="/login"
+            element={<Login checkLogged={checkLoggedUser} />}
+          />
           <Route
             path="/user"
             element={
@@ -54,3 +68,4 @@ export default function App() {
 }
 
 
+/* дороби ХОК на зміну тру фолс від логіну */

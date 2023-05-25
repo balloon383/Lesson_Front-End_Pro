@@ -14,7 +14,7 @@ export default function Nav({ changeUserName }) {
         display: 'none' 
     })
     let [userLink, setUserLink] = useState('/login')
-    let { counter, setCounter } = useContext(UserContext)
+    let { counter, setCounter, checkLoggedUser } = useContext(UserContext)
     
     
     useEffect(() => {
@@ -23,6 +23,7 @@ export default function Nav({ changeUserName }) {
     
     function holdCheck() {
         checkLogged()
+        checkLoggedUser()
     }
 
     function checkLogged() {
