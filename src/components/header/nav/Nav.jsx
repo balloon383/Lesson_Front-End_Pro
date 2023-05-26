@@ -1,5 +1,5 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
-import React, { useState, useEffect, useContext } from 'react'
+import React, { useState, useEffect, useContext, useCallback } from 'react'
 import shoppingCart from '../../../images/shopping-cart.png'
 import { getLoggedUser, logOut } from '../../../api'
 import './style.css'
@@ -16,40 +16,38 @@ export default function Nav({ changeUserName }) {
     let [userLink, setUserLink] = useState('/login')
     let { counter, setCounter, checkLoggedUser } = useContext(UserContext)
     
-    
-    useEffect(() => {
-        checkLogged()
-    }, [userName, changeUserName])
-    
     function holdCheck() {
         checkLogged()
         checkLoggedUser()
     }
 
-    function checkLogged() {
+    const checkLogged = useCallback(() => {
 
-        let loggedUser = getLoggedUser()
+            let loggedUser = getLoggedUser()
         
 
-        if (loggedUser.status === 'true' || loggedUser.status === true) {
-            setLogOutStatus({
-                display: 'block' 
-            })
-            setUserLink('/user')
-            setUserName(loggedUser.name)
-            setCounter(loggedUser.shoppingCart.length)
-        } else {
-            setLogOutStatus({
-                display: 'none' 
-            })
-            setUserName('Log In')
-            setCounter(0)
-            setUserLink('/login')
+            if (loggedUser.status === 'true' || loggedUser.status === true) {
+                setLogOutStatus({
+                    display: 'block'
+                })
+                setUserLink('/user')
+                setUserName(loggedUser.name)
+                setCounter(loggedUser.shoppingCart.length)
+            } else {
+                setLogOutStatus({
+                    display: 'none'
+                })
+                setUserName('Log In')
+                setCounter(0)
+                setUserLink('/login')
 
-        }
+            }
 
-    }
-
+    }, [setCounter])
+    useEffect(() => {
+        checkLogged()
+    }, [checkLogged, userName, changeUserName])
+    
     return (
     <nav>
         <ul className="header__nav--ul">

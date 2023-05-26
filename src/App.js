@@ -4,7 +4,7 @@ import Login from './pages/login/Login';
 import {MainPage} from './pages/mainPage/MainPage'
 import User from './pages/user/User'
 import ShoppingCart from './pages/shoppingCart/ShoppingCart'
-import Header from './components/header/Header';
+import Header from './components/header/Index';
 import { Route, Routes } from 'react-router-dom';
 import UserContext from './context/UserContext';
 import PrivateRoute from './components/hoc/PrivateRoute';

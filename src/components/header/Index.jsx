@@ -2,7 +2,6 @@ import React from 'react'
 import './style.css'
 import logo from '../../images/logo.png'
 import Nav from './nav/Nav.jsx'
-import UserContext from '../../context/UserContext'
 import { Link } from 'react-router-dom'
 export default function Header(props) {
 
