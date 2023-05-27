@@ -1,35 +1,42 @@
-import React, { useEffect, useState, useContext } from "react";
+import React, { useEffect, useState, useContext, useCallback } from "react";
 import "./style.css";
-import shoppingCart from '../../../../images/shopping-cart.png'
 import { getLoggedUser, changeStatus, getUsers } from "../../../../api";
 import UserContext from "../../../../context/UserContext";
 import images from "../../../../images";
 import { Navigate } from "react-router-dom";
+import AddShoppingCartIcon from "@mui/icons-material/AddShoppingCart";
+import IconButton from "@mui/material/IconButton";
+
+
 
 export default function Card({ product }) {
   const [buttonStatus, setButtonStatus] = useState({
     background: 'red'
   })
+  const [cartStyle, setCartStyle] = useState('primary')
   const [redirect, setRedirect] = useState('')
-  useEffect(() => {
-    checkButtonStatus()
-  }, [])
+
+  
   
   let { counter, setCounter } = useContext(UserContext)
 
-  function checkButtonStatus() {
-    let shoppingCart = getLoggedUser().shoppingCart || []
+  const checkButtonStatus = useCallback(() => {
+    let shoppingCart = getLoggedUser().shoppingCart || [];
     if (shoppingCart.length > 0) {
-      setCounter(shoppingCart.length)
-      for (let i = 0; i < shoppingCart.length; i++){
+      setCounter(shoppingCart.length);
+      for (let i = 0; i < shoppingCart.length; i++) {
         if (shoppingCart[i].id === product.id) {
           setButtonStatus({
-          background: 'rgb(0, 178, 0)'/* green */
-          })
+            background: "rgb(0, 178, 0)" /* green */,
+          });
         }
       }
     }
-  }
+  }, [product.id, setCounter]);
+
+  useEffect(() => {
+    checkButtonStatus();
+  }, [checkButtonStatus]);
 
   function toCart() {
     let user = getLoggedUser()
@@ -40,11 +47,13 @@ export default function Card({ product }) {
         setButtonStatus({
           background: 'rgb(0, 178, 0)'/* green */
         })
+        setCartStyle('secondary')
         addToCart()
       } else {
         setButtonStatus({
           background: 'red'
         })
+        setCartStyle("primary");
         removeFromCart()
 
       }
@@ -75,32 +84,41 @@ export default function Card({ product }) {
       return <Navigate to='/login'/>
   } 
     return (
-    <section className="card">
-      <img src={images[product.img]} className="card__img" alt="card Img" width='150px' />
-      <h3 className="card__header">{product.title}</h3>
-      <ul className="card__ul">
-        <li className="card__li">
-            {
-                product.sale ? 
-                <ul>
-                    <li className="card__li--price-prev">${product.price}</li>
-                    <li className="card__li--salePercent"> -{product.salePercent}%</li>
-                    <li className="card__li--price">${product.price - (product.price * product.salePercent) / 100}</li>
-                </ul>
-                :
-                <span className="card__li--price">${product.price}</span>
-            }
-        </li>
-        <li className="card__li card__li--button" onClick={toCart} style={buttonStatus}>
-          <img
-            className="card__li--img"
-            src={shoppingCart}
-            alt="shopping cart"
-            width="25px"
-            height="25px"
-          />
-        </li>
-      </ul>
-    </section>
-  );
+      <section className="card">
+        <img
+          src={images[product.img]}
+          className="card__img"
+          alt="card Img"
+          width="150px"
+        />
+        <h3 className="card__header">{product.title}</h3>
+        <ul className="card__ul">
+          <li className="card__li">
+            {product.sale ? (
+              <ul>
+                <li className="card__li--price-prev">${product.price}</li>
+                <li className="card__li--salePercent">
+                  {" "}
+                  -{product.salePercent}%
+                </li>
+                <li className="card__li--price">
+                  ${product.price - (product.price * product.salePercent) / 100}
+                </li>
+              </ul>
+            ) : (
+              <span className="card__li--price">${product.price}</span>
+            )}
+          </li>
+          <li className="card__li card__li--button">
+            <IconButton
+              color={cartStyle}
+              aria-label="add to shopping cart"
+              onClick={toCart}
+            >
+              <AddShoppingCartIcon />
+            </IconButton>
+          </li>
+        </ul>
+      </section>
+    );
 }

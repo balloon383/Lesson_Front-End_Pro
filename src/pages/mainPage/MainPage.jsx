@@ -1,6 +1,7 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useCallback } from 'react'
 import {getProducts} from '../../api'
 import Category from './category/Category'
+
 export function MainPage() {
 
   const [products, setProducts] = useState([])
@@ -14,28 +15,25 @@ export function MainPage() {
     getShop()
   }, [])
 
-  useEffect(() => {
-    sortCategories()
-  }, [products])
+  
   
 
-  function sortCategories() {
-
-    let shopCategories = []
+  const sortCategories = useCallback(() => {
+    let shopCategories = [];
 
     for (let i = 0; i < products.length; i++) {
-    shopCategories.push(products[i].category);
+      shopCategories.push(products[i].category);
     }
     shopCategories = shopCategories.filter((el, i, self) => {
-    return i === self.indexOf(el);
+      return i === self.indexOf(el);
     });
-    setCategories(shopCategories)
-    sortProducts()
-  }
-
-  function sortProducts() {
-    
-  }
+    setCategories(shopCategories);
+  }, [products]);
+  
+  useEffect(() => {
+    sortCategories();
+  }, [products, sortCategories]);
+  
 
   return (
       <section>

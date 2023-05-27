@@ -2,6 +2,10 @@ import React, { useState, useContext } from "react";
 import { getUsers, changeStatus } from "../../../api";
 import { Navigate } from "react-router-dom";
 import UserContext from "../../../context/UserContext";
+import Stack from '@mui/material/Stack';
+import Button from '@mui/material/Button';
+import Box from '@mui/material/Box';
+import TextField from '@mui/material/TextField';
 
 
 export default function LoginInputs() {
@@ -69,35 +73,56 @@ export default function LoginInputs() {
       <h3 className="main__login--comment main__comment">
         For current customers
       </h3>
-      <p className="main__error" style={passwordError}>Invalid password.</p>
-      <p className="main__error main__error--email"style={loginError}>Invalid login.</p>
+      <p className="main__error" style={passwordError}>
+        Invalid password.
+      </p>
+      <p className="main__error main__error--email" style={loginError}>
+        Invalid login.
+      </p>
       <form action="GET" className="main__login--form">
-        <input
-          className="main__input main__login--email"
-          type="email"
-          name="email"
-          placeholder="Email Address"
-          value={login}
-          onChange={(e) => setLogin(e.target.value)}
-        />
-        <input
-          className="main__input main__login--password"
-          type="password"
-          name="password"
-          placeholder="Password"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-        />
+        <Box
+          component="form"
+          sx={{
+            "& > :not(style)": { m: 0.5, width: "530px" },
+          }}
+          noValidate
+          autoComplete="off"
+        >
+          <TextField
+            id="outlined-basic"
+            label="Email Address"
+            variant="outlined"
+            type="email"
+            name="email"
+            placeholder="Email Address"
+            value={login}
+            onChange={(e) => setLogin(e.target.value)}
+          />
+          <TextField
+            id="outlined-basic"
+            label="Password"
+            variant="outlined"
+            type="password"
+            name="password"
+            placeholder="Password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+          />
+        </Box>
       </form>
-      <button
-        className="main__button main__login--button"
-        onClick={() => {
-          setLoginInfo()
-          holdCheck()
-        }}
-      >
-      Sign in
-      </button>
+
+      <Stack direction="row" spacing={2}>
+        <Button
+          variant="contained"
+          color="success"
+          onClick={() => {
+            setLoginInfo();
+            holdCheck();
+          }}
+        >
+          Log In
+        </Button>
+      </Stack>
     </section>
   );
 }

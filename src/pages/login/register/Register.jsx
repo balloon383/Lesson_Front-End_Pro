@@ -2,6 +2,11 @@ import React, { useState, useContext } from "react";
 import { getUsers } from '../../../api'
 import { Navigate } from "react-router-dom";
 import UserContext from "../../../context/UserContext";
+import Stack from '@mui/material/Stack';
+import Button from '@mui/material/Button';
+import Box from "@mui/material/Box";
+import TextField from "@mui/material/TextField";
+
 
 export default function Register() {
   const [name, setName] = useState("");
@@ -125,48 +130,70 @@ export default function Register() {
         User already exsist
       </p>
       <form className="main__register--form" action="PUT">
-        <input
-          className="main__input main__register--name"
-          type="text"
-          name="Full name"
-          placeholder="Full name"
-          value={name}
-          onChange={(e) => setName(e.target.value)}
-        />
-        <input
-          className="main__input main__register--email"
-          type="email"
-          name="email"
-          placeholder="Email Address"
-          value={login}
-          onChange={(e) => setLogin(e.target.value)}
-        />
-        <input
-          className="main__input main__register--password"
-          type="password"
-          name="password"
-          placeholder="Password"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-        />
-        <input
-          className="main__input main__register--password-verify"
-          type="password"
-          name="password"
-          placeholder="Verify Password"
-          value={passwordVerify}
-          onChange={(e) => setPasswordVerify(e.target.value)}
-        />
+        <Box
+          component="form"
+          sx={{
+            "& > :not(style)": { m: 0.5, width: "530px" },
+          }}
+          noValidate
+          autoComplete="off"
+        >
+          <TextField
+            fullWidth
+            id="outlined-basic"
+            label="Full name"
+            variant="outlined"
+            type="text"
+            name="Full name"
+            value={name}
+            onChange={(e) => setName(e.target.value)}
+          />
+          <TextField
+            fullWidth
+            id="outlined-basic"
+            label="Email Address"
+            variant="outlined"
+            type="password"
+            name="password"
+            value={login}
+            onChange={(e) => setLogin(e.target.value)}
+          />
+          <TextField
+            fullWidth
+            id="outlined-basic"
+            label="Password"
+            variant="outlined"
+            type="password"
+            name="password"
+            placeholder="Password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+          />
+          <TextField
+            fullWidth
+            id="outlined-basic"
+            label="Password"
+            variant="outlined"
+            type="password"
+            name="password"
+            placeholder="Verify Password"
+            value={passwordVerify}
+            onChange={(e) => setPasswordVerify(e.target.value)}
+          />
+        </Box>
       </form>
-      <button
-        className="main__button main__register--button"
-        onClick={() =>
-        {
-          setRegisterInfo()
-        }}
-      >
-        Create Account
-      </button>
+
+      <Stack direction="row" spacing={2}>
+        <Button
+          variant="contained"
+          color="success"
+          onClick={() => {
+            setRegisterInfo();
+          }}
+        >
+          Create Account
+        </Button>
+      </Stack>
     </section>
   );
 }

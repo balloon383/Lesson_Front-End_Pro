@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React from 'react'
 import './style.css'
 import Card from './card/Card'
 export default function Category({productsArr, title}) {

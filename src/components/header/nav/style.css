@@ -15,6 +15,9 @@ ul{
     column-gap: 5px;
     position: relative;
 }
+.header__nav--user {
+    text-decoration: none;
+}
 .header__nav--li a{
     position: relative;
 }
@@ -50,6 +53,7 @@ ul{
 
 .header__logout {
     display: none;
+    text-decoration: none;
 }
 .header__logout-logged {
     display: block;
