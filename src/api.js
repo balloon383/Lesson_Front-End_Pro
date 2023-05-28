@@ -48,3 +48,5 @@ export async function logOut() {
   await changeStatus(loggedUser, 'false');
 }
 
+
+
