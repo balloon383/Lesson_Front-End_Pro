@@ -6,12 +6,10 @@ import images from "../../../../images";
 import { Navigate } from "react-router-dom";
 import AddShoppingCartIcon from "@mui/icons-material/AddShoppingCart";
 import IconButton from "@mui/material/IconButton";
-//
 import Box from "@mui/material/Box";
 import List from "@mui/material/List"
 import ListItem from "@mui/material/ListItem";
 import { Typography } from "@mui/material";
-import { positions } from "@mui/system";
 
 export default function Card({ product }) {
   const [cartStyle, setCartStyle] = useState('primary')
@@ -103,14 +101,13 @@ export default function Card({ product }) {
         <ListItem className="card__li">
           {product.sale ? (
             <List>
-              <ListItem className="card__li--price-prev" disablePadding>
+              <ListItem className="card__li--price-prev" disablePadding >
                 ${product.price}
               </ListItem>
               <ListItem disablePadding>
                 <Typography
                   variant="inherit"
                   className="card__li--salePercent"
-
                 >
                   {" "}
                   -{product.salePercent}%
