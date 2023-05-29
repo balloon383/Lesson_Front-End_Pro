@@ -9,7 +9,14 @@ import { Route, Routes } from 'react-router-dom';
 import UserContext from './context/UserContext';
 import PrivateRoute from './components/hoc/PrivateRoute';
 import { getLoggedUser } from './api';
-
+import Box from "@mui/material/Box";
+import TextField from "@mui/material/TextField";
+import CssBaseline from "@mui/material/CssBaseline";
+import Container from "@mui/material/Container";
+import Pagination from "@mui/material/Pagination";
+import List from "@mui/material/List";
+import ListItem from "@mui/material/ListItem";
+import Typography from "@mui/material/Typography";
 export default function App() {
 
   const [userName, setUserName] = useState('');
@@ -34,7 +41,7 @@ export default function App() {
 
 
   return (
-    <div className="App">
+    <Box className="App">
       <UserContext.Provider value={{ counter, setCounter, checkLoggedUser }}>
         <Header userName={userName} />
         <Routes>
@@ -61,10 +68,7 @@ export default function App() {
           />
         </Routes>
       </UserContext.Provider>
-    </div>
+    </Box>
   );
   
 }
-
-
-/* дороби ХОК на зміну тру фолс від логіну */

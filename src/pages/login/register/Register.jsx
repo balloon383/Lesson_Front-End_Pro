@@ -6,7 +6,7 @@ import Stack from '@mui/material/Stack';
 import Button from '@mui/material/Button';
 import Box from "@mui/material/Box";
 import TextField from "@mui/material/TextField";
-
+import Typography from "@mui/material/Typography";
 
 export default function Register() {
   const [name, setName] = useState("");
@@ -113,23 +113,36 @@ export default function Register() {
   
 
   return (
-    <section className="main__register--container">
-      <h2 className="main__register--header main__header">
+    <Box className="main__register--container">
+      <Typography variant="h4" className="main__register--header main__header">
         Quick Registration
-      </h2>
-      <h3 className="main__register--comment main__comment">
+      </Typography>
+      <Typography
+        variant="h5"
+        className="main__register--comment main__comment"
+      >
         For new customers
-      </h3>
-      <p className="main__error" style={passwordError}>
+      </Typography>
+      <Typography
+        variant="inherit"
+        className="main__error"
+        style={passwordError}
+        margin="5px"
+      >
         Passwords not matches, or shorter than 5 symbols
-      </p>
-      <p className="main__error" style={loginError}>
+      </Typography>
+      <Typography variant="inherit" className="main__error" style={loginError} margin='5px'>
         Invalid login, example: login@email.com
-      </p>
-      <p className="main__error main__error--exist-register" style={userError}>
+      </Typography>
+      <Typography
+        variant="inherit"
+        className="main__error main__error--exist-register"
+        style={userError}
+        margin="5px"
+      >
         User already exsist
-      </p>
-      <form className="main__register--form" action="PUT">
+      </Typography>
+      <Box className="main__register--form">
         <Box
           component="form"
           sx={{
@@ -181,7 +194,7 @@ export default function Register() {
             onChange={(e) => setPasswordVerify(e.target.value)}
           />
         </Box>
-      </form>
+      </Box>
 
       <Stack direction="row" spacing={2}>
         <Button
@@ -194,6 +207,6 @@ export default function Register() {
           Create Account
         </Button>
       </Stack>
-    </section>
+    </Box>
   );
 }

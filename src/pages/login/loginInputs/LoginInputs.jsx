@@ -6,7 +6,12 @@ import Stack from '@mui/material/Stack';
 import Button from '@mui/material/Button';
 import Box from '@mui/material/Box';
 import TextField from '@mui/material/TextField';
-
+import CssBaseline from "@mui/material/CssBaseline";
+import Container from "@mui/material/Container";
+import Pagination from "@mui/material/Pagination";
+import List from "@mui/material/List";
+import ListItem from "@mui/material/ListItem";
+import Typography from "@mui/material/Typography";
 
 export default function LoginInputs() {
   const [login, setLogin] = useState("");
@@ -66,20 +71,34 @@ export default function LoginInputs() {
   }
   if (redirect === 'true') {
       return <Navigate to='/'/>
-    } 
+  } 
+  
+
   return (
-    <section className="main__login--container">
-      <h2 className="main__login--header main__header">Secure Sign In</h2>
-      <h3 className="main__login--comment main__comment">
+    <Box className="main__login--container">
+      <Typography variant="h4" className="main__login--header main__header">
+        Secure Sign In
+      </Typography>
+      <Typography variant="h5" className="main__login--comment main__comment">
         For current customers
-      </h3>
-      <p className="main__error" style={passwordError}>
+      </Typography>
+      <Typography
+        variant="inherit"
+        className="main__error"
+        style={passwordError}
+        margin="5px"
+      >
         Invalid password.
-      </p>
-      <p className="main__error main__error--email" style={loginError}>
+      </Typography>
+      <Typography
+        variant="inherit"
+        className="main__error main__error--email"
+        style={loginError}
+        margin="5px"
+      >
         Invalid login.
-      </p>
-      <form action="GET" className="main__login--form">
+      </Typography>
+      <Box action="GET" className="main__login--form">
         <Box
           component="form"
           sx={{
@@ -109,7 +128,7 @@ export default function LoginInputs() {
             onChange={(e) => setPassword(e.target.value)}
           />
         </Box>
-      </form>
+      </Box>
 
       <Stack direction="row" spacing={2}>
         <Button
@@ -123,6 +142,6 @@ export default function LoginInputs() {
           Log In
         </Button>
       </Stack>
-    </section>
+    </Box>
   );
 }

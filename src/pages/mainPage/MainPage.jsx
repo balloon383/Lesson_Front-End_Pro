@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useCallback } from 'react'
 import {getProducts} from '../../api'
 import Category from './category/Category'
+import Box from "@mui/material/Box";
 
 export function MainPage() {
 
@@ -33,8 +34,14 @@ export function MainPage() {
   
 
   return (
-      <section>
-      {categories.map(el => <Category productsArr={products.filter(e => e.category === el)} title={ el }  key={ el }/>)}
-      </section>
-  )
+    <Box>
+      {categories.map((el) => (
+        <Category
+          productsArr={products.filter((e) => e.category === el)}
+          title={el}
+          key={el}
+        />
+      ))}
+    </Box>
+  );
 }

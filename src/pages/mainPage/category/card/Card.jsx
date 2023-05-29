@@ -6,8 +6,11 @@ import images from "../../../../images";
 import { Navigate } from "react-router-dom";
 import AddShoppingCartIcon from "@mui/icons-material/AddShoppingCart";
 import IconButton from "@mui/material/IconButton";
-
-
+//
+import Box from "@mui/material/Box";
+import List from "@mui/material/List"
+import ListItem from "@mui/material/ListItem";
+import { Typography } from "@mui/material";
 
 export default function Card({ product }) {
   const [cartStyle, setCartStyle] = useState('primary')
@@ -85,32 +88,34 @@ export default function Card({ product }) {
   }
 
   return (
-    <section className="card">
+    <Box className="card">
       <img
         src={images[product.img]}
         className="card__img"
         alt="card Img"
         width="150px"
       />
-      <h3 className="card__header">{product.title}</h3>
-      <ul className="card__ul">
-        <li className="card__li">
+      <Typography variant="h5" className="card__header">{product.title}</Typography>
+      <List className="card__ul">
+        <ListItem className="card__li">
           {product.sale ? (
-            <ul>
-              <li className="card__li--price-prev">${product.price}</li>
-              <li className="card__li--salePercent">
+            <List>
+              <ListItem className="card__li--price-prev">
+                ${product.price}
+              </ListItem>
+              <ListItem className="card__li--salePercent">
                 {" "}
                 -{product.salePercent}%
-              </li>
-              <li className="card__li--price">
+              </ListItem>
+              <ListItem className="card__li--price">
                 ${product.price - (product.price * product.salePercent) / 100}
-              </li>
-            </ul>
+              </ListItem>
+            </List>
           ) : (
-            <span className="card__li--price">${product.price}</span>
+            <Typography variant="inherit" className="card__li--price">${product.price}</Typography>
           )}
-        </li>
-        <li className="card__li card__li--button">
+        </ListItem>
+        <ListItem className="card__li card__li--button">
           <IconButton
             color={cartStyle}
             aria-label="add to shopping cart"
@@ -118,8 +123,8 @@ export default function Card({ product }) {
           >
             <AddShoppingCartIcon />
           </IconButton>
-        </li>
-      </ul>
-    </section>
+        </ListItem>
+      </List>
+    </Box>
   );
 }

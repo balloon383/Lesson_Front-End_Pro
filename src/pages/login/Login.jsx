@@ -3,14 +3,15 @@ import './style.css'
 //import Header from '../../components/header/header'
 import LoginInputs from './loginInputs/LoginInputs'
 import Register from './register/Register'
+import Box from "@mui/material/Box";
 
 export default function Login() {
   return (
-    <section className='Login'>
-      <section className='main__login'>
-      <LoginInputs />
-      <Register/>
-      </section>
-    </section>
-    )
+    <Box className="Login">
+      <Box className="main__login">
+        <LoginInputs />
+        <Register />
+      </Box>
+    </Box>
+  );
 }
