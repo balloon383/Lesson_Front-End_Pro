@@ -166,8 +166,8 @@ export default function Register() {
             id="outlined-basic"
             label="Email Address"
             variant="outlined"
-            type="password"
-            name="password"
+            type="email"
+            name="email register"
             value={login}
             onChange={(e) => setLogin(e.target.value)}
           />
