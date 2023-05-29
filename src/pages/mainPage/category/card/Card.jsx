@@ -11,6 +11,7 @@ import Box from "@mui/material/Box";
 import List from "@mui/material/List"
 import ListItem from "@mui/material/ListItem";
 import { Typography } from "@mui/material";
+import { positions } from "@mui/system";
 
 export default function Card({ product }) {
   const [cartStyle, setCartStyle] = useState('primary')
@@ -95,24 +96,34 @@ export default function Card({ product }) {
         alt="card Img"
         width="150px"
       />
-      <Typography variant="h5" className="card__header">{product.title}</Typography>
+      <Typography variant="h5" className="card__header">
+        {product.title}
+      </Typography>
       <List className="card__ul">
         <ListItem className="card__li">
           {product.sale ? (
             <List>
-              <ListItem className="card__li--price-prev">
+              <ListItem className="card__li--price-prev" disablePadding>
                 ${product.price}
               </ListItem>
-              <ListItem className="card__li--salePercent">
-                {" "}
-                -{product.salePercent}%
+              <ListItem disablePadding>
+                <Typography
+                  variant="inherit"
+                  className="card__li--salePercent"
+
+                >
+                  {" "}
+                  -{product.salePercent}%
+                </Typography>
               </ListItem>
               <ListItem className="card__li--price">
                 ${product.price - (product.price * product.salePercent) / 100}
               </ListItem>
             </List>
           ) : (
-            <Typography variant="inherit" className="card__li--price">${product.price}</Typography>
+            <Typography variant="inherit" className="card__li--price">
+              ${product.price}
+            </Typography>
           )}
         </ListItem>
         <ListItem className="card__li card__li--button">
