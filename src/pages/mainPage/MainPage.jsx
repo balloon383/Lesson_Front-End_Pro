@@ -15,9 +15,6 @@ export function MainPage() {
     getShop()
   }, [])
 
-  
-  
-
   const sortCategories = useCallback(() => {
     let shopCategories = [];
 
