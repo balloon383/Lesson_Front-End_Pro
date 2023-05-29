@@ -6,11 +6,6 @@ import Stack from '@mui/material/Stack';
 import Button from '@mui/material/Button';
 import Box from '@mui/material/Box';
 import TextField from '@mui/material/TextField';
-import CssBaseline from "@mui/material/CssBaseline";
-import Container from "@mui/material/Container";
-import Pagination from "@mui/material/Pagination";
-import List from "@mui/material/List";
-import ListItem from "@mui/material/ListItem";
 import Typography from "@mui/material/Typography";
 
 export default function LoginInputs() {
