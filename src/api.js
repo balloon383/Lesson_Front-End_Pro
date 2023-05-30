@@ -1,5 +1,5 @@
 export async function getUsers(flag = "false") {
-  if (flag == "false") {
+  if (flag === "false") {
     const users = await fetch(
       "https://634e9f834af5fdff3a625f84.mockapi.io/users"
     ).then((res) => res.json());

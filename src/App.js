@@ -9,6 +9,7 @@ import { Route, Routes } from 'react-router-dom';
 import UserContext from './context/UserContext';
 import PrivateRoute from './components/hoc/PrivateRoute';
 import { getLoggedUser } from './api';
+import Box from "@mui/material/Box";
 
 export default function App() {
 
@@ -34,7 +35,7 @@ export default function App() {
 
 
   return (
-    <div className="App">
+    <Box className="App">
       <UserContext.Provider value={{ counter, setCounter, checkLoggedUser }}>
         <Header userName={userName} />
         <Routes>
@@ -61,10 +62,7 @@ export default function App() {
           />
         </Routes>
       </UserContext.Provider>
-    </div>
+    </Box>
   );
   
 }
-
-
-/* дороби ХОК на зміну тру фолс від логіну */

@@ -1,6 +1,8 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useCallback } from 'react'
 import {getProducts} from '../../api'
 import Category from './category/Category'
+import Box from "@mui/material/Box";
+
 export function MainPage() {
 
   const [products, setProducts] = useState([])
@@ -14,32 +16,32 @@ export function MainPage() {
     getShop()
   }, [])
 
-  useEffect(() => {
-    sortCategories()
-  }, [products])
-  
-
-  function sortCategories() {
-
-    let shopCategories = []
+  const sortCategories = useCallback(() => {
+    let shopCategories = [];
 
     for (let i = 0; i < products.length; i++) {
-    shopCategories.push(products[i].category);
+      shopCategories.push(products[i].category);
     }
     shopCategories = shopCategories.filter((el, i, self) => {
-    return i === self.indexOf(el);
+      return i === self.indexOf(el);
     });
-    setCategories(shopCategories)
-    sortProducts()
-  }
-
-  function sortProducts() {
-    
-  }
+    setCategories(shopCategories);
+  }, [products]);
+  
+  useEffect(() => {
+    sortCategories();
+  }, [products, sortCategories]);
+  
 
   return (
-      <section>
-      {categories.map(el => <Category productsArr={products.filter(e => e.category === el)} title={ el }  key={ el }/>)}
-      </section>
-  )
+    <Box>
+      {categories.map((el) => (
+        <Category
+          productsArr={products.filter((e) => e.category === el)}
+          title={el}
+          key={el}
+        />
+      ))}
+    </Box>
+  );
 }
