@@ -7,6 +7,8 @@ import Button from '@mui/material/Button';
 import Box from '@mui/material/Box';
 import TextField from '@mui/material/TextField';
 import Typography from "@mui/material/Typography";
+import { useDispatch } from "react-redux";
+import { setUserAction } from "../../../redux/actions/userActions";
 
 export default function LoginInputs() {
   const [login, setLogin] = useState("");
@@ -19,7 +21,7 @@ export default function LoginInputs() {
   });
   const [redirect, setRedirect] = useState('')
   const {checkLoggedUser} = useContext(UserContext)
-
+  const dispatch = useDispatch()
 
   function holdCheck(){
     checkLoggedUser()
@@ -61,9 +63,11 @@ export default function LoginInputs() {
         })
     const user = await changeStatus(userCheck, "true");
     localStorage.setItem("loggedUser", JSON.stringify(user));
+    dispatch(setUserAction(user));
     holdCheck()
     setRedirect('true')
   }
+
   if (redirect === 'true') {
       return <Navigate to='/'/>
   } 

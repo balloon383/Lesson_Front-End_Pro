@@ -4,7 +4,7 @@ import setUserReducer from "./reducers/userReducer";
 
 const rootReducer = combineReducers({
   products: setProductsReducer,
-  users: setUserReducer
+  user: setUserReducer
 })
 
 export default configureStore({

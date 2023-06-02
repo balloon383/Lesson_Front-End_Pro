@@ -8,7 +8,7 @@ import Box from "@mui/material/Box";
 import TextField from "@mui/material/TextField";
 import Typography from "@mui/material/Typography";
 import { useDispatch } from "react-redux";
-import { useSelector } from "react-redux";
+import { setUserAction } from "../../../redux/actions/userActions";
 
 export default function Register() {
   const [name, setName] = useState("");
@@ -17,7 +17,6 @@ export default function Register() {
   const [passwordVerify, setPasswordVerify] = useState("");
   const [redirect, setRedirect] = useState('')
   const dipatcher = useDispatch()
-  const store = useSelector(store => store.users)
 
     const [loginError, setLoginError] = useState({
         display: 'none'
@@ -94,9 +93,9 @@ export default function Register() {
     }
 
     let registeredUser = await registration(newUser);
-    console.log(registeredUser);
     newUser = { ...registeredUser };
     localStorage.setItem("loggedUser", JSON.stringify(newUser));
+    dipatcher(setUserAction(newUser))
     holdCheck()
     setRedirect('true')
   }

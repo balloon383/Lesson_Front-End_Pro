@@ -1,8 +1,7 @@
-import { getUsers, changeStatus, logOut } from "../../api";
-const GET_USER = "GET_USER"
+import { getUsers } from "../../api";
+const SET_USER = "SET_USER";
 const GET_USERS = "GET_USERS"
-const ADD_USER = "ADD_USER";
-const UPDATE_USER = "UPDATE_USER";
+const REGISTER_USER = "REGISTER_USER";
 
 const actionCreator = (type, payload) => {
 
@@ -15,18 +14,19 @@ const actionCreator = (type, payload) => {
 };
 
 
-export const setUserAction = (products) => actionCreator(GET_USER, products);
-export const setUsersAction = (products) => actionCreator(GET_USERS, products);
-export const addUsersAction = (products) => actionCreator(GET_USERS, products);
+export const setUserAction = (user) => actionCreator(SET_USER, user);
+export const setUsersAction = (users) => actionCreator(GET_USERS, users);
+export const addUsersAction = (user) => actionCreator(REGISTER_USER, user);
 
-
+ 
 export const getUsersThunk = () => {
   return async (dispatch, getState) => {
     await getUsers().then((data) => dispatch(setUsersAction(data)));
   };
 };
+
 export const getUserThunk = (id) => {
   return async (dispatch, getState) => {
     await getUsers(id).then((data) => dispatch(setUserAction(data)));
   };
-};
+}; 
