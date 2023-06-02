@@ -1,20 +1,22 @@
 import React, { useState, useEffect, useCallback } from 'react'
-import {getProducts} from '../../api'
 import Category from './category/Category'
 import Box from "@mui/material/Box";
+import { useDispatch, useSelector } from "react-redux";
+import { getProductsThunk } from '../../redux/actions/productActions';
 
 export function MainPage() {
 
   const [products, setProducts] = useState([])
   const [categories, setCategories] = useState([])
+  const dispatch = useDispatch()
+  const store = useSelector(store => store)
 
+  
   useEffect(() => {
-      async function getShop() {
-      const productsArr = await getProducts()
-      setProducts(productsArr)
-    }
-    getShop()
-  }, [])
+    dispatch(getProductsThunk());
+    setProducts(store.products);
+    // eslint-disable-next-line
+  }, []);
 
   const sortCategories = useCallback(() => {
     let shopCategories = [];

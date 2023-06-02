@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import './App.css';
 import Login from './pages/login/Login';
-import {MainPage} from './pages/mainPage/MainPage'
+import { MainPage } from './pages/mainPage/MainPage'
 import User from './pages/user/User'
 import ShoppingCart from './pages/shoppingCart/ShoppingCart'
 import Header from './components/header/Index';
@@ -16,6 +16,7 @@ export default function App() {
   const [userName, setUserName] = useState('');
   const [counter, setCounter] = useState(0);
   const [isAuth, setIsAuth] = useState('')
+
 
   const checkLoggedUser = () => {
     let localUser = getLoggedUser();
@@ -35,34 +36,31 @@ export default function App() {
 
 
   return (
-    <Box className="App">
-      <UserContext.Provider value={{ counter, setCounter, checkLoggedUser }}>
-        <Header userName={userName} />
-        <Routes>
-          <Route path="/" element={<MainPage />} />
-          <Route
-            path="/login"
-            element={<Login />}
-          />
-          <Route
-            path="/user"
-            element={
-              <PrivateRoute isAuth={isAuth}>
-                <User />
-              </PrivateRoute>
-            }
-          />
-          <Route
-            path="/shoppingCart"
-            element={
-              <PrivateRoute isAuth={isAuth}>
-                <ShoppingCart />
-              </PrivateRoute>
-            }
-          />
-        </Routes>
-      </UserContext.Provider>
-    </Box>
+      <Box className="App">
+        <UserContext.Provider value={{ counter, setCounter, checkLoggedUser }}>
+          <Header userName={userName} />
+          <Routes>
+            <Route path="/" element={<MainPage />} />
+            <Route path="/login" element={<Login />} />
+            <Route
+              path="/user"
+              element={
+                <PrivateRoute isAuth={isAuth}>
+                  <User />
+                </PrivateRoute>
+              }
+            />
+            <Route
+              path="/shoppingCart"
+              element={
+                <PrivateRoute isAuth={isAuth}>
+                  <ShoppingCart />
+                </PrivateRoute>
+              }
+            />
+          </Routes>
+        </UserContext.Provider>
+      </Box>
   );
   
 }

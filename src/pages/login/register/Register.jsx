@@ -1,5 +1,5 @@
 import React, { useState, useContext } from "react";
-import { getUsers } from '../../../api'
+import { getUsers, registration } from '../../../api'
 import { Navigate } from "react-router-dom";
 import UserContext from "../../../context/UserContext";
 import Stack from '@mui/material/Stack';
@@ -7,6 +7,8 @@ import Button from '@mui/material/Button';
 import Box from "@mui/material/Box";
 import TextField from "@mui/material/TextField";
 import Typography from "@mui/material/Typography";
+import { useDispatch } from "react-redux";
+import { useSelector } from "react-redux";
 
 export default function Register() {
   const [name, setName] = useState("");
@@ -14,6 +16,8 @@ export default function Register() {
   const [password, setPassword] = useState("");
   const [passwordVerify, setPasswordVerify] = useState("");
   const [redirect, setRedirect] = useState('')
+  const dipatcher = useDispatch()
+  const store = useSelector(store => store.users)
 
     const [loginError, setLoginError] = useState({
         display: 'none'
@@ -89,19 +93,9 @@ export default function Register() {
       }
     }
 
-
-    let registration = await fetch(
-      "https://634e9f834af5fdff3a625f84.mockapi.io/users",
-      {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(newUser),
-      }
-    ).then((res) => res.json());
-    await registration
-    newUser = { ...registration };
+    let registeredUser = await registration(newUser);
+    console.log(registeredUser);
+    newUser = { ...registeredUser };
     localStorage.setItem("loggedUser", JSON.stringify(newUser));
     holdCheck()
     setRedirect('true')
