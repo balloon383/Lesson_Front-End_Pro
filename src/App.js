@@ -8,9 +8,8 @@ import Header from './components/header/Index';
 import { Route, Routes } from 'react-router-dom';
 import UserContext from './context/UserContext';
 import PrivateRoute from './components/hoc/PrivateRoute';
-import { getLoggedUser } from './api';
 import Box from "@mui/material/Box";
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { getUserThunk } from './redux/actions/userActions';
 
 export default function App() {
@@ -19,16 +18,20 @@ export default function App() {
   const [counter, setCounter] = useState(0);
   const [isAuth, setIsAuth] = useState('')
   const dispatch = useDispatch()
+  const user = useSelector(store => store.user)
 
   const checkLoggedUser = useCallback(() => {
-    let localUser = getLoggedUser();
-    if (localUser.status === "true" || localUser.status === true) {
+    console.log(user);
+    let localUser = user;
+    if (user.status === "true" || user.status === true) {
       setIsAuth(true);
-    } else if (localUser.status === undefined) {
+    } else if (user.status === undefined) {
       setIsAuth(false);
     }
     setUserName(localUser.name);
     dispatch(getUserThunk(localUser.id));
+    // если убрать след. строку - вылазит ошибка, нужно добавить user в масив зависимостей, а если это сделать - выходит бесконечный цикл, и так в нескольких местах в програме
+    //eslint-disable-next-line
   }, [dispatch]);
 
   useEffect(() => {
