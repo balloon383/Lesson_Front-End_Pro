@@ -33,7 +33,6 @@ export default function Register() {
 
   function holdCheck() {
     checkLoggedUser()
-
   }
 
   function setRegisterInfo() {
