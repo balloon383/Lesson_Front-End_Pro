@@ -62,7 +62,17 @@ export default function LoginInputs() {
         display: 'none'
         })
     const user = await changeStatus(userCheck, "true");
-    localStorage.setItem("loggedUser", JSON.stringify(user));
+    localStorage.setItem(
+      "loggedUser",
+      JSON.stringify({
+        email: user.email,
+        id: user.id,
+        name: user.name,
+        orders: user.orders,
+        shoppingCart: user.shoppingCart,
+        status: user.status,
+      })
+    );
     dispatch(setUserAction(user));
     holdCheck()
     setRedirect('true')

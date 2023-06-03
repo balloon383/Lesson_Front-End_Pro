@@ -7,7 +7,7 @@ const setProductsReducer = (state = INITIAL_STATE, action) => {
 
   switch (action.type) {
     case "SET_PRODUCTS":
-      return { products: action.payload };
+      return [...action.payload];
 
     default:
       return state;

@@ -6,7 +6,7 @@ const setUserReducer = (state = INITIAL_STATE, action) => {
   switch (action.type) {
     case "SET_USER":
       
-      return { user: action.payload };
+      return { id: action.payload.id, status: action.payload.status };
     case "GET_USERS":
       return { ...state };    
     default:

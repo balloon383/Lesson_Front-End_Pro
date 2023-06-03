@@ -94,7 +94,17 @@ export default function Register() {
 
     let registeredUser = await registration(newUser);
     newUser = { ...registeredUser };
-    localStorage.setItem("loggedUser", JSON.stringify(newUser));
+    localStorage.setItem(
+      "loggedUser",
+      JSON.stringify({
+        email: newUser.email,
+        id: newUser.id,
+        name: newUser.name,
+        orders: newUser.orders,
+        shoppingCart: newUser.shoppingCart,
+        status: newUser.status,
+      })
+    );
     dipatcher(setUserAction(newUser))
     holdCheck()
     setRedirect('true')

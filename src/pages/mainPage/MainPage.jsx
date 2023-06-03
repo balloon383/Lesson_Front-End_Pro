@@ -20,25 +20,25 @@ export function MainPage() {
   const sortCategories = useCallback(() => {
     let shopCategories = [];
 
-    for (let i = 0; i < store.products.length; i++) {
-      shopCategories.push(store.products[i].category);
+    for (let i = 0; i < store.length; i++) {
+      shopCategories.push(store[i].category);
     }
     shopCategories = shopCategories.filter((el, i, self) => {
       return i === self.indexOf(el);
     });
     setCategories(shopCategories);
-  }, [store.products]);
+  }, [store]);
   
   useEffect(() => {
     sortCategories();
-  }, [store.products, sortCategories]);
+  }, [store, sortCategories]);
   
 
   return (
     <Box>
       {categories.map((el) => (
         <Category
-          productsArr={store.products.filter((e) => e.category === el)}
+          productsArr={store.filter((e) => e.category === el)}
           title={el}
           key={el}
         />
