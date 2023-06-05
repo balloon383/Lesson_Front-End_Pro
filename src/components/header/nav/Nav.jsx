@@ -18,8 +18,8 @@ export default function Nav({ changeUserName }) {
   const dispatch = useDispatch()
   let [userLink, setUserLink] = useState("/login");
   let { checkLoggedUser } = useContext(UserContext);
-  let newCounter = useSelector(store => store.user.counter)
-
+  let counter = useSelector(store => store.user.counter)
+  let name = useSelector(store => store.user.userData.name)
   function holdCheck() {
     checkLogged();
     checkLoggedUser();
@@ -55,7 +55,7 @@ export default function Nav({ changeUserName }) {
           Hi,{" "}
           <Link to={userLink} className="header__nav--user">
             <Stack direction="row" spacing={2}>
-              <Button size="large">{userName}</Button>
+              <Button size="large">{name}</Button>
             </Stack>
           </Link>
         </li>
@@ -68,7 +68,7 @@ export default function Nav({ changeUserName }) {
               width="35px"
               height="35px"
             />
-            <span className="header__shoppingcart--counter">{newCounter}</span>
+            <span className="header__shoppingcart--counter">{counter}</span>
           </Link>
           <Link
             to="/"
