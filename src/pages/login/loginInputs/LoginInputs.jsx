@@ -20,12 +20,7 @@ export default function LoginInputs() {
     display: "none",
   });
   const [redirect, setRedirect] = useState('')
-  const {checkLoggedUser} = useContext(UserContext)
   const dispatch = useDispatch()
-
-  function holdCheck(){
-    checkLoggedUser()
-  }
 
   function setLoginInfo() {
     const userLogin = login;
@@ -74,7 +69,6 @@ export default function LoginInputs() {
       })
     );
     dispatch(setUserAction(user));
-    holdCheck()
     setRedirect('true')
   }
 
@@ -145,7 +139,6 @@ export default function LoginInputs() {
           color="success"
           onClick={() => {
             setLoginInfo();
-            holdCheck();
           }}
         >
           Log In

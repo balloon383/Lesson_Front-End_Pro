@@ -4,9 +4,16 @@ import {
   INCREMENT_COUNTER,
   DECREMENT_COUNTER,
 } from "../actions/userActions";
+import { getLoggedUser } from "../../api";
+let loggedUser = getLoggedUser()
+
 const INITIAL_STATE = {
-  userData: [], 
-  counter: ''
+  userData: {
+    id: loggedUser.id,
+    status: loggedUser.status,
+    name: loggedUser.name,
+  },
+  counter: "",
 };
 
 const setUserReducer = (state = INITIAL_STATE, action) => {
@@ -20,6 +27,7 @@ const setUserReducer = (state = INITIAL_STATE, action) => {
           name: action.payload.name,
         },
       };
+    
     case SET_COUNTER:
       return { ...state, counter: action.payload };
 

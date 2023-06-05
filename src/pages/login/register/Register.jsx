@@ -29,11 +29,6 @@ export default function Register() {
     })
     
   const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-  const {checkLoggedUser} = useContext(UserContext)
-
-  function holdCheck() {
-    checkLoggedUser()
-  }
 
   function setRegisterInfo() {
     const userName = name;
@@ -105,7 +100,6 @@ export default function Register() {
       })
     );
     dipatcher(setUserAction(newUser))
-    holdCheck()
     setRedirect('true')
   }
 

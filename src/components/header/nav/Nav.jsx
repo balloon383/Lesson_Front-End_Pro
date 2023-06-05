@@ -1,29 +1,24 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
-import React, { useState, useEffect, useContext, useCallback } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import shoppingCart from "../../../images/shopping-cart.png";
 import { getLoggedUser, logOut } from "../../../api";
 import "./style.css";
-import UserContext from "../../../context/UserContext";
 import { Link } from "react-router-dom";
 import Stack from "@mui/material/Stack";
 import Button from "@mui/material/Button";
 import { useDispatch, useSelector } from "react-redux";
-import { setCounterAction } from "../../../redux/actions/userActions";
+import { setCounterAction, setUserAction } from "../../../redux/actions/userActions";
 
-export default function Nav({ changeUserName }) {
+export default function Nav() {
   const [userName, setUserName] = useState("Log In");
   const [LogOutStatus, setLogOutStatus] = useState({
     display: "none",
   });
   const dispatch = useDispatch()
   let [userLink, setUserLink] = useState("/login");
-  let { checkLoggedUser } = useContext(UserContext);
   let counter = useSelector(store => store.user.counter)
   let name = useSelector(store => store.user.userData.name)
-  function holdCheck() {
-    checkLogged();
-    checkLoggedUser();
-  }
+
 
   const checkLogged = useCallback(() => {
     let loggedUser = getLoggedUser();
@@ -46,16 +41,16 @@ export default function Nav({ changeUserName }) {
 
   useEffect(() => {
     checkLogged();
-  }, [checkLogged, userName, changeUserName]);
+  }, [checkLogged, userName]);
 
   return (
     <nav>
       <ul className="header__nav--ul">
         <li className="header__nav--li">
-          Hi,{" "}
+          Hi,
           <Link to={userLink} className="header__nav--user">
             <Stack direction="row" spacing={2}>
-              <Button size="large">{name}</Button>
+              <Button size="large">{name || 'Log In'}</Button>
             </Stack>
           </Link>
         </li>
@@ -76,7 +71,8 @@ export default function Nav({ changeUserName }) {
             style={LogOutStatus}
             onClick={() => {
               logOut();
-              holdCheck();
+              checkLogged();
+              dispatch(setUserAction(''));
             }}
           >
             <Stack spacing={2} direction="row">

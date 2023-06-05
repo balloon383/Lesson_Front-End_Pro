@@ -5,20 +5,20 @@ export const REGISTER_USER = "REGISTER_USER";
 export const SET_COUNTER = "SET_COUNTER";
 export const INCREMENT_COUNTER = "INCREMENT_COUNTER";
 export const DECREMENT_COUNTER = "DECREMENT_COUNTER";
+export const SET_METHOD = "SET_METHOD";
 
 const actionCreator = (type, payload) => {
 
   if (payload || typeof(payload) === 'number') {
-    console.log('payload')
     return { type, payload };
   } else {
-    console.log("No payload");
     return { type };
     }
 };
 
 
 export const setUserAction = (user) => actionCreator(SET_USER, user);
+export const setUserMethodAction = (method) => actionCreator(SET_METHOD, method);
 export const setUsersAction = (users) => actionCreator(GET_USERS, users);
 export const setCounterAction = (counter) => actionCreator(SET_COUNTER, counter);
 export const incrementCounterAction = (counter) =>
