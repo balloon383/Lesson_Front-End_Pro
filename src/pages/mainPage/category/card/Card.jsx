@@ -1,7 +1,6 @@
-import React, { useEffect, useState, useContext, useCallback } from "react";
+import React, { useEffect, useState, useCallback } from "react";
 import "./style.css";
 import { getLoggedUser, changeStatus, getUsers } from "../../../../api";
-import UserContext from "../../../../context/UserContext";
 import images from "../../../../images";
 import { Navigate } from "react-router-dom";
 import AddShoppingCartIcon from "@mui/icons-material/AddShoppingCart";
@@ -10,6 +9,8 @@ import Box from "@mui/material/Box";
 import List from "@mui/material/List"
 import ListItem from "@mui/material/ListItem";
 import { Typography } from "@mui/material";
+import { useDispatch } from "react-redux";
+import { decrementCounterAction, incrementCounterAction, setCounterAction } from "../../../../redux/actions/userActions";
 
 export default function Card({ product }) {
   const [cartStyle, setCartStyle] = useState('primary')
@@ -17,13 +18,12 @@ export default function Card({ product }) {
     background: "red",
   });
   const [redirect, setRedirect] = useState("");
-
-  let { counter, setCounter } = useContext(UserContext);
+  const dispatcher = useDispatch()
 
   const checkButtonStatus = useCallback(() => {
     let shoppingCart = getLoggedUser().shoppingCart || [];
     if (shoppingCart.length > 0) {
-      setCounter(shoppingCart.length);
+      dispatcher(setCounterAction(shoppingCart.length));
       for (let i = 0; i < shoppingCart.length; i++) {
         if (shoppingCart[i].id === product.id) {
           setButtonStatus({
@@ -33,7 +33,7 @@ export default function Card({ product }) {
         }
       }
     }
-  }, [product.id, setCounter]);
+  }, [product.id, dispatcher]);
 
   useEffect(() => {
       checkButtonStatus();
@@ -69,7 +69,7 @@ export default function Card({ product }) {
     };
     const userUpdated = await changeStatus(dataToUpdate);
     localStorage.setItem("loggedUser", JSON.stringify(userUpdated));
-    setCounter(counter + 1);
+    dispatcher(incrementCounterAction());
   }
   
   async function removeFromCart() {
@@ -79,7 +79,8 @@ export default function Card({ product }) {
     store.shoppingCart = updatedStore;
     await changeStatus(store);
     localStorage.setItem("loggedUser", JSON.stringify(store));
-    setCounter(counter - 1);
+    
+    dispatcher(decrementCounterAction());
   }
 
   if (redirect === "false") {

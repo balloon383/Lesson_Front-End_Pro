@@ -1,22 +1,30 @@
 import { getUsers } from "../../api";
-const SET_USER = "SET_USER";
-const GET_USERS = "GET_USERS"
-const REGISTER_USER = "REGISTER_USER";
+export const SET_USER = "SET_USER";
+export const GET_USERS = "GET_USERS"
+export const REGISTER_USER = "REGISTER_USER";
+export const SET_COUNTER = "SET_COUNTER";
+export const INCREMENT_COUNTER = "INCREMENT_COUNTER";
+export const DECREMENT_COUNTER = "DECREMENT_COUNTER";
 
 const actionCreator = (type, payload) => {
 
-  if (payload) {
+  if (payload || typeof(payload) === 'number') {
+    console.log('payload')
     return { type, payload };
   } else {
+    console.log("No payload");
     return { type };
     }
-    
 };
 
 
 export const setUserAction = (user) => actionCreator(SET_USER, user);
 export const setUsersAction = (users) => actionCreator(GET_USERS, users);
-export const addUsersAction = (user) => actionCreator(REGISTER_USER, user);
+export const setCounterAction = (counter) => actionCreator(SET_COUNTER, counter);
+export const incrementCounterAction = (counter) =>
+  actionCreator(INCREMENT_COUNTER, counter);
+export const decrementCounterAction = (counter) =>
+  actionCreator(DECREMENT_COUNTER, counter);
 
  
 export const getUsersThunk = () => {
@@ -28,5 +36,12 @@ export const getUsersThunk = () => {
 export const getUserThunk = (id) => {
   return async (dispatch, getState) => {
     await getUsers(id).then((data) => dispatch(setUserAction(data)));
+  };
+}; 
+export const getShoppingCartThunk = (id) => {
+  return async (dispatch, getState) => {
+    await getUsers(id).then((data) =>
+      dispatch(setCounterAction(data.shoppingCart.length))
+    );
   };
 }; 

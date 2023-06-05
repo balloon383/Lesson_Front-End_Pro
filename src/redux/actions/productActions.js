@@ -1,5 +1,5 @@
 import { getProducts } from "../../api.js";
-const SET_PRODUCTS = "SET_PRODUCTS";
+export const SET_PRODUCTS = "SET_PRODUCTS";
 
 const actionCreator = (type, payload) => {
     

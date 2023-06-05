@@ -1,14 +1,34 @@
+import {
+  SET_USER,
+  SET_COUNTER,
+  INCREMENT_COUNTER,
+  DECREMENT_COUNTER,
+} from "../actions/userActions";
 const INITIAL_STATE = {
-  user: [],
+  userData: [], 
+  counter: ''
 };
 
 const setUserReducer = (state = INITIAL_STATE, action) => {
   switch (action.type) {
-    case "SET_USER":
-      
-      return { id: action.payload.id, status: action.payload.status };
-    case "GET_USERS":
-      return { ...state };    
+    case SET_USER:
+      return {
+        ...state,
+        userData: {
+          id: action.payload.id,
+          status: action.payload.status,
+          name: action.payload.name,
+        },
+      };
+    case SET_COUNTER:
+      return { ...state, counter: action.payload };
+
+    case INCREMENT_COUNTER:
+      return { ...state, counter: state.counter + 1 };
+
+    case DECREMENT_COUNTER:
+      return { ...state, counter: state.counter - 1 };
+
     default:
       return state;
   }

@@ -7,14 +7,18 @@ import UserContext from "../../../context/UserContext";
 import { Link } from "react-router-dom";
 import Stack from "@mui/material/Stack";
 import Button from "@mui/material/Button";
+import { useDispatch, useSelector } from "react-redux";
+import { setCounterAction } from "../../../redux/actions/userActions";
 
 export default function Nav({ changeUserName }) {
   const [userName, setUserName] = useState("Log In");
   const [LogOutStatus, setLogOutStatus] = useState({
     display: "none",
   });
+  const dispatch = useDispatch()
   let [userLink, setUserLink] = useState("/login");
-  let { counter, setCounter, checkLoggedUser } = useContext(UserContext);
+  let { checkLoggedUser } = useContext(UserContext);
+  let newCounter = useSelector(store => store.user.counter)
 
   function holdCheck() {
     checkLogged();
@@ -30,16 +34,16 @@ export default function Nav({ changeUserName }) {
       });
       setUserLink("/user");
       setUserName(loggedUser.name);
-      setCounter(loggedUser.shoppingCart.length);
     } else {
       setLogOutStatus({
         display: "none",
       });
       setUserName("Log In");
-      setCounter(0);
+      dispatch(setCounterAction(0));
       setUserLink("/login");
     }
-  }, [setCounter]);
+  }, [dispatch]);
+
   useEffect(() => {
     checkLogged();
   }, [checkLogged, userName, changeUserName]);
@@ -64,7 +68,7 @@ export default function Nav({ changeUserName }) {
               width="35px"
               height="35px"
             />
-            <span className="header__shoppingcart--counter">{counter}</span>
+            <span className="header__shoppingcart--counter">{newCounter}</span>
           </Link>
           <Link
             to="/"
