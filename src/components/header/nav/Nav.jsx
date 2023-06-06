@@ -10,7 +10,6 @@ import { useDispatch, useSelector } from "react-redux";
 import { setCounterAction, setUserAction } from "../../../redux/actions/userActions";
 
 export default function Nav() {
-  const [userName, setUserName] = useState("Log In");
   const [LogOutStatus, setLogOutStatus] = useState({
     display: "none",
   });
@@ -28,12 +27,10 @@ export default function Nav() {
         display: "block",
       });
       setUserLink("/user");
-      setUserName(loggedUser.name);
     } else {
       setLogOutStatus({
         display: "none",
       });
-      setUserName("Log In");
       dispatch(setCounterAction(0));
       setUserLink("/login");
     }
@@ -41,7 +38,7 @@ export default function Nav() {
 
   useEffect(() => {
     checkLogged();
-  }, [checkLogged, userName]);
+  }, [checkLogged, name]);
 
   return (
     <nav>
