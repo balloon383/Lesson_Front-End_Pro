@@ -1,7 +1,6 @@
-import React, { useState, useContext } from "react";
+import React, { useState } from "react";
 import { getUsers, changeStatus } from "../../../api";
 import { Navigate } from "react-router-dom";
-import UserContext from "../../../context/UserContext";
 import Stack from '@mui/material/Stack';
 import Button from '@mui/material/Button';
 import Box from '@mui/material/Box';
