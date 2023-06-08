@@ -9,9 +9,13 @@ import Typography from "@mui/material/Typography";
 import { useDispatch } from "react-redux";
 import { setUserAction } from "../../../redux/actions/userActions";
 
+ import { Formik } from "formik";
+
+
+
 export default function LoginInputs() {
-  const [login, setLogin] = useState("");
-  const [password, setPassword] = useState("");
+  /* const [login, setLogin] = useState("");
+  const [password, setPassword] = useState(""); */
   const [loginError, setLoginError] = useState({
     display: "none",
   });
@@ -21,7 +25,7 @@ export default function LoginInputs() {
   const [redirect, setRedirect] = useState('')
   const dispatch = useDispatch()
 
-  function setLoginInfo() {
+  function setLoginInfo(login, password) {
     const userLogin = login;
     const userPassword = password;
     checkUser(userLogin, userPassword);
@@ -32,7 +36,8 @@ export default function LoginInputs() {
     const userCheck = usersArr.find((el) => el.email === email);
     if (!userCheck) {
           setLoginError({
-        display: 'block'
+            display: 'block'
+            
         })
           setPasswordError({
         display: 'none'
@@ -100,49 +105,70 @@ export default function LoginInputs() {
       >
         Invalid login.
       </Typography>
-      <Box action="GET" className="main__login--form">
-        <Box
-          component="form"
-          sx={{
-            "& > :not(style)": { m: 0.5, width: "530px" },
+      <Box>
+        <Formik
+          initialValues={{ email: "", password: "" }}
+          validate={(values) => {
+            const errors = {};
+            if (!values.email) {
+              errors.email = "Required";
+            } else if (
+              !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i.test(values.email)
+            ) {
+              errors.email = "Invalid email address";
+            }
+            return errors;
           }}
-          noValidate
-          autoComplete="off"
+          onSubmit={(values, { setSubmitting }) => {
+            setTimeout(() => {
+              setLoginInfo(values.email, values.password);
+              setSubmitting(false);
+            }, 400);
+          }}
         >
-          <TextField
-            id="outlined-basic"
-            label="Email Address"
-            variant="outlined"
-            type="email"
-            name="email"
-            placeholder="Email Address"
-            value={login}
-            onChange={(e) => setLogin(e.target.value)}
-          />
-          <TextField
-            id="outlined-basic"
-            label="Password"
-            variant="outlined"
-            type="password"
-            name="password"
-            placeholder="Password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-          />
-        </Box>
+          {({
+            values,
+            errors,
+            touched,
+            handleChange,
+            handleBlur,
+            handleSubmit,
+            isSubmitting,
+            /* and other goodies */
+          }) => (
+            <form onSubmit={handleSubmit}>
+              <input
+                type="email"
+                name="email"
+                onChange={handleChange}
+                onBlur={handleBlur}
+                value={values.email}
+                className="login__input"
+                placeholder="Email Address"
+              />
+              {errors.email && touched.email && errors.email}
+              <input
+                type="password"
+                name="password"
+                onChange={handleChange}
+                onBlur={handleBlur}
+                value={values.password}
+                className="login__input"
+                placeholder="Password"
+              />
+              {errors.password && touched.password && errors.password}
+              <button
+                type="submit"
+                disabled={isSubmitting}
+                className="login_button"
+              >
+                Log In
+              </button>
+            </form>
+          )}
+        </Formik>
       </Box>
-
-      <Stack direction="row" spacing={2}>
-        <Button
-          variant="contained"
-          color="success"
-          onClick={() => {
-            setLoginInfo();
-          }}
-        >
-          Log In
-        </Button>
-      </Stack>
+      
     </Box>
   );
 }

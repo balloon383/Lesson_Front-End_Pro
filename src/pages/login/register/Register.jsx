@@ -1,19 +1,18 @@
 import React, { useState } from "react";
 import { getUsers, registration } from '../../../api'
 import { Navigate } from "react-router-dom";
-import Stack from '@mui/material/Stack';
-import Button from '@mui/material/Button';
+
 import Box from "@mui/material/Box";
-import TextField from "@mui/material/TextField";
 import Typography from "@mui/material/Typography";
 import { useDispatch } from "react-redux";
 import { setUserAction } from "../../../redux/actions/userActions";
 
+ import { Formik } from 'formik';
+
+
+
 export default function Register() {
-  const [name, setName] = useState("");
-  const [login, setLogin] = useState("");
-  const [password, setPassword] = useState("");
-  const [passwordVerify, setPasswordVerify] = useState("");
+
   const [redirect, setRedirect] = useState('')
   const dipatcher = useDispatch()
 
@@ -29,13 +28,7 @@ export default function Register() {
     
   const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
-  function setRegisterInfo() {
-    const userName = name;
-    const userLogin = login;
-    const userPassword = password;
-    const userPasswordVerify = passwordVerify;
-    validateRegistration(userName, userLogin, userPassword, userPasswordVerify);
-  }
+
 
   function validateRegistration(name, email, password, passwordVerify) {
     if (emailRegex.test(email)) {
@@ -126,7 +119,12 @@ export default function Register() {
       >
         Passwords not matches, or shorter than 5 symbols
       </Typography>
-      <Typography variant="inherit" className="main__error" style={loginError} margin='5px'>
+      <Typography
+        variant="inherit"
+        className="main__error"
+        style={loginError}
+        margin="5px"
+      >
         Invalid login, example: login@email.com
       </Typography>
       <Typography
@@ -137,71 +135,102 @@ export default function Register() {
       >
         User already exsist
       </Typography>
-      <Box className="main__register--form">
-        <Box
-          component="form"
-          sx={{
-            "& > :not(style)": { m: 0.5, width: "530px" },
+      <Box>
+        <Formik
+          initialValues={{ name: "", email: "", password: "", passwordVerify: "" }}
+          validate={(values) => {
+            const errors = {};
+            if (!values.email) {
+              errors.email = "Required";
+            } else if (
+              !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i.test(values.email)
+            ) {
+              errors.email = "Invalid email address";
+            }
+            if (values.password !== values.passwordVerify) {
+              errors.password = "Password not matches";
+            } else if (values.password.length < 3) {
+              errors.password = "Password too short";
+            }
+            return errors;
           }}
-          noValidate
-          autoComplete="off"
+          onSubmit={(values, { setSubmitting }) => {
+            setTimeout(() => {
+              validateRegistration(
+                values.name,
+                values.email,
+                values.password,
+                values.passwordVerify
+              );
+              setSubmitting(false);
+            }, 400);
+          }}
         >
-          <TextField
-            fullWidth
-            id="outlined-basic"
-            label="Full name"
-            variant="outlined"
-            type="text"
-            name="Full name"
-            value={name}
-            onChange={(e) => setName(e.target.value)}
-          />
-          <TextField
-            fullWidth
-            id="outlined-basic"
-            label="Email Address"
-            variant="outlined"
-            type="email"
-            name="email register"
-            value={login}
-            onChange={(e) => setLogin(e.target.value)}
-          />
-          <TextField
-            fullWidth
-            id="outlined-basic"
-            label="Password"
-            variant="outlined"
-            type="password"
-            name="password"
-            placeholder="Password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-          />
-          <TextField
-            fullWidth
-            id="outlined-basic"
-            label="Password"
-            variant="outlined"
-            type="password"
-            name="password"
-            placeholder="Verify Password"
-            value={passwordVerify}
-            onChange={(e) => setPasswordVerify(e.target.value)}
-          />
-        </Box>
+          {({
+            values,
+            errors,
+            touched,
+            handleChange,
+            handleBlur,
+            handleSubmit,
+            isSubmitting,
+            /* and other goodies */
+          }) => (
+            <form onSubmit={handleSubmit}>
+              <input
+                type="text"
+                name="name"
+                onChange={handleChange}
+                onBlur={handleBlur}
+                value={values.name}
+                className="login__input"
+                placeholder="Name"
+              />
+              {errors.name && touched.name && errors.name}
+              <input
+                type="email"
+                name="email"
+                onChange={handleChange}
+                onBlur={handleBlur}
+                value={values.email}
+                className="login__input"
+                placeholder="Email Address"
+              />
+              {errors.email && touched.email && errors.email}
+              <input
+                type="password"
+                name="password"
+                onChange={handleChange}
+                onBlur={handleBlur}
+                value={values.password}
+                className="login__input"
+                placeholder="Password"
+              />
+              {errors.password && touched.password && errors.password}
+              <input
+                type="password"
+                name="passwordVerify"
+                onChange={handleChange}
+                onBlur={handleBlur}
+                value={values.passwordVerify}
+                className="login__input"
+                placeholder="Password Verify"
+              />
+              {errors.passwordVerify &&
+                touched.passwordVerify &&
+                errors.passwordVerify}
+              <button
+                type="submit"
+                disabled={isSubmitting}
+                className="login_button"
+              >
+                Create Account
+              </button>
+            </form>
+          )}
+        </Formik>
       </Box>
-
-      <Stack direction="row" spacing={2}>
-        <Button
-          variant="contained"
-          color="success"
-          onClick={() => {
-            setRegisterInfo();
-          }}
-        >
-          Create Account
-        </Button>
-      </Stack>
     </Box>
   );
 }
+/* Дороби ерорс */
