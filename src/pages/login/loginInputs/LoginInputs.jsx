@@ -1,10 +1,7 @@
 import React, { useState } from "react";
 import { getUsers, changeStatus } from "../../../api";
 import { Navigate } from "react-router-dom";
-import Stack from '@mui/material/Stack';
-import Button from '@mui/material/Button';
 import Box from '@mui/material/Box';
-import TextField from '@mui/material/TextField';
 import Typography from "@mui/material/Typography";
 import { useDispatch } from "react-redux";
 import { setUserAction } from "../../../redux/actions/userActions";
@@ -14,8 +11,6 @@ import { setUserAction } from "../../../redux/actions/userActions";
 
 
 export default function LoginInputs() {
-  /* const [login, setLogin] = useState("");
-  const [password, setPassword] = useState(""); */
   const [loginError, setLoginError] = useState({
     display: "none",
   });
@@ -25,41 +20,20 @@ export default function LoginInputs() {
   const [redirect, setRedirect] = useState('')
   const dispatch = useDispatch()
 
-  function setLoginInfo(login, password) {
-    const userLogin = login;
-    const userPassword = password;
-    checkUser(userLogin, userPassword);
-  }
-
   async function checkUser(email, password) {
     let usersArr = await getUsers();
+    let errors = {}
     const userCheck = usersArr.find((el) => el.email === email);
     if (!userCheck) {
-          setLoginError({
-            display: 'block'
-            
-        })
-          setPasswordError({
-        display: 'none'
-        })
-      return;
+        errors.email = "Invalid email address"
+        return errors
       }
       
     if (userCheck.password !== password) {
-          setLoginError({
-        display: 'none'
-        })
-          setPasswordError({
-        display: 'block'
-        })
-      return;
-    }
-      setLoginError({
-        display: 'none'
-      })
-      setPasswordError({
-        display: 'none'
-        })
+        errors.password = <p>Invalid password</p>
+        return errors
+      }
+      
     const user = await changeStatus(userCheck, "true");
     localStorage.setItem(
       "loggedUser",
@@ -74,6 +48,7 @@ export default function LoginInputs() {
     );
     dispatch(setUserAction(user));
     setRedirect('true')
+    return {}
   }
 
   if (redirect === 'true') {
@@ -89,27 +64,13 @@ export default function LoginInputs() {
       <Typography variant="h5" className="main__login--comment main__comment">
         For current customers
       </Typography>
-      <Typography
-        variant="inherit"
-        className="main__error"
-        style={passwordError}
-        margin="5px"
-      >
-        Invalid password.
-      </Typography>
-      <Typography
-        variant="inherit"
-        className="main__error main__error--email"
-        style={loginError}
-        margin="5px"
-      >
-        Invalid login.
-      </Typography>
       <Box>
         <Formik
           initialValues={{ email: "", password: "" }}
-          validate={(values) => {
-            const errors = {};
+          validateOnChange={false}
+          validateOnBlur={false}
+          validate={async (values) => {
+            let errors = {};
             if (!values.email) {
               errors.email = "Required";
             } else if (
@@ -117,11 +78,16 @@ export default function LoginInputs() {
             ) {
               errors.email = "Invalid email address";
             }
+
+            if(Object.keys(errors).length === 0){
+                let loginValidation = await checkUser(values.email, values.password)
+                errors = loginValidation
+            }
+            console.log(errors)
             return errors;
           }}
           onSubmit={(values, { setSubmitting }) => {
             setTimeout(() => {
-              setLoginInfo(values.email, values.password);
               setSubmitting(false);
             }, 400);
           }}
@@ -159,7 +125,7 @@ export default function LoginInputs() {
               {errors.password && touched.password && errors.password}
               <button
                 type="submit"
-                disabled={isSubmitting}
+                onClick={handleSubmit}
                 className="login_button"
               >
                 Log In

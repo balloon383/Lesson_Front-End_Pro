@@ -1,74 +1,27 @@
 import React, { useState } from "react";
 import { getUsers, registration } from '../../../api'
 import { Navigate } from "react-router-dom";
-
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import { useDispatch } from "react-redux";
 import { setUserAction } from "../../../redux/actions/userActions";
-
- import { Formik } from 'formik';
-
-
+import { Formik } from 'formik';
 
 export default function Register() {
 
   const [redirect, setRedirect] = useState('')
   const dipatcher = useDispatch()
-
-    const [loginError, setLoginError] = useState({
-        display: 'none'
-  })
-    const [passwordError, setPasswordError] = useState({
-        display: 'none'
-    })
-    const [userError, setUserError] = useState({
-        display: 'none'
-    })
     
-  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-
-
-
-  function validateRegistration(name, email, password, passwordVerify) {
-    if (emailRegex.test(email)) {
-      setLoginError({
-        display: 'none'
-  })
-    } else {
-      setLoginError({
-        display: 'block'
-  })
-      return;
-    }
-
-    if (password === passwordVerify && password.length > 4) {
-      setPasswordError({
-        display: 'none'
-  })
-    } else {
-      setPasswordError({
-        display: 'block'
-  })
-      return;
-    }
-
-    registerUser(name, email, password);
-  }
 
   async function registerUser(name, email, password) {
     let usersArr = await getUsers();
     let newUser = {};
+    let errors = {}
     for (let i = 0; i < usersArr.length; i++) {
       if (email === usersArr[i].email) {
-        setUserError({
-        display: 'block'
-    })
-        return;
+        errors.email = 'User Already exist'
+        return errors;
       } else {
-        setUserError({
-        display: 'none'
-    })
         newUser = {
           name: name,
           email: email,
@@ -92,7 +45,7 @@ export default function Register() {
       })
     );
     dipatcher(setUserAction(newUser))
-    setRedirect('true')
+    setRedirect('true') 
   }
 
     if (redirect === 'true') {
@@ -111,35 +64,14 @@ export default function Register() {
       >
         For new customers
       </Typography>
-      <Typography
-        variant="inherit"
-        className="main__error"
-        style={passwordError}
-        margin="5px"
-      >
-        Passwords not matches, or shorter than 5 symbols
-      </Typography>
-      <Typography
-        variant="inherit"
-        className="main__error"
-        style={loginError}
-        margin="5px"
-      >
-        Invalid login, example: login@email.com
-      </Typography>
-      <Typography
-        variant="inherit"
-        className="main__error main__error--exist-register"
-        style={userError}
-        margin="5px"
-      >
-        User already exsist
-      </Typography>
+      
       <Box>
         <Formik
           initialValues={{ name: "", email: "", password: "", passwordVerify: "" }}
-          validate={(values) => {
-            const errors = {};
+          validateOnChange={false}
+          validateOnBlur={false}
+          validate={async (values) => {
+            let errors = {};
             if (!values.email) {
               errors.email = "Required";
             } else if (
@@ -152,16 +84,21 @@ export default function Register() {
             } else if (values.password.length < 3) {
               errors.password = "Password too short";
             }
+
+            if(Object.keys(errors).length === 0){
+              let validationErrors = await registerUser(
+                values.name,
+                values.email,
+                values.password,
+              )
+              errors = validationErrors
+              console.log(errors)
+            }
+            console.log(errors)
             return errors;
           }}
           onSubmit={(values, { setSubmitting }) => {
             setTimeout(() => {
-              validateRegistration(
-                values.name,
-                values.email,
-                values.password,
-                values.passwordVerify
-              );
               setSubmitting(false);
             }, 400);
           }}
@@ -221,7 +158,7 @@ export default function Register() {
                 errors.passwordVerify}
               <button
                 type="submit"
-                disabled={isSubmitting}
+                onClick={handleSubmit}
                 className="login_button"
               >
                 Create Account
