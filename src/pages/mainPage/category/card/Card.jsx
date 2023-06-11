@@ -45,15 +45,9 @@ export default function Card({ product }) {
       setRedirect("false");
     } else {
       if (buttonStatus.background === "red") {
-        setButtonStatus({
-          background: "rgb(0, 178, 0)" /* green */,
-        });
         setCartStyle("secondary");
         addToCart();
       } else {
-        setButtonStatus({
-          background: "red",
-        });
         setCartStyle("primary");
         removeFromCart();
       }

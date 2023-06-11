@@ -6,6 +6,9 @@ export const SET_COUNTER = "SET_COUNTER";
 export const INCREMENT_COUNTER = "INCREMENT_COUNTER";
 export const DECREMENT_COUNTER = "DECREMENT_COUNTER";
 export const SET_METHOD = "SET_METHOD";
+//export const SET_CART = "SET_CART";
+//export const ADD_TO_CART = "ADD_TO_CART";
+//export const REMOVE_FROM_CART = "REMOVE_FROM_CART";
 
 const actionCreator = (type, payload) => {
 

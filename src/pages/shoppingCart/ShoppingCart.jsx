@@ -1,11 +1,12 @@
 import React from 'react'
-//import Header from '../../components/header/header'
-
-
+import Cart from './cartList/Cart'
+import Summary from './summary/Summary'
+import './style.css'
 export default function ShoppingCart() {
   return (
-    <section>
-        ShoppingCart
+    <section className='content__container shopping__cart--container'>
+      <Cart/>
+      <Summary/>
     </section>
   )
 }

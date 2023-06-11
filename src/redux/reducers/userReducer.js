@@ -12,6 +12,7 @@ const INITIAL_STATE = {
     id: loggedUser.id,
     status: loggedUser.status,
     name: loggedUser.name,
+    shoppingCart: loggedUser.shoppingCart
   },
   counter: "",
 };
