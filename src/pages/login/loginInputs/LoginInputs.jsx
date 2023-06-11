@@ -1,12 +1,13 @@
-import React, { useState, useContext } from "react";
+import React, { useState } from "react";
 import { getUsers, changeStatus } from "../../../api";
 import { Navigate } from "react-router-dom";
-import UserContext from "../../../context/UserContext";
 import Stack from '@mui/material/Stack';
 import Button from '@mui/material/Button';
 import Box from '@mui/material/Box';
 import TextField from '@mui/material/TextField';
 import Typography from "@mui/material/Typography";
+import { useDispatch } from "react-redux";
+import { setUserAction } from "../../../redux/actions/userActions";
 
 export default function LoginInputs() {
   const [login, setLogin] = useState("");
@@ -18,12 +19,7 @@ export default function LoginInputs() {
     display: "none",
   });
   const [redirect, setRedirect] = useState('')
-  const {checkLoggedUser} = useContext(UserContext)
-
-
-  function holdCheck(){
-    checkLoggedUser()
-  }
+  const dispatch = useDispatch()
 
   function setLoginInfo() {
     const userLogin = login;
@@ -60,10 +56,21 @@ export default function LoginInputs() {
         display: 'none'
         })
     const user = await changeStatus(userCheck, "true");
-    localStorage.setItem("loggedUser", JSON.stringify(user));
-    holdCheck()
+    localStorage.setItem(
+      "loggedUser",
+      JSON.stringify({
+        email: user.email,
+        id: user.id,
+        name: user.name,
+        orders: user.orders,
+        shoppingCart: user.shoppingCart,
+        status: user.status,
+      })
+    );
+    dispatch(setUserAction(user));
     setRedirect('true')
   }
+
   if (redirect === 'true') {
       return <Navigate to='/'/>
   } 
@@ -131,7 +138,6 @@ export default function LoginInputs() {
           color="success"
           onClick={() => {
             setLoginInfo();
-            holdCheck();
           }}
         >
           Log In

@@ -1,12 +1,13 @@
-import React, { useState, useContext } from "react";
-import { getUsers } from '../../../api'
+import React, { useState } from "react";
+import { getUsers, registration } from '../../../api'
 import { Navigate } from "react-router-dom";
-import UserContext from "../../../context/UserContext";
 import Stack from '@mui/material/Stack';
 import Button from '@mui/material/Button';
 import Box from "@mui/material/Box";
 import TextField from "@mui/material/TextField";
 import Typography from "@mui/material/Typography";
+import { useDispatch } from "react-redux";
+import { setUserAction } from "../../../redux/actions/userActions";
 
 export default function Register() {
   const [name, setName] = useState("");
@@ -14,6 +15,7 @@ export default function Register() {
   const [password, setPassword] = useState("");
   const [passwordVerify, setPasswordVerify] = useState("");
   const [redirect, setRedirect] = useState('')
+  const dipatcher = useDispatch()
 
     const [loginError, setLoginError] = useState({
         display: 'none'
@@ -26,11 +28,6 @@ export default function Register() {
     })
     
   const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-  const {checkLoggedUser} = useContext(UserContext)
-
-  function holdCheck() {
-    checkLoggedUser()
-  }
 
   function setRegisterInfo() {
     const userName = name;
@@ -88,21 +85,20 @@ export default function Register() {
       }
     }
 
-
-    let registration = await fetch(
-      "https://634e9f834af5fdff3a625f84.mockapi.io/users",
-      {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(newUser),
-      }
-    ).then((res) => res.json());
-    await registration
-    newUser = { ...registration };
-    localStorage.setItem("loggedUser", JSON.stringify(newUser));
-    holdCheck()
+    let registeredUser = await registration(newUser);
+    newUser = { ...registeredUser };
+    localStorage.setItem(
+      "loggedUser",
+      JSON.stringify({
+        email: newUser.email,
+        id: newUser.id,
+        name: newUser.name,
+        orders: newUser.orders,
+        shoppingCart: newUser.shoppingCart,
+        status: newUser.status,
+      })
+    );
+    dipatcher(setUserAction(newUser))
     setRedirect('true')
   }
 

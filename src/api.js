@@ -48,5 +48,15 @@ export async function logOut() {
   await changeStatus(loggedUser, 'false');
 }
 
+export async function registration(newUser) {
 
+  const registeredUser = await fetch("https://634e9f834af5fdff3a625f84.mockapi.io/users", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(newUser),
+  }).then((res) => res.json());
+  return registeredUser
+}
 
