@@ -4,13 +4,13 @@ import CartItem from './cartItems/CartItem'
 
 export default function Cart() {
     let products = getLoggedUser().shoppingCart
-    console.log(products)
+    
   return (
-    <section>
+    <section className='cart__box'>
         <h2>Items in Shopping Cart</h2>
-        <table>
-            <tbody>
-                <tr>
+        <table className='cart__table'>
+            <tbody className='table__body'>
+                <tr className='table__header'>
                     <td>Item description</td>
                     <td>Price</td>
                     <td>Sale</td>
