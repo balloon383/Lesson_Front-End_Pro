@@ -9,16 +9,14 @@ import Box from "@mui/material/Box";
 import List from "@mui/material/List"
 import ListItem from "@mui/material/ListItem";
 import { Typography } from "@mui/material";
-import { useDispatch } from "react-redux";
-import { decrementCounterAction, incrementCounterAction, setCounterAction } from "../../../../redux/actions/userActions";
+import { useDispatch, useSelector } from "react-redux";
+import { decrementCounterAction, incrementCounterAction, setCounterAction, setShoppingCartAction, setUserAction } from "../../../../redux/actions/userActions";
 
 export default function Card({ product }) {
   const [cartStyle, setCartStyle] = useState('primary')
-  const [buttonStatus, setButtonStatus] = useState({
-    background: "red",
-  });
   const [redirect, setRedirect] = useState("");
   const dispatcher = useDispatch()
+  let shoppingCart = useSelector(store => store.user.userData.shoppingCart)
 
   const checkButtonStatus = useCallback(() => {
     let shoppingCart = getLoggedUser().shoppingCart || [];
@@ -26,9 +24,6 @@ export default function Card({ product }) {
       dispatcher(setCounterAction(shoppingCart.length));
       for (let i = 0; i < shoppingCart.length; i++) {
         if (shoppingCart[i].id === product.id) {
-          setButtonStatus({
-            background: "rgb(0, 178, 0)" /* green */,
-          });
           setCartStyle("secondary");
         }
       }
@@ -44,7 +39,7 @@ export default function Card({ product }) {
     if (user.length === 0) {
       setRedirect("false");
     } else {
-      if (buttonStatus.background === "red") {
+      if (cartStyle === "primary") {
         setCartStyle("secondary");
         addToCart();
       } else {
@@ -64,6 +59,7 @@ export default function Card({ product }) {
     const userUpdated = await changeStatus(dataToUpdate);
     localStorage.setItem("loggedUser", JSON.stringify(userUpdated));
     dispatcher(incrementCounterAction());
+    dispatcher(setUserAction(userUpdated))
   }
   
   async function removeFromCart() {
@@ -73,8 +69,8 @@ export default function Card({ product }) {
     store.shoppingCart = updatedStore;
     await changeStatus(store);
     localStorage.setItem("loggedUser", JSON.stringify(store));
-    
     dispatcher(decrementCounterAction());
+    dispatcher(setUserAction(store))
   }
 
   if (redirect === "false") {

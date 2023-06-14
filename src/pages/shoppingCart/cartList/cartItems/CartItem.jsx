@@ -1,8 +1,11 @@
 import React, { useEffect, useState } from 'react'
 import images from '../../../../images'
-import { getLoggedUser } from '../../../../api'
+import { changeStatus, getLoggedUser } from '../../../../api'
+import { useDispatch, useSelector } from 'react-redux'
+import { decrementCounterAction, setShoppingCartAction, setUserAction } from '../../../../redux/actions/userActions'
 
 export default function CartItem({item}) {
+  const [curItem, setCurItem] = useState(item)
   const [itemCounter, setItemCounter] = useState(item.quantity)
   const [totalPrice, setTotalPrice] = useState(
     item.sale ? 
@@ -10,15 +13,27 @@ export default function CartItem({item}) {
     : 
     item.price * item.quantity
     )
+  
+  const dispatch = useDispatch()
+  let counter = useSelector(store => store.user.counter)
+
 
   function setQuantity(e){
-    setItemCounter(e.target.value)
-    setTotalPrice(item.price * e.target.value)
-    // fix previous line
+    let quantity = e.target.value
+    if (quantity <= 0){
+      quantity = 1
+    } 
+    setItemCounter(quantity)
+    setTotalPrice(
+      item.sale ? 
+      (item.price * quantity) - ((item.price * quantity) * item.salePercent / 100)  
+      : 
+      item.price * quantity
+      )
     let updatingItem = getLoggedUser()
     let newShoppingCart = updatingItem.shoppingCart.map((el) => {
       if (el.id === item.id){
-        el.quantity = e.target.value
+        el.quantity = quantity
         return el
       } else {
         return el
@@ -26,6 +41,17 @@ export default function CartItem({item}) {
     })
     updatingItem.shoppingCart = newShoppingCart
     localStorage.setItem('loggedUser', JSON.stringify(updatingItem))
+    dispatch(setUserAction(updatingItem))
+  }
+
+  function deleteItem(){
+    let user = getLoggedUser()
+    let newShoppingCart = user.shoppingCart.filter(el => el.id !== item.id)
+    user.shoppingCart = newShoppingCart
+    localStorage.setItem('loggedUser', JSON.stringify(user))
+    changeStatus(user)
+    dispatch(decrementCounterAction())
+    setUserAction(user)
   }
   
   return (
@@ -35,7 +61,7 @@ export default function CartItem({item}) {
         <td>{item.sale ? -item.salePercent + "%" : "-"}</td>
         <td><input type="text" value={itemCounter} onChange={(e) => setQuantity(e)} /></td>
         <td>{totalPrice}</td>
-        <td>{'del'}</td>
+        <td><img src={images['deleteButton']} alt="delete" width='35px' onClick={deleteItem}/></td>
     </tr>
   )
 }
