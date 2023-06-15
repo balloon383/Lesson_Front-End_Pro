@@ -9,14 +9,13 @@ import Box from "@mui/material/Box";
 import List from "@mui/material/List"
 import ListItem from "@mui/material/ListItem";
 import { Typography } from "@mui/material";
-import { useDispatch, useSelector } from "react-redux";
-import { decrementCounterAction, incrementCounterAction, setCounterAction, setShoppingCartAction, setUserAction } from "../../../../redux/actions/userActions";
+import { useDispatch } from "react-redux";
+import { decrementCounterAction, incrementCounterAction, setCounterAction, setUserAction } from "../../../../redux/actions/userActions";
 
 export default function Card({ product }) {
   const [cartStyle, setCartStyle] = useState('primary')
   const [redirect, setRedirect] = useState("");
   const dispatcher = useDispatch()
-  let shoppingCart = useSelector(store => store.user.userData.shoppingCart)
 
   const checkButtonStatus = useCallback(() => {
     let shoppingCart = getLoggedUser().shoppingCart || [];

@@ -26,7 +26,8 @@ const setUserReducer = (state = INITIAL_STATE, action) => {
           id: action.payload.id,
           status: action.payload.status,
           name: action.payload.name,
-          shoppingCart: action.payload.shoppingCart
+          shoppingCart: action.payload.shoppingCart, 
+          orders: action.payload.orders
         },
       };
     

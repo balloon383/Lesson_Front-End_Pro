@@ -11,12 +11,6 @@ import { setUserAction } from "../../../redux/actions/userActions";
 
 
 export default function LoginInputs() {
-  const [loginError, setLoginError] = useState({
-    display: "none",
-  });
-  const [passwordError, setPasswordError] = useState({
-    display: "none",
-  });
   const [redirect, setRedirect] = useState('')
   const dispatch = useDispatch()
 

@@ -1,11 +1,10 @@
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
 import images from '../../../../images'
 import { changeStatus, getLoggedUser } from '../../../../api'
-import { useDispatch, useSelector } from 'react-redux'
-import { decrementCounterAction, setShoppingCartAction, setUserAction } from '../../../../redux/actions/userActions'
+import { useDispatch } from 'react-redux'
+import { decrementCounterAction, setUserAction } from '../../../../redux/actions/userActions'
 
 export default function CartItem({item}) {
-  const [curItem, setCurItem] = useState(item)
   const [itemCounter, setItemCounter] = useState(item.quantity)
   const [totalPrice, setTotalPrice] = useState(
     item.sale ? 
@@ -15,8 +14,6 @@ export default function CartItem({item}) {
     )
   
   const dispatch = useDispatch()
-  let counter = useSelector(store => store.user.counter)
-
 
   function setQuantity(e){
     let quantity = e.target.value

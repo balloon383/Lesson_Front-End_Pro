@@ -111,7 +111,6 @@ export default function Register() {
             handleBlur,
             handleSubmit,
             isSubmitting,
-            /* and other goodies */
           }) => (
             <form onSubmit={handleSubmit}>
               <input
@@ -170,4 +169,3 @@ export default function Register() {
     </Box>
   );
 }
-/* Дороби ерорс */
