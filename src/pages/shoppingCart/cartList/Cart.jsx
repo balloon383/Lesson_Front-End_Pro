@@ -1,9 +1,11 @@
-import React, { useEffect, useState } from 'react'
+import React from 'react'
 import { getLoggedUser } from '../../../api'
 import CartItem from './cartItems/CartItem'
+import { useSelector } from 'react-redux';
 
 export default function Cart() {
-    let products = getLoggedUser().shoppingCart
+    
+    let products = useSelector(store => store.user.userData.shoppingCart)
     
   return (
     <section className="cart__box">

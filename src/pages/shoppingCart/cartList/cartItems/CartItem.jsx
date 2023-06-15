@@ -48,7 +48,7 @@ export default function CartItem({item}) {
     localStorage.setItem('loggedUser', JSON.stringify(user))
     changeStatus(user)
     dispatch(decrementCounterAction())
-    setUserAction(user)
+    dispatch(setUserAction(user))
   }
   
   return (
@@ -57,7 +57,7 @@ export default function CartItem({item}) {
         <td>{item.price}</td>
         <td>{item.sale ? -item.salePercent + "%" : "-"}</td>
         <td><input type="text" value={itemCounter} onChange={(e) => setQuantity(e)} /></td>
-        <td>{totalPrice}</td>
+        <td>${totalPrice}</td>
         <td><img src={images['deleteButton']} alt="delete" width='35px' onClick={deleteItem}/></td>
     </tr>
   )

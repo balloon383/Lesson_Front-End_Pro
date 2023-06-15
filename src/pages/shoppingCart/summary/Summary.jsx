@@ -18,7 +18,7 @@ export default function Summary() {
     localStorage.setItem('loggedUser', JSON.stringify(user))
     changeStatus(user)
     dispatch(setUserAction(user))
-    dispatch(setCounterAction(0))
+    dispatch(setCounterAction(0));
   }
 
   useEffect(() => {

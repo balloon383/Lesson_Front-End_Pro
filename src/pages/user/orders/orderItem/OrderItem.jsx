@@ -17,7 +17,7 @@ export default function OrderItem({item}) {
       <td>{item.sale ? -item.salePercent + "%" : "-"}</td>
       <td>{item.quantity}</td>
       <td>
-        {item.sale
+        ${item.sale
           ? item.price * item.quantity -
             (item.price * item.quantity * item.salePercent) / 100
           : item.price * item.quantity}
