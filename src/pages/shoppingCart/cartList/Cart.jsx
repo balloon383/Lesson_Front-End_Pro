@@ -1,10 +1,9 @@
 import React from 'react'
-import { getLoggedUser } from '../../../api'
 import CartItem from './cartItems/CartItem'
 import { useSelector } from 'react-redux';
 
 export default function Cart() {
-    
+
     let products = useSelector(store => store.user.userData.shoppingCart)
     
   return (
