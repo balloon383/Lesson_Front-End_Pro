@@ -11,10 +11,11 @@ export default function CartItem({ obj }) {
   let [item, setItem] = useState({})
 
   useEffect(() => {
-
-    let item = products.find((el) => el.id === obj.id);
-    setItem(item);
-    
+    if (products.length > 0) {
+      let item = products.find((el) => el.id === obj.id);
+      item.quantity = obj.count
+      setItem(item);
+    } 
   }, [products, obj.id]);
 
   
