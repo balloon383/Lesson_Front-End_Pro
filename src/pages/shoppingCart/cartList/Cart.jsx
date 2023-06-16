@@ -1,11 +1,15 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import CartItem from './cartItems/CartItem'
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import { getProductsThunk } from '../../../redux/actions/productActions';
 
 export default function Cart() {
-
-    let products = useSelector(store => store.user.userData.shoppingCart)
-    
+  const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(getProductsThunk());
+  }, [dispatch]);
+  let products = useSelector((store) => store.user.userData.shoppingCart);
+  
   return (
     <section className="cart__box">
       <h2>Items in Shopping Cart</h2>
@@ -20,7 +24,7 @@ export default function Cart() {
             <td>Action</td>
           </tr>
           {products.map((el) => (
-            <CartItem item={el} key={el.id} />
+            <CartItem obj={el} key={el.id} />
           ))}
         </tbody>
       </table>
