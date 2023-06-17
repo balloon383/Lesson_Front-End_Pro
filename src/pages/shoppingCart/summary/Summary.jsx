@@ -5,7 +5,8 @@ import { changeStatus, getLoggedUser } from '../../../api'
 import { setCounterAction, setUserAction } from '../../../redux/actions/userActions'
 export default function Summary() {
   
-  let shoppingCart = useSelector(store => store.user.userData.shoppingCart)
+  let cart = useSelector(store => store.user.userData.shoppingCart)
+  let products = useSelector(store => store.products)
   let [summary, setSummary] = useState(0) 
   const dispatch = useDispatch()
 
@@ -22,7 +23,17 @@ export default function Summary() {
   }
 
   useEffect(() => {
+    let shoppingCart = []
+    if(cart.length > 0 && products.length > 0){
+      for(let i = 0; i < cart.length; i++){
+        let item = products.find(el => el.id === cart[i].id)
+        item = {...item, count: cart[i].count}
+        shoppingCart.push(item)
+      }
+    }
+
     let total = 0
+
     for (let i = 0; i < shoppingCart.length; i++){
       
       if(shoppingCart[i].sale){
@@ -39,7 +50,7 @@ export default function Summary() {
       
     }
     setSummary(total)
-  }, [shoppingCart])
+  }, [cart])
   
   
   return (

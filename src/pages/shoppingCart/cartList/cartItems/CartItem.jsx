@@ -13,20 +13,20 @@ export default function CartItem({ obj }) {
   useEffect(() => {
     if (products.length > 0) {
       let curItem = products.find((el) => el.id === obj.id);
-      //curItem.count = { ...curItem, count: obj.count };
-      //fix prev line
+      curItem = {...curItem, count: obj.count}
       setItem(curItem);
     }
+    console.log()
   }, [products, obj.id, obj.count]);
 
   
 
-  const [itemCounter, setItemCounter] = useState(item.count)
+  const [itemCounter, setItemCounter] = useState(obj.count)
   const [totalPrice, setTotalPrice] = useState(
     item.sale ? 
-    (item.price * item.count) - ((item.price * item.count) * item.salePercent / 100)  
+    (item.price * obj.count) - ((item.price * obj.count) * item.salePercent / 100)  
     : 
-    item.price * item.count
+    item.price * obj.count
     )
   
 
