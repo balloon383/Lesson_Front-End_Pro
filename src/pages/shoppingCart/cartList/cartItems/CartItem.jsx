@@ -16,7 +16,6 @@ export default function CartItem({ obj }) {
       curItem = {...curItem, count: obj.count}
       setItem(curItem);
     }
-    console.log()
   }, [products, obj.id, obj.count]);
 
   
@@ -24,9 +23,9 @@ export default function CartItem({ obj }) {
   const [itemCounter, setItemCounter] = useState(obj.count)
   const [totalPrice, setTotalPrice] = useState(
     item.sale ? 
-    (item.price * obj.count) - ((item.price * obj.count) * item.salePercent / 100)  
+    (item.price * item.count) - ((item.price * item.count) * item.salePercent / 100)  
     : 
-    item.price * obj.count
+    item.price * item.count
     )
   
 
