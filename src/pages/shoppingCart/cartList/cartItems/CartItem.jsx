@@ -12,39 +12,40 @@ export default function CartItem({ obj }) {
 
   useEffect(() => {
     if (products.length > 0) {
-      let item = products.find((el) => el.id === obj.id);
-      item.quantity = obj.count
-      setItem(item);
-    } 
-  }, [products, obj.id]);
+      let curItem = products.find((el) => el.id === obj.id);
+      //curItem.count = { ...curItem, count: obj.count };
+      //fix prev line
+      setItem(curItem);
+    }
+  }, [products, obj.id, obj.count]);
 
   
 
-  const [itemCounter, setItemCounter] = useState(item.quantity)
+  const [itemCounter, setItemCounter] = useState(item.count)
   const [totalPrice, setTotalPrice] = useState(
     item.sale ? 
-    (item.price * item.quantity) - ((item.price * item.quantity) * item.salePercent / 100)  
+    (item.price * item.count) - ((item.price * item.count) * item.salePercent / 100)  
     : 
-    item.price * item.quantity
+    item.price * item.count
     )
   
 
-  function setQuantity(e){
-    let quantity = e.target.value
-    if (quantity <= 0){
-      quantity = 1
+  function setCount(e){
+    let count = e.target.value
+    if (count <= 0){
+      count = 1
     } 
-    setItemCounter(quantity)
+    setItemCounter(count)
     setTotalPrice(
       item.sale ? 
-      (item.price * quantity) - ((item.price * quantity) * item.salePercent / 100)  
+      (item.price * count) - ((item.price * count) * item.salePercent / 100)  
       : 
-      item.price * quantity
+      item.price * count
       )
     let updatingItem = getLoggedUser()
     let newShoppingCart = updatingItem.shoppingCart.map((el) => {
       if (el.id === item.id){
-        el.quantity = quantity
+        el.count = count
         return el
       } else {
         return el
@@ -70,7 +71,7 @@ export default function CartItem({ obj }) {
         <td><img src={images[item.img]} alt="item img" width="150px" height="150px"/>{item.title}</td>
         <td>{item.price}</td>
         <td>{item.sale ? -item.salePercent + "%" : "-"}</td>
-        <td><input type="text" value={itemCounter} onChange={(e) => setQuantity(e)} /></td>
+        <td><input type="text" value={itemCounter} onChange={(e) => setCount(e)} /></td>
         <td>${totalPrice}</td>
         <td><img src={images['deleteButton']} alt="delete" width='35px' onClick={deleteItem}/></td>
     </tr>

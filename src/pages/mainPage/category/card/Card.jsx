@@ -53,7 +53,7 @@ export default function Card({ product }) {
     let localUser = getLoggedUser();
     let dataToUpdate = {
       ...localUser,
-      shoppingCart: [{ ...product, quantity: 1 }, ...localUser.shoppingCart],
+      shoppingCart: [{ ...product, count: 1 }, ...localUser.shoppingCart],
     };
     const userUpdated = await changeStatus(dataToUpdate);
     localStorage.setItem("loggedUser", JSON.stringify(userUpdated));

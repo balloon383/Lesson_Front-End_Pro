@@ -26,9 +26,15 @@ export default function Summary() {
     for (let i = 0; i < shoppingCart.length; i++){
       
       if(shoppingCart[i].sale){
-        total = total + (shoppingCart[i].price * shoppingCart[i].quantity) - ((shoppingCart[i].price * shoppingCart[i].quantity) * shoppingCart[i].salePercent / 100)
+        total =
+          total +
+          shoppingCart[i].price * shoppingCart[i].count -
+          (shoppingCart[i].price *
+            shoppingCart[i].count *
+            shoppingCart[i].salePercent) /
+            100;
       } else {
-        total = total + (shoppingCart[i].price * shoppingCart[i].quantity)
+        total = total + shoppingCart[i].price * shoppingCart[i].count;
       }
       
     }

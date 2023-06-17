@@ -4,7 +4,7 @@ import './style.css'
 export default function OrderItem({item}) {
   return (
     <tr className="item__box">
-      <td className='item_description'>
+      <td className="item_description">
         <img
           src={images[item.img]}
           alt="item img"
@@ -15,12 +15,13 @@ export default function OrderItem({item}) {
       </td>
       <td>{item.price}</td>
       <td>{item.sale ? -item.salePercent + "%" : "-"}</td>
-      <td>{item.quantity}</td>
+      <td>{item.count}</td>
       <td>
-        ${item.sale
-          ? item.price * item.quantity -
-            (item.price * item.quantity * item.salePercent) / 100
-          : item.price * item.quantity}
+        $
+        {item.sale
+          ? item.price * item.count -
+            (item.price * item.count * item.salePercent) / 100
+          : item.price * item.count}
       </td>
     </tr>
   );
