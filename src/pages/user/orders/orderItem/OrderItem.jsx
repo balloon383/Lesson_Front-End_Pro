@@ -1,7 +1,27 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import images from '../../../../images';
 import './style.css'
-export default function OrderItem({item}) {
+import { useDispatch, useSelector } from 'react-redux';
+import { getProductsThunk } from '../../../../redux/actions/productActions';
+export default function OrderItem({ obj }) {
+
+  const dispatch = useDispatch()
+  let [item, setItem] = useState({})
+  
+  useEffect(() => {
+    dispatch(getProductsThunk())
+  }, [dispatch])
+
+  const products = useSelector(store => store.products)
+
+  useEffect(() => {
+    if (products.length > 0) {
+      let item = products.find((el) => el.id === obj.id);
+      item = { ...item, count: obj.count }
+      setItem(item)
+    }
+  }, [products, obj.count, obj.id])
+
   return (
     <tr className="item__box">
       <td className="item_description">

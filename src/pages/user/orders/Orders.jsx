@@ -17,7 +17,7 @@ export default function Orders() {
             <td>Quantity</td>
             <td>Total</td>
           </tr>
-          {orders.map(el => <OrderItem item={el} key={ Math.random() * 100000 } />) }
+          {orders.map(el => <OrderItem obj={el} key={ Math.random() * 100000 } />) }
         </tbody>
       </table>
     </section>

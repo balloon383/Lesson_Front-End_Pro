@@ -59,7 +59,6 @@ export default function CartItem({ obj }) {
     let newShoppingCart = updatingItem.shoppingCart.map((el) => {
       if (el.id === item.id) {
         el.count = count < 1 ? count = 1 : count && count > 10 ? count = 10 : count
-        console.log(el.count)
         return el
       } else {
         return el

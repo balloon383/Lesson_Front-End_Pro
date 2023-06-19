@@ -77,7 +77,6 @@ export default function LoginInputs() {
                 let loginValidation = await checkUser(values.email, values.password)
                 errors = loginValidation
             }
-            console.log(errors)
             return errors;
           }}
           onSubmit={(values, { setSubmitting }) => {

@@ -92,9 +92,7 @@ export default function Register() {
                 values.password,
               )
               errors = validationErrors
-              console.log(errors)
             }
-            console.log(errors)
             return errors;
           }}
           onSubmit={(values, { setSubmitting }) => {
