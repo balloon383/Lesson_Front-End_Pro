@@ -28,11 +28,25 @@ export default function CartItem({ obj }) {
     item.price * item.count
     )
   
+  function validateCount(e) {
+    let count = e.target.value
+    if (count < 1) {
+      setItemCounter(1);
+      setItem({...item, count: 1})
+    }
+    if (count > 10) {
+      setItemCounter(10);
+      setItem({...item, count: 10})
+    }
+  }
 
   function setCount(e){
     let count = e.target.value
-    if (count <= 0){
+    if (count < 0){
       count = 1
+    } 
+    if (count > 10){
+      count = 10
     } 
     setItemCounter(count)
     setTotalPrice(
@@ -43,8 +57,9 @@ export default function CartItem({ obj }) {
       )
     let updatingItem = getLoggedUser()
     let newShoppingCart = updatingItem.shoppingCart.map((el) => {
-      if (el.id === item.id){
-        el.count = count
+      if (el.id === item.id) {
+        el.count = count < 1 ? count = 1 : count && count > 10 ? count = 10 : count
+        console.log(el.count)
         return el
       } else {
         return el
@@ -64,13 +79,22 @@ export default function CartItem({ obj }) {
     dispatch(decrementCounterAction())
     dispatch(setUserAction(user))
   }
-  
+
+  useEffect(() => {
+    if (item.sale) {
+      setTotalPrice(item.price * item.count - (item.price * item.count * item.salePercent) / 100
+      );
+    } else {
+      setTotalPrice(item.price * item.count)
+    }
+  }, [item]);
+
   return (
     <tr>
         <td><img src={images[item.img]} alt="item img" width="150px" height="150px"/>{item.title}</td>
         <td>{item.price}</td>
         <td>{item.sale ? -item.salePercent + "%" : "-"}</td>
-        <td><input type="text" value={itemCounter} onChange={(e) => setCount(e)} /></td>
+        <td><input type="text" value={itemCounter} onChange={(e) => setCount(e)} onBlur={(e) => validateCount(e)}/></td>
         <td>${totalPrice}</td>
         <td><img src={images['deleteButton']} alt="delete" width='35px' onClick={deleteItem}/></td>
     </tr>
