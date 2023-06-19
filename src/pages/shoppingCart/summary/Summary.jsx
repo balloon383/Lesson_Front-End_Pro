@@ -50,7 +50,7 @@ export default function Summary() {
       
     }
     setSummary(total)
-  }, [cart])
+  }, [cart, products])
   
   
   return (
