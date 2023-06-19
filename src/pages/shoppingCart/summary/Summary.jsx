@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import './style.css'
 import { changeStatus, getLoggedUser } from '../../../api'
-import { setCounterAction, setUserAction } from '../../../redux/actions/userActions'
+import { setUserAction } from '../../../redux/actions/userActions'
 export default function Summary() {
   
   let cart = useSelector(store => store.user.userData.shoppingCart)
@@ -19,7 +19,6 @@ export default function Summary() {
     localStorage.setItem('loggedUser', JSON.stringify(user))
     changeStatus(user)
     dispatch(setUserAction(user))
-    dispatch(setCounterAction(0));
   }
 
   useEffect(() => {

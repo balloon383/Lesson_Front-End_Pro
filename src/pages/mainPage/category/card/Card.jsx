@@ -10,7 +10,7 @@ import List from "@mui/material/List"
 import ListItem from "@mui/material/ListItem";
 import { Typography } from "@mui/material";
 import { useDispatch } from "react-redux";
-import { decrementCounterAction, incrementCounterAction, setCounterAction, setUserAction } from "../../../../redux/actions/userActions";
+import { setUserAction } from "../../../../redux/actions/userActions";
 
 export default function Card({ product }) {
   const [cartStyle, setCartStyle] = useState('primary')
@@ -20,14 +20,13 @@ export default function Card({ product }) {
   const checkButtonStatus = useCallback(() => {
     let shoppingCart = getLoggedUser().shoppingCart || [];
     if (shoppingCart.length > 0) {
-      dispatcher(setCounterAction(shoppingCart.length));
       for (let i = 0; i < shoppingCart.length; i++) {
         if (shoppingCart[i].id === product.id) {
           setCartStyle("secondary");
         }
       }
     }
-  }, [product.id, dispatcher]);
+  }, [product.id]);
 
   useEffect(() => {
       checkButtonStatus();
@@ -57,7 +56,6 @@ export default function Card({ product }) {
     };
     const userUpdated = await changeStatus(dataToUpdate);
     localStorage.setItem("loggedUser", JSON.stringify(userUpdated));
-    dispatcher(incrementCounterAction());
     dispatcher(setUserAction(userUpdated))
   }
   
@@ -68,7 +66,6 @@ export default function Card({ product }) {
     store.shoppingCart = updatedStore;
     await changeStatus(store);
     localStorage.setItem("loggedUser", JSON.stringify(store));
-    dispatcher(decrementCounterAction());
     dispatcher(setUserAction(store))
   }
 

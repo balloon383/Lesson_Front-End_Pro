@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import images from '../../../../images'
 import { changeStatus, getLoggedUser } from '../../../../api'
 import { useDispatch, useSelector } from 'react-redux'
-import { decrementCounterAction, setUserAction } from '../../../../redux/actions/userActions'
+import { setUserAction } from '../../../../redux/actions/userActions'
 
 export default function CartItem({ obj }) {
   
@@ -31,11 +31,9 @@ export default function CartItem({ obj }) {
   function validateCount(e) {
     let count = e.target.value
     if (count < 1) {
-      setItemCounter(1);
       setItem({...item, count: 1})
     }
     if (count > 10) {
-      setItemCounter(10);
       setItem({...item, count: 10})
     }
   }
@@ -75,7 +73,6 @@ export default function CartItem({ obj }) {
     user.shoppingCart = newShoppingCart
     localStorage.setItem('loggedUser', JSON.stringify(user))
     changeStatus(user)
-    dispatch(decrementCounterAction())
     dispatch(setUserAction(user))
   }
 
