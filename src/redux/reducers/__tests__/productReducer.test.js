@@ -21,7 +21,7 @@ describe("productReducer", () => {
     };
     const newState = setProductsReducer(initialState, action);
     expect(newState).toEqual({
-      products: products,
+      ...products
     });
   });
 

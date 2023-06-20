@@ -4,7 +4,7 @@ import { useSelector } from 'react-redux';
 import OrderItem from "./orderItem/OrderItem"
 export default function Orders() {
 
-  let orders = useSelector(store => store.user.userData.orders)
+  let orders = useSelector(store => store.user.orders)
   
   return (
     <section className="orders__box">

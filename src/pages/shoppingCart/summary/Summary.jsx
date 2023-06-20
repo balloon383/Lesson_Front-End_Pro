@@ -5,7 +5,7 @@ import { changeStatus, getLoggedUser } from '../../../api'
 import { setUserAction } from '../../../redux/actions/userActions'
 export default function Summary() {
   
-  let cart = useSelector(store => store.user.userData.shoppingCart)
+  let cart = useSelector(store => store.user.shoppingCart)
   let products = useSelector(store => store.products)
   let [summary, setSummary] = useState(0) 
   const dispatch = useDispatch()

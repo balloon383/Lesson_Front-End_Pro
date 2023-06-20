@@ -8,7 +8,7 @@ export default function Cart() {
   useEffect(() => {
     dispatch(getProductsThunk());
   }, [dispatch]);
-  let products = useSelector((store) => store.user.userData.shoppingCart);
+  let products = useSelector((store) => store.user.shoppingCart);
   
   return (
     <section className="cart__box">
