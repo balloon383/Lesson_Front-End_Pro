@@ -20,9 +20,9 @@ describe("productReducer", () => {
       payload: products,
     };
     const newState = setProductsReducer(initialState, action);
-    expect(newState).toEqual({
+    expect(newState).toEqual([
       ...products
-    });
+    ]);
   });
 
   it("not modify the original state", () => {

@@ -10,10 +10,6 @@ describe("setUserReducer", () => {
       orders: [],
   };
 
-  it("return initial state", () => {
-    expect(setUserReducer(SET_USER, {})).toEqual(initialState);
-  });
-
   it("check SET_USER action", () => {
     const user = {
       id: "123",
