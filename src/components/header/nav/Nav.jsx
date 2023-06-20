@@ -16,10 +16,10 @@ export default function Nav() {
   const dispatch = useDispatch()
   let [userLink, setUserLink] = useState("/login");
   let userShoppingCart = useSelector(
-    (store) => store.user.userData.shoppingCart
+    (store) => store.user.shoppingCart
   ); 
   let [counter, setCounter] = useState(0)
-  let name = useSelector(store => store.user.userData.name)
+  let name = useSelector(store => store.user.name)
 
 
   const checkLogged = useCallback(() => {
