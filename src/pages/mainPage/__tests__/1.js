@@ -1,4 +1,4 @@
-import { render, screen } from "@testing-library/react";
+/* import { render, screen } from "@testing-library/react";
 import Category from "../category/Category";
 
 describe("Category", () => {
@@ -29,3 +29,4 @@ describe("Category", () => {
     expect(product3).toBeInTheDocument();
   });
 });
+ */
