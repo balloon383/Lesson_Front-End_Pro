@@ -49,7 +49,7 @@ describe("setUserReducer", () => {
   });
 
   it("not modifying original state", () => {
-    const prevState = {
+    const prevState = { 
         id: "123",
         status: true,
         name: "John Doe",
