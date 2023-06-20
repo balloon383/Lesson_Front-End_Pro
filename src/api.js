@@ -60,3 +60,10 @@ export async function registration(newUser) {
   return registeredUser
 }
 
+
+
+export default async function deleteAccount(id) {
+    await fetch (`https://634e9f834af5fdff3a625f84.mockapi.io/users/${id}`, { 
+      method: "DELETE"
+    })
+}

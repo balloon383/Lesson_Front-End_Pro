@@ -7,7 +7,7 @@ import { Link } from "react-router-dom";
 import Stack from "@mui/material/Stack";
 import Button from "@mui/material/Button";
 import { useDispatch, useSelector } from "react-redux";
-import { setCounterAction, setUserAction } from "../../../redux/actions/userActions";
+import { setUserAction } from "../../../redux/actions/userActions";
 
 export default function Nav() {
   const [LogOutStatus, setLogOutStatus] = useState({
@@ -15,7 +15,10 @@ export default function Nav() {
   });
   const dispatch = useDispatch()
   let [userLink, setUserLink] = useState("/login");
-  let counter = useSelector(store => store.user.counter)
+  let userShoppingCart = useSelector(
+    (store) => store.user.userData.shoppingCart
+  ); 
+  let [counter, setCounter] = useState(0)
   let name = useSelector(store => store.user.userData.name)
 
 
@@ -31,14 +34,21 @@ export default function Nav() {
       setLogOutStatus({
         display: "none",
       });
-      dispatch(setCounterAction(0));
       setUserLink("/login");
     }
-  }, [dispatch]);
+  }, []);
 
   useEffect(() => {
     checkLogged();
   }, [checkLogged, name]);
+
+  useEffect(() => {
+    if (userShoppingCart) {
+      setCounter(userShoppingCart.length);
+    } else {
+      setCounter(0);
+    }
+  }, [userShoppingCart]);
 
   return (
     <nav>

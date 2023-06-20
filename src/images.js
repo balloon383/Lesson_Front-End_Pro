@@ -16,6 +16,8 @@ import smallPlane from "./images/products/small-plane.png";
 import speedBoat from "./images/products/speed-boat.png";
 import sportCar from "./images/products/sport-car.png";
 import suv from "./images/products/suv.png";
+import deleteButton from "./images/delete.png";
+
 const images = {
   'aircraft-carrier': carrier,
   'boat': boat,
@@ -35,6 +37,8 @@ const images = {
   'speed-boat': speedBoat,
   'sport-car': sportCar,
   'Suv': suv,
+  'deleteButton': deleteButton, 
+  
 };
 
 export default images
