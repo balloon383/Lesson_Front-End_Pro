@@ -14,7 +14,7 @@ describe("setUserReducer", () => {
     const user = {
       id: "123",
       status: true,
-      name: "John Doe",
+      name: "Anton",
       shoppingCart: [
         { id: 1, count: 2 },
         { id: 2, count: 1 },
@@ -32,7 +32,7 @@ describe("setUserReducer", () => {
     expect(newState).toEqual({
         id: "123",
         status: true,
-        name: "John Doe",
+        name: "Anton",
         shoppingCart: [
           { id: 1, count: 2 },
           { id: 2, count: 1 },
@@ -45,42 +45,42 @@ describe("setUserReducer", () => {
   });
 
   it("not modifying original state", () => {
-    const prevState = { 
-        id: "123",
-        status: true,
-        name: "John Doe",
-        shoppingCart: [
-          { id: 1, count: 2 },
-          { id: 2, count: 1 },
-        ],
-        orders: [
-          { id: 3, count: 3 },
-          { id: 4, count: 1 },
-        ],
+    const prevState = {
+      id: "123",
+      status: true,
+      name: "Tom",
+      shoppingCart: [
+        { id: 1, count: 2 },
+        { id: 2, count: 1 },
+      ],
+      orders: [
+        { id: 3, count: 3 },
+        { id: 4, count: 1 },
+      ],
     };
     const action = {
       type: SET_USER,
       payload: {
         id: "456",
         status: false,
-        name: "Jane Smith",
+        name: "Tom",
         shoppingCart: [{ id: 5, count: 1 }],
         orders: [{ id: 6, count: 2 }],
       },
     };
     setUserReducer(prevState, action);
     expect(prevState).toEqual({
-        id: "123",
-        status: true,
-        name: "John Doe",
-        shoppingCart: [
-          { id: 1, count: 2 },
-          { id: 2, count: 1 },
-        ],
-        orders: [
-          { id: 3, count: 3 },
-          { id: 4, count: 1 },
-        ],
+      id: "123",
+      status: true,
+      name: "Tom",
+      shoppingCart: [
+        { id: 1, count: 2 },
+        { id: 2, count: 1 },
+      ],
+      orders: [
+        { id: 3, count: 3 },
+        { id: 4, count: 1 },
+      ],
     });
   });
 
@@ -88,7 +88,7 @@ describe("setUserReducer", () => {
     const prevState = {
         id: "123",
         status: true,
-        name: "John Doe",
+        name: "Anton",
         shoppingCart: [
           { id: 1, count: 2 },
           { id: 2, count: 1 },
