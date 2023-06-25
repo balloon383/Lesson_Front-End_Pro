@@ -11,3 +11,7 @@ a{
     justify-content: space-between;
     align-items: center;
 }
+.header__container{
+    width: 1200px;
+    margin: 0 auto;
+}

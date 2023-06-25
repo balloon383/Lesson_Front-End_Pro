@@ -1,10 +1,11 @@
 import React from 'react'
 import Cart from './cartList/Cart'
 import Summary from './summary/Summary'
-import './style.css'
+import styles from './Cart.module.css'
+
 export default function ShoppingCart() {
   return (
-    <section className='content__container shopping__cart--container'>
+    <section className={styles.cart__container}>
       <Cart/>
       <Summary/>
     </section>

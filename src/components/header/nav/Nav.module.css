@@ -2,40 +2,40 @@ ul{
     list-style-type: none;
 }
 
-.header__nav--ul {
+.nav__user {
     display: flex;
     align-items: center;
     column-gap: 10px;
     color: white;
 }
 
-.header__nav--li {
+.nav__li {
     display: flex;
     align-items: center;
     column-gap: 5px;
     position: relative;
 }
-.header__nav--user {
+.nav__user {
     text-decoration: none;
 }
-.header__nav--li a{
+.nav__li a{
     position: relative;
 }
-.header__nav--li:nth-child(1) {
+.nav__li:nth-child(1) {
     border-right: 1px solid black;
     padding-right: 10px;
 }
-.header__nav--li:nth-child(1) {
+.nav__li:nth-child(1) {
     border-right: 1px solid black;
     padding-right: 10px;
 }
 
 
-.header__shoppingcart--link {
+.shoppingcart__link {
     position: relative;
 }
 
-.header__shoppingcart--counter {
+.shoppingcart__counter {
     position: absolute;
     right: 0;
     top: 0;

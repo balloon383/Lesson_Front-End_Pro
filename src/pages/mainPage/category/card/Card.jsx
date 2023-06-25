@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useCallback } from "react";
-import "./style.css";
+import styles from "./CardStyle.module.css";
 import { getLoggedUser, changeStatus, getUsers } from "../../../../api";
 import images from "../../../../images";
 import { Navigate } from "react-router-dom";
@@ -74,43 +74,43 @@ export default function Card({ product }) {
   }
 
   return (
-    <Box className="card">
+    <Box className={styles.card}>
       <img
         src={images[product.img]}
         className="card__img"
         alt="card Img"
         width="150px"
       />
-      <Typography variant="h5" className="card__header">
+      <Typography variant="h5" className={styles.card__header}>
         {product.title}
       </Typography>
-      <List className="card__ul">
-        <ListItem className="card__li">
+      <List className={styles.card__ul}>
+        <ListItem className={styles.card__li}>
           {product.sale ? (
             <List>
-              <ListItem className="card__li--price-prev" disablePadding >
+              <ListItem className={styles.price_prev} disablePadding >
                 ${product.price}
               </ListItem>
               <ListItem disablePadding>
                 <Typography
                   variant="inherit"
-                  className="card__li--salePercent"
+                  className={styles.salePercent}
                 >
                   {" "}
                   -{product.salePercent}%
                 </Typography>
               </ListItem>
-              <ListItem className="card__li--price">
+              <ListItem className={styles.price}>
                 ${product.price - (product.price * product.salePercent) / 100}
               </ListItem>
             </List>
           ) : (
-            <Typography variant="inherit" className="card__li--price">
+            <Typography variant="inherit" className={styles.price}>
               ${product.price}
             </Typography>
           )}
         </ListItem>
-        <ListItem className="card__li card__li--button">
+        <ListItem className={styles.card__li}>
           <IconButton
             color={cartStyle}
             aria-label="add to shopping cart"

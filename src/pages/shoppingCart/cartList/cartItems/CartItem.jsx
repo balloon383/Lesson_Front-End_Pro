@@ -3,7 +3,7 @@ import images from '../../../../images'
 import { changeStatus, getLoggedUser } from '../../../../api'
 import { useDispatch, useSelector } from 'react-redux'
 import { setUserAction } from '../../../../redux/actions/userActions'
-
+import styles from "./Item.module.css"
 export default function CartItem({ obj }) {
   
   const dispatch = useDispatch();
@@ -89,7 +89,7 @@ export default function CartItem({ obj }) {
     <tr>
         <td><img src={images[item.img]} alt="item img" width="150px" height="150px"/>{item.title}</td>
         <td>{item.price}</td>
-        <td>{item.sale ? -item.salePercent + "%" : "-"}</td>
+        <td><p className={styles.percent}>{item.sale ? -item.salePercent + "%" : "-"}</p></td>
         <td><input type="text" value={itemCounter} onChange={(e) => setCount(e)} onBlur={(e) => validateCount(e)}/></td>
         <td>${totalPrice}</td>
         <td><img src={images['deleteButton']} alt="delete" width='35px' onClick={deleteItem}/></td>

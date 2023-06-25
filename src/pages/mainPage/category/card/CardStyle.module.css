@@ -13,8 +13,12 @@
     display: flex;
     justify-content: space-between;
     flex-direction: column;
+    transition: .2s;
 }
-
+.card:hover{
+    background-color: #cccccc3a;
+    scale: 1.01;
+}
 .card__header {
     font-weight: 700;
     margin-bottom: 35px;
@@ -48,13 +52,13 @@
     transform: translate(0, -25px);
 }
 
-.card__li--price-prev{
+.price_prev{
     color: gray;
     font-weight: 400;
     font-size: 16px;
     text-align: center;
 }
- .card__li--price-prev::before {
+ .price_prev::before {
     content: '';
     height: 1px;
     display: block;
@@ -65,7 +69,7 @@
     background-color: gray;
     transform: translate(0px, 11px);
 } 
-.card__li--salePercent {
+.salePercent {
     font-weight: 700;
     font-size: 16px;
     position: absolute;

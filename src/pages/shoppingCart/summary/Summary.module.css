@@ -1,3 +1,6 @@
+.summary__box{
+    flex: 1 1 30%;
+}
 .summary__box ul{
     display: flex;
     justify-content: space-between;

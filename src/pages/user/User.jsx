@@ -1,10 +1,11 @@
 import React from "react";
 import Orders from "./orders/Orders";
 import Info from "./info/Info";
-import "./style.css";
+import styles from "./User.module.css"
+
 export default function User() {
   return (
-    <section className="user__box content__container">
+    <section className={styles.user__box}>
         <Orders />
         <Info />
     </section>

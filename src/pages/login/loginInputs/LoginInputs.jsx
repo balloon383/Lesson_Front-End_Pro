@@ -5,7 +5,7 @@ import Box from '@mui/material/Box';
 import Typography from "@mui/material/Typography";
 import { useDispatch } from "react-redux";
 import { setUserAction } from "../../../redux/actions/userActions";
-
+import styles from "./Inputs.module.css"
  import { Formik } from "formik";
 
 
@@ -51,11 +51,11 @@ export default function LoginInputs() {
   
 
   return (
-    <Box className="main__login--container">
-      <Typography variant="h4" className="main__login--header main__header">
+    <Box className={styles.login__container}>
+      <Typography variant="h4" className={styles.header}>
         Secure Sign In
       </Typography>
-      <Typography variant="h5" className="main__login--comment main__comment">
+      <Typography variant="h5" className={styles.comment}>
         For current customers
       </Typography>
       <Box>
@@ -102,7 +102,7 @@ export default function LoginInputs() {
                 onChange={handleChange}
                 onBlur={handleBlur}
                 value={values.email}
-                className="login__input"
+                className={styles.input}
                 placeholder="Email Address"
               />
               {errors.email && touched.email && errors.email}
@@ -112,14 +112,14 @@ export default function LoginInputs() {
                 onChange={handleChange}
                 onBlur={handleBlur}
                 value={values.password}
-                className="login__input"
+                className={styles.input}
                 placeholder="Password"
               />
               {errors.password && touched.password && errors.password}
               <button
                 type="submit"
                 onClick={handleSubmit}
-                className="login_button"
+                className={styles.button}
               >
                 Log In
               </button>

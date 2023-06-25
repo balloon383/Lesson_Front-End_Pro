@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from 'react'
 import images from '../../../../images';
-import './style.css'
 import { useDispatch, useSelector } from 'react-redux';
 import { getProductsThunk } from '../../../../redux/actions/productActions';
+import style from './Item.module.css'
+
 export default function OrderItem({ obj }) {
 
   const dispatch = useDispatch()
@@ -23,8 +24,8 @@ export default function OrderItem({ obj }) {
   }, [products, obj.count, obj.id])
 
   return (
-    <tr className="item__box">
-      <td className="item_description">
+    <tr>
+      <td className={style.item_description}>
         <img
           src={images[item.img]}
           alt="item img"
