@@ -14,7 +14,6 @@ import {
   getShoppingCartThunk,
 } from "./redux/actions/userActions";
 import { getLoggedUser } from './api';
-import style from './Root.module.css'
 export default function App() {
 
   const dispatch = useDispatch()
@@ -29,7 +28,7 @@ export default function App() {
   }, [dispatch]);
 
   return (
-      <Box className={style.root}>
+      <Box className='App'>
           <Header />
           <Routes>
             <Route path="/" element={<MainPage />} />
