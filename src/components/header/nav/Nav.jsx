@@ -1,13 +1,12 @@
-/* eslint-disable jsx-a11y/anchor-is-valid */
 import React, { useState, useEffect, useCallback } from "react";
 import shoppingCart from "../../../images/shopping-cart.png";
 import { getLoggedUser, logOut } from "../../../api";
-import "./style.css";
 import { Link } from "react-router-dom";
 import Stack from "@mui/material/Stack";
 import Button from "@mui/material/Button";
 import { useDispatch, useSelector } from "react-redux";
 import { setUserAction } from "../../../redux/actions/userActions";
+import styles from './Nav.module.css'
 
 export default function Nav() {
   const [LogOutStatus, setLogOutStatus] = useState({
@@ -16,10 +15,10 @@ export default function Nav() {
   const dispatch = useDispatch()
   let [userLink, setUserLink] = useState("/login");
   let userShoppingCart = useSelector(
-    (store) => store.user.userData.shoppingCart
+    (store) => store.user.shoppingCart
   ); 
   let [counter, setCounter] = useState(0)
-  let name = useSelector(store => store.user.userData.name)
+  let name = useSelector(store => store.user.name)
 
 
   const checkLogged = useCallback(() => {
@@ -52,29 +51,29 @@ export default function Nav() {
 
   return (
     <nav>
-      <ul className="header__nav--ul">
-        <li className="header__nav--li">
+      <ul className={styles.nav__user}>
+        <li className={styles.nav__li}>
           Hi,
-          <Link to={userLink} className="header__nav--user">
+          <Link to={userLink} className={styles.nav__user}>
             <Stack direction="row" spacing={2}>
               <Button size="large">{name || 'Log In'}</Button>
             </Stack>
           </Link>
         </li>
-        <li className="header__nav--li">
+        <li className={styles.nav__li}>
           <Link to="/shoppingCart">
             <img
-              className="header__shoppingcart"
+              className={styles.shoppingcart}
               src={shoppingCart}
               alt="shopping cart"
               width="35px"
               height="35px"
             />
-            <span className="header__shoppingcart--counter">{counter}</span>
+            <span className={styles.shoppingcart__counter}>{counter}</span>
           </Link>
           <Link
             to="/"
-            className="header__logout"
+            className={styles.header__logout}
             style={LogOutStatus}
             onClick={() => {
               logOut();

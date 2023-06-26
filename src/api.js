@@ -1,26 +1,29 @@
+const USER_URL = 'https://634e9f834af5fdff3a625f84.mockapi.io/users'
+const PRODUCTS_URL = 'https://634e9f834af5fdff3a625f84.mockapi.io/products'
+
 export async function getUsers(flag = "false") {
   if (flag === "false") {
     const users = await fetch(
-      "https://634e9f834af5fdff3a625f84.mockapi.io/users"
+      USER_URL
     ).then((res) => res.json());
       return users;
       
   } else {
     const users = await fetch(
-      `https://634e9f834af5fdff3a625f84.mockapi.io/users/${flag}`
+      USER_URL + '/' + flag
     ).then((res) => res.json());
     return users;
   }
 }
 
 export async function getProducts() {
-  return await fetch(`https://634e9f834af5fdff3a625f84.mockapi.io/products`).then(res => res.json());
+  return await fetch(PRODUCTS_URL).then(res => res.json());
 }
 
 export async function changeStatus(dataToUpdate, userStatus = "true") {
   dataToUpdate.status = userStatus
   return await fetch(
-    `https://634e9f834af5fdff3a625f84.mockapi.io/users/${dataToUpdate.id}`,
+    USER_URL + '/' + dataToUpdate.id,
     {
       method: "PUT",
       headers: {
@@ -50,7 +53,7 @@ export async function logOut() {
 
 export async function registration(newUser) {
 
-  const registeredUser = await fetch("https://634e9f834af5fdff3a625f84.mockapi.io/users", {
+  const registeredUser = await fetch(USER_URL, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -63,7 +66,7 @@ export async function registration(newUser) {
 
 
 export default async function deleteAccount(id) {
-    await fetch (`https://634e9f834af5fdff3a625f84.mockapi.io/users/${id}`, { 
+    await fetch (USER_URL + '/' + id, { 
       method: "DELETE"
     })
 }

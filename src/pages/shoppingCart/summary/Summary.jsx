@@ -1,11 +1,12 @@
 import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import './style.css'
 import { changeStatus, getLoggedUser } from '../../../api'
 import { setUserAction } from '../../../redux/actions/userActions'
+import styles from "./Summary.module.css"
+
 export default function Summary() {
   
-  let cart = useSelector(store => store.user.userData.shoppingCart)
+  let cart = useSelector(store => store.user.shoppingCart)
   let products = useSelector(store => store.products)
   let [summary, setSummary] = useState(0) 
   const dispatch = useDispatch()
@@ -53,13 +54,13 @@ export default function Summary() {
   
   
   return (
-    <div className="summary__box">
-      <h2 className="summary__header">My Order Summary</h2>
+    <div className={styles.summary__box}>
+      <h2 className={styles.summary__header}>My Order Summary</h2>
       <ul>
-        <li className="summary__text">Order Total</li>
-        <li className="summary__total">${summary}</li>
+        <li className={styles.summary__text}>Order Total</li>
+        <li className={styles.summary__total}>${summary}</li>
       </ul>
-      <button className="summary__button" onClick={completeOrder}>
+      <button className={styles.summary__button} onClick={completeOrder}>
         Complete Order
       </button>
     </div>

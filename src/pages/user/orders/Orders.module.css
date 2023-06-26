@@ -10,3 +10,7 @@
 .table td{
     padding: 10px 15px;
 }
+.table__header{
+    background-color: #c7c7c7;
+    font-weight: 700;
+}

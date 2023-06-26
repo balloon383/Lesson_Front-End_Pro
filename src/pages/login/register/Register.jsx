@@ -6,6 +6,7 @@ import Typography from "@mui/material/Typography";
 import { useDispatch } from "react-redux";
 import { setUserAction } from "../../../redux/actions/userActions";
 import { Formik } from 'formik';
+import styles from "./Register.module.css"
 
 export default function Register() {
 
@@ -54,13 +55,13 @@ export default function Register() {
   
 
   return (
-    <Box className="main__register--container">
-      <Typography variant="h4" className="main__register--header main__header">
+    <Box className={styles.register__container}>
+      <Typography variant="h4" className={styles.header}>
         Quick Registration
       </Typography>
       <Typography
         variant="h5"
-        className="main__register--comment main__comment"
+        className={styles.comment}
       >
         For new customers
       </Typography>
@@ -117,7 +118,7 @@ export default function Register() {
                 onChange={handleChange}
                 onBlur={handleBlur}
                 value={values.name}
-                className="login__input"
+                className={styles.input}
                 placeholder="Name"
               />
               {errors.name && touched.name && errors.name}
@@ -127,7 +128,7 @@ export default function Register() {
                 onChange={handleChange}
                 onBlur={handleBlur}
                 value={values.email}
-                className="login__input"
+                className={styles.input}
                 placeholder="Email Address"
               />
               {errors.email && touched.email && errors.email}
@@ -137,7 +138,7 @@ export default function Register() {
                 onChange={handleChange}
                 onBlur={handleBlur}
                 value={values.password}
-                className="login__input"
+                className={styles.input}
                 placeholder="Password"
               />
               {errors.password && touched.password && errors.password}
@@ -147,7 +148,7 @@ export default function Register() {
                 onChange={handleChange}
                 onBlur={handleBlur}
                 value={values.passwordVerify}
-                className="login__input"
+                className={styles.input}
                 placeholder="Password Verify"
               />
               {errors.passwordVerify &&
@@ -156,7 +157,7 @@ export default function Register() {
               <button
                 type="submit"
                 onClick={handleSubmit}
-                className="login_button"
+                className={styles.button}
               >
                 Create Account
               </button>
