@@ -1,15 +1,6 @@
 import { getProducts } from "../../api.js";
+import actionCreator from "../utilities/actionCreator.js";
 export const SET_PRODUCTS = "SET_PRODUCTS";
-
-const actionCreator = (type, payload) => {
-    
-    if (payload) {
-        return {type, payload}
-    } else {
-        return {type}
-    }
-
-}
 
 export const setProductsAction = (products) => actionCreator(SET_PRODUCTS, products);
 

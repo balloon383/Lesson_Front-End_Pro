@@ -11,7 +11,6 @@ import Box from "@mui/material/Box";
 import { useDispatch } from 'react-redux';
 import {
   getUserThunk,
-  getShoppingCartThunk,
 } from "./redux/actions/userActions";
 import { getLoggedUser } from './api';
 export default function App() {
@@ -20,9 +19,8 @@ export default function App() {
   
   useEffect(() => {
     let localUser = getLoggedUser();
-    if (localUser.status === "true" || localUser.status === true) {
+    if (localUser.status) {
       dispatch(getUserThunk(localUser.id));
-      dispatch(getShoppingCartThunk(localUser.id));
     }
     
   }, [dispatch]);
